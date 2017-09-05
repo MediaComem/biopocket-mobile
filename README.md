@@ -1,26 +1,58 @@
-This is a starter template for [Ionic](http://ionicframework.com/docs/) projects.
+# BioPocket Mobile Application
 
-## How to use this template
+Hybrid mobile application for the BioPocket project.
 
-*This template does not work on its own*. The shared files for each starter are found in the [ionic2-app-base repo](https://github.com/ionic-team/ionic2-app-base).
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-To use this template, either create a new ionic project using the ionic node.js utility, or copy the files from this repository into the [Starter App Base](https://github.com/ionic-team/ionic2-app-base).
 
-### With the Ionic CLI:
+- [Requirements](#requirements)
+- [Development](#development)
+  - [First-time setup](#first-time-setup)
+  - [Run the app in your browser](#run-the-app-in-your-browser)
+  - [Scripts](#scripts)
 
-Take the name after `ionic2-starter-`, and that is the name of the template to be used when using the `ionic start` command below:
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-```bash
-$ sudo npm install -g ionic cordova
-$ ionic start mySideMenu sidemenu
-```
 
-Then, to run it, cd into `mySideMenu` and run:
 
-```bash
-$ ionic cordova platform add ios
-$ ionic cordova run ios
-```
+## Requirements
 
-Substitute ios for android if not on a Mac.
+* [Node.js](https://nodejs.org) 8.x
+* [Ionic](https://ionicframework.com) 3.x & [Cordova](https://cordova.apache.org) 7.x
 
+        npm install -g ionic cordova
+* [Chrome](https://www.google.com/chrome/) to run the automated tests
+
+
+
+## Development
+
+How to set up your machine to contribute to the project.
+
+### First-time setup
+
+* Clone this repository:
+
+        git clone https://github.com/MediaComem/biopocket-mobile.git
+
+* Install the application's dependencies:
+
+        cd biopocket-mobile
+        npm install
+
+### Run the app in your browser
+
+Run `ionic serve` and visit http://localhost:8100/.
+
+### Scripts
+
+| Script                    | Purpose                                               |
+| :---                      | :---                                                  |
+| `npm run doctoc`          | Generate the table of contents of this README         |
+| `npm run test`            | Run all unit & end-to-end tests once                  |
+| `npm run test:watch`      | Run all unit & end-to-end tests and watch for changes |
+| `npm run test:unit`       | Run unit tests once                                   |
+| `npm run test:unit:watch` | Run unit tests and watch for changes                  |
+| `npm run test:e2e`        | Run end-to-end tests once                             |
+| `npm run test:e2e:watch`  | Run end-to-end tests and watch for changes            |
