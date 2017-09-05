@@ -1,5 +1,12 @@
 var webpackConfig = require('./webpack.test.js');
 
+// Force colors to be enabled in development, otherwise karma-spec-reporter
+// outputs no colors when running through concurrently (with the "test:watch"
+// npm script).
+if (!process.env.TRAVIS) {
+  require('colors').enabled = true;
+}
+
 module.exports = function(config) {
   var _config = {
     basePath: '../',
