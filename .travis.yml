@@ -1,0 +1,39 @@
+language: node_js
+node_js:
+  - 8.3.0
+
+addons:
+  apt:
+    packages:
+      - curl
+      - screen
+
+env:
+  - NODE_ENV=test
+
+before_install:
+  - npm install -g cordova ionic
+
+before_script:
+
+  # Update the webdriver
+  - npm run test:e2e:update
+
+  # Use chromium which is installed by default on Travis
+  - export CHROME_BIN=chromium-browser
+
+  # Run in-memory display for the browser
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+
+  # Fix permissions for screen
+  - sudo mkdir -p /var/run/screen
+  - sudo chmod 775 /var/run/screen
+
+  # Run `ionic serve` in the background with screen
+  - screen -dm ionic serve -b -d --address localhost --port 8100
+
+after_success:
+
+  # Send test coverage report to coveralls
+  - npm run test:coverage

@@ -5,15 +5,28 @@ module.exports = {
   devtool: 'inline-source-map',
 
   resolve: {
-    extensions: ['.ts', '.js']
+    extensions: [ '.ts', '.js' ]
   },
 
   module: {
-    rules: [{
-        test: /\.ts$/,
-        loaders: [{
-          loader: 'ts-loader'
-        }, 'angular2-template-loader']
+    rules: [
+      {
+        test: {
+          include: /\.ts$/,
+          exclude: /\.spec\.ts$/
+        },
+        loaders: [
+          {
+            loader: 'istanbul-instrumenter-loader',
+            query: {
+              esModules: true
+            }
+          },
+          {
+            loader: 'ts-loader'
+          },
+          'angular2-template-loader'
+        ]
       },
       {
         test: /\.html$/,

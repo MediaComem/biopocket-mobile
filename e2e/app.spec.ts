@@ -10,12 +10,12 @@ describe('App', () => {
   });
 
   describe('default screen', () => {
-    beforeEach(() => {
-      page.navigateTo('/');
+    beforeEach(async () => {
+      await page.navigateTo('/');
     });
 
     it('should have a title saying Page One', () => {
-      expect(page.getTitle()).to.eventually.equal('Page One');
+      expect(page.getTitle()).to.eventually.equal('Home');
     });
   })
 });

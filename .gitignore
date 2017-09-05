@@ -13,6 +13,7 @@ log.txt
 npm-debug.log*
 
 .idea/
+.nyc_output/
 .sass-cache/
 .sourcemaps/
 .tmp/

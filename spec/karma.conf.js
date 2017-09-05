@@ -32,7 +32,7 @@ module.exports = function(config) {
     },
 
     preprocessors: {
-      './spec/karma-test-shim.js': [ 'webpack', 'sourcemap' ]
+      './spec/karma-test-shim.js': [ 'webpack', 'sourcemap', 'coverage' ]
     },
 
     webpack: webpackConfig,
@@ -51,7 +51,14 @@ module.exports = function(config) {
       terminal: true
     },
 
-    reporters: [ 'spec' ],
+    reporters: [ 'spec', 'coverage-istanbul' ],
+
+    coverageIstanbulReporter: {
+      reports: [ 'html', 'lcovonly', 'text-summary' ],
+      dir: 'coverage/',
+      fixWebpackSourcePaths: true
+    },
+
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
