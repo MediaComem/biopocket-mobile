@@ -21,7 +21,7 @@ Hybrid mobile application for the BioPocket project.
 * [Node.js](https://nodejs.org) 8.x
 * [Ionic](https://ionicframework.com) 3.x & [Cordova](https://cordova.apache.org) 7.x
 
-        npm install -g ionic cordova
+      npm install -g ionic cordova
 * [Chrome](https://www.google.com/chrome/) to run the automated tests
 
 
@@ -34,12 +34,12 @@ How to set up your machine to contribute to the project.
 
 * Clone this repository:
 
-        git clone https://github.com/MediaComem/biopocket-mobile.git
+      git clone https://github.com/MediaComem/biopocket-mobile.git
 
 * Install the application's dependencies:
 
-        cd biopocket-mobile
-        npm install
+      cd biopocket-mobile
+      npm install
 
 ### Run the app in your browser
 
