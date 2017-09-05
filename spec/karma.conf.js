@@ -4,7 +4,7 @@ module.exports = function(config) {
   var _config = {
     basePath: '../',
 
-    frameworks: ['jasmine'],
+    frameworks: [ 'mocha' ],
 
     files: [
       {
@@ -25,7 +25,7 @@ module.exports = function(config) {
     },
 
     preprocessors: {
-      './spec/karma-test-shim.js': ['webpack', 'sourcemap']
+      './spec/karma-test-shim.js': [ 'webpack', 'sourcemap' ]
     },
 
     webpack: webpackConfig,
@@ -44,7 +44,7 @@ module.exports = function(config) {
       terminal: true
     },
 
-    reporters: ['kjhtml', 'dots'],
+    reporters: [ 'spec' ],
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,

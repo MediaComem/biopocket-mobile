@@ -1,4 +1,4 @@
-import { expect } from 'chai';
+import { expect } from '../spec/chai';
 
 import { Page } from './app.po';
 
@@ -15,9 +15,7 @@ describe('App', () => {
     });
 
     it('should have a title saying Page One', () => {
-      page.getTitle().then(title => {
-        expect(title).to.equal('Page One');
-      });
+      expect(page.getTitle()).to.eventually.equal('Page One');
     });
   })
 });
