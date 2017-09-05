@@ -9,7 +9,7 @@ import { ListPage } from '../pages/list/list';
 @Component({
   templateUrl: 'app.html'
 })
-export class MyApp {
+export class BioPocket {
   @ViewChild(Nav) nav: Nav;
 
   rootPage: any = HomePage;
