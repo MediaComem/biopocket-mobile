@@ -2,6 +2,10 @@
 
 Hybrid mobile application for the BioPocket project.
 
+[![Build Status](https://travis-ci.org/MediaComem/biopocket-mobile.svg?branch=master)](https://travis-ci.org/MediaComem/biopocket-mobile)
+[![Coverage Status](https://coveralls.io/repos/github/MediaComem/biopocket-mobile/badge.svg?branch=master)](https://coveralls.io/github/MediaComem/biopocket-mobile?branch=master)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE.txt)
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
