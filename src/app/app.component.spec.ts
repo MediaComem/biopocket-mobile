@@ -47,7 +47,7 @@ describe('AppComponent Component', () => {
 
   it('should be initialized', () => {
     expect(component instanceof AppComponent).to.equal(true);
-    expect(splashScreenMock.hide.calledTwice).to.equal(true);
+    expect(splashScreenMock.hide.called).to.equal(true);
     expect(statusBarMock.styleDefault.called).to.equal(true);
   });
 
