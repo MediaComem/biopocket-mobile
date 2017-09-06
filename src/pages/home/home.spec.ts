@@ -5,21 +5,22 @@ import { createStubInstance } from 'sinon';
 
 import { HomePage } from './home';
 
-class NavControllerMock {
-}
-
 describe('HomePage Component', () => {
   let fixture;
   let component;
+  let navControllerMock;
 
   beforeEach(async(() => {
+
+    navControllerMock = {};
+
     TestBed.configureTestingModule({
-      declarations: [HomePage],
+      declarations: [ HomePage ],
       imports: [
         IonicModule.forRoot(HomePage)
       ],
       providers: [
-        { provide: NavController, useClass: NavControllerMock }
+        { provide: NavController, useValue: navControllerMock }
       ]
     })
   }));
@@ -32,5 +33,4 @@ describe('HomePage Component', () => {
   it('should be created', () => {
     expect(component instanceof HomePage).to.equal(true);
   });
-
 });

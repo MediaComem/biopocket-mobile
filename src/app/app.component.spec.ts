@@ -1,41 +1,54 @@
 import { async, TestBed } from '@angular/core/testing';
+import { expect } from 'chai';
 import { IonicModule, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { expect } from 'chai';
+import { spy } from 'sinon';
 
-import { BioPocket } from './app.component';
-import {
-  PlatformMock,
-  StatusBarMock,
-  SplashScreenMock
-} from '../../spec/mocks-ionic';
+import { createPlatformMock } from '../../spec/mocks';
+import { AppComponent } from './app.component';
 
-describe('BioPocket Component', () => {
+describe('AppComponent Component', () => {
   let fixture;
   let component;
+  let platformMock;
+  let splashScreenMock;
+  let statusBarMock;
 
   beforeEach(async(() => {
+
+    platformMock = createPlatformMock();
+
+    splashScreenMock = {
+      hide: spy()
+    };
+
+    statusBarMock = {
+      styleDefault: spy()
+    };
+
     TestBed.configureTestingModule({
-      declarations: [BioPocket],
+      declarations: [ AppComponent ],
       imports: [
-        IonicModule.forRoot(BioPocket)
+        IonicModule.forRoot(AppComponent)
       ],
       providers: [
-        { provide: StatusBar, useClass: StatusBarMock },
-        { provide: SplashScreen, useClass: SplashScreenMock },
-        { provide: Platform, useClass: PlatformMock }
+        { provide: Platform, useValue: platformMock },
+        { provide: SplashScreen, useValue: splashScreenMock },
+        { provide: StatusBar, useValue: statusBarMock }
       ]
     })
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BioPocket);
+    fixture = TestBed.createComponent(AppComponent);
     component = fixture.componentInstance;
   });
 
-  it('should be created', () => {
-    expect(component instanceof BioPocket).to.equal(true);
+  it('should be initialized', () => {
+    expect(component instanceof AppComponent).to.equal(true);
+    expect(splashScreenMock.hide.calledTwice).to.equal(true);
+    expect(statusBarMock.styleDefault.called).to.equal(true);
   });
 
   it('should have two pages', () => {

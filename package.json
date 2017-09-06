@@ -16,7 +16,7 @@
     "test:e2e": "npm run test:e2e:update && npm run test:e2e:run",
     "test:e2e:run": "cross-env NODE_ENV=test protractor ./spec/protractor.conf.js",
     "test:e2e:update": "webdriver-manager update --standalone false --gecko false",
-    "test:e2e:watch": "npm run test:e2e:update && onchange \"src/**/*.spec.ts\" \"e2e/**/*.spec.ts\" -- npm run test:e2e:run",
+    "test:e2e:watch": "npm run test:e2e:update && onchange \"src/**/*.ts\" \"e2e/**/*.spec.ts\" -- npm run test:e2e:run",
     "test:unit": "cross-env NODE_ENV=test karma start ./spec/karma.conf.js --single-run",
     "test:unit:watch": "cross-env NODE_ENV=test karma start ./spec/karma.conf.js",
     "test:watch": "concurrently \"npm run test:unit:watch\" \"npm run test:e2e:watch\""

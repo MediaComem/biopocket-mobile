@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
-import { BioPocket } from './app.component';
+import { AppComponent } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 
@@ -11,24 +11,24 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 @NgModule({
   declarations: [
-    BioPocket,
+    AppComponent,
     HomePage,
     ListPage
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(BioPocket),
+    IonicModule.forRoot(AppComponent),
   ],
-  bootstrap: [IonicApp],
+  bootstrap: [ IonicApp ],
   entryComponents: [
-    BioPocket,
+    AppComponent,
     HomePage,
     ListPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })
 export class AppModule {}
