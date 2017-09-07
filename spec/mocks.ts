@@ -1,5 +1,12 @@
 import { stub } from 'sinon';
 
+/**
+ * Returns a partial mock of Ionic's Platform object with methods that do not do anything.
+ *
+ * The `ready` method is a Sinon stub which returns a promise resolved with "READY" by default.
+ *
+ * @param callback An optional callback that will be passed the mock platform for customization
+ */
 export function createPlatformMock(callback?: (mock: any) => void) {
 
   const platform = {

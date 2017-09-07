@@ -2,6 +2,9 @@ var webpack = require('webpack');
 var path = require('path');
 
 module.exports = {
+
+  // Generate source maps so that code coverage reports
+  // can point to the original source
   devtool: 'inline-source-map',
 
   resolve: {
@@ -10,6 +13,9 @@ module.exports = {
 
   module: {
     rules: [
+
+      // Compile source .ts files (excluding test files)
+      // and instrument them for code coverage
       {
         test: {
           include: /\.ts$/,
@@ -28,6 +34,9 @@ module.exports = {
           'angular2-template-loader'
         ]
       },
+
+      // Compile .ts files in the spec directory
+      // (but do not instrument them as coverage is not needed)
       {
         test: /spec\/.+\.ts$/,
         loaders: [
@@ -36,10 +45,15 @@ module.exports = {
           }
         ]
       },
+
+      // Process HTML without requiring assets
+      // (see https://www.npmjs.com/package/html-loader)
       {
         test: /\.html$/,
         loader: 'html-loader?attrs=false'
       },
+
+      // Do not process assets
       {
         test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
         loader: 'null-loader'
