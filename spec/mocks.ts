@@ -1,4 +1,4 @@
-import { spy } from 'sinon';
+import { stub } from 'sinon';
 
 export function createPlatformMock(callback?: (mock: any) => void) {
 
@@ -6,7 +6,7 @@ export function createPlatformMock(callback?: (mock: any) => void) {
     doc: () => document,
     getQueryParam: () => true,
     raf: () => 1,
-    ready: () => new Promise(resolve => resolve()),
+    ready: stub().resolves('READY'),
     registerBackButtonAction: () => (() => true),
     registerListener: () => (() => true),
     timeout: (callback: any, timer: number) => setTimeout(callback, timer),
