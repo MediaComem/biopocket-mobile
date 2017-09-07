@@ -44,7 +44,6 @@
     "@ionic/app-scripts": "2.1.4",
     "@types/chai": "^4.0.4",
     "@types/chai-as-promised": "0.0.31",
-    "@types/core-js": "^0.9.43",
     "@types/mocha": "^2.2.42",
     "@types/sinon": "^2.3.3",
     "angular2-template-loader": "^0.6.2",
