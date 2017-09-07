@@ -1,11 +1,12 @@
 import { async, TestBed } from '@angular/core/testing';
 import { IonicModule, NavController } from 'ionic-angular';
 import { expect } from 'chai';
-import { createStubInstance } from 'sinon';
+import { TranslateModule } from '@ngx-translate/core';
 
+import { translateModuleForRoot } from '../../utils/i18n';
 import { HomePage } from './home';
 
-describe('HomePage Component', () => {
+describe('HomePage', () => {
   let fixture;
   let component;
   let navControllerMock;
@@ -15,9 +16,12 @@ describe('HomePage Component', () => {
     navControllerMock = {};
 
     TestBed.configureTestingModule({
-      declarations: [ HomePage ],
+      declarations: [
+        HomePage
+      ],
       imports: [
-        IonicModule.forRoot(HomePage)
+        IonicModule.forRoot(HomePage),
+        translateModuleForRoot
       ],
       providers: [
         { provide: NavController, useValue: navControllerMock }

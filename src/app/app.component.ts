@@ -2,7 +2,10 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { TranslateService } from '@ngx-translate/core';
+import { Observable } from 'rxjs/Rx';
 
+import * as fr from '../../locales/fr.json';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 
@@ -15,17 +18,17 @@ export class AppComponent {
 
   rootPage: any = HomePage;
 
-  pages: Array<{title: string, component: any}>;
+  pages: MenuPage[];
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(private platform: Platform, private statusBar: StatusBar, private splashScreen: SplashScreen, private translateService: TranslateService) {
+
     this.initializeApp();
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Home', component: HomePage },
-      { title: 'List', component: ListPage }
+      new MenuPage('home', HomePage, translateService),
+      new MenuPage('list', ListPage, translateService)
     ];
-
   }
 
   openPage(page) {
@@ -35,11 +38,25 @@ export class AppComponent {
   }
 
   private initializeApp() {
+
+    this.translateService.setTranslation('fr', fr);
+    this.translateService.setDefaultLang('fr');
+    this.translateService.use('fr');
+
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
+  }
+}
+
+class MenuPage {
+  constructor(public pageName: string, public component: any, private translateService: TranslateService) {
+  }
+
+  get title(): Observable<string> {
+    return this.translateService.get(`pages.${this.pageName}.title`);
   }
 }

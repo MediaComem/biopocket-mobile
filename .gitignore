@@ -6,10 +6,11 @@
 *.log
 *.tmp
 *.tmp.*
-log.txt
 *.sublime-project
 *.sublime-workspace
+.screenrc
 .vscode/
+log.txt
 npm-debug.log*
 
 .idea/

@@ -1,22 +1,28 @@
 import { async, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { expect } from 'chai';
 import { IonicModule, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { TranslateService } from '@ngx-translate/core';
 import { spy, stub } from 'sinon';
 
-import { createPlatformMock } from '../../spec/mocks';
+import { createPlatformMock, locales } from '../../spec/mocks';
 import { Deferred } from '../../spec/utils';
+import { HomePage } from '../pages/home/home';
+import { ListPage } from '../pages/list/list';
+import { translateModuleForRoot } from '../utils/i18n';
 import { AppComponent } from './app.component';
 
-describe('AppComponent Component', () => {
+describe('AppComponent', () => {
   let fixture;
   let component;
 
   let platformMock;
   let splashScreenMock;
   let statusBarMock;
+  let translateService;
 
   let readyDeferred;
 
@@ -37,21 +43,37 @@ describe('AppComponent Component', () => {
     };
 
     TestBed.configureTestingModule({
-      declarations: [ AppComponent ],
+      declarations: [
+        AppComponent,
+        HomePage,
+        ListPage
+      ],
       imports: [
-        IonicModule.forRoot(AppComponent)
+        IonicModule.forRoot(AppComponent),
+        translateModuleForRoot
       ],
       providers: [
         { provide: Platform, useValue: platformMock },
         { provide: SplashScreen, useValue: splashScreenMock },
         { provide: StatusBar, useValue: statusBarMock }
       ]
-    })
+    }).overrideModule(BrowserDynamicTestingModule, {
+      set: {
+        entryComponents: [ HomePage, ListPage ],
+      }
+    });
   }));
 
   beforeEach(() => {
+
+    translateService = TestBed.get(TranslateService);
+    spy(translateService, 'setDefaultLang');
+    spy(translateService, 'setTranslation');
+    spy(translateService, 'use');
+
     fixture = TestBed.createComponent(AppComponent);
     component = fixture.componentInstance;
+
     stub(component.nav, 'setRoot');
   });
 
@@ -60,12 +82,18 @@ describe('AppComponent Component', () => {
     expect(component instanceof AppComponent).to.equal(true);
     expect(component.pages.length).to.equal(2);
 
-    const title = fixture.debugElement.query(By.css('ion-title'));
-    expect(title.nativeElement.textContent).to.equal('BioPocket');
-
     // Initialization should not be done until platform is ready
-    expect(splashScreenMock.hide.called, 'splashScreen.hide() called').to.equal(false);
-    expect(statusBarMock.styleDefault.called, 'statusBar.styleDefault() called').to.equal(false);
+    expect(splashScreenMock.hide.called, 'splashScreen.hide called').to.equal(false);
+    expect(statusBarMock.styleDefault.called, 'statusBar.styleDefault called').to.equal(false);
+
+    expect(translateService.setDefaultLang.args, 'translateService.setDefaultLang called').to.eql([ [ 'fr' ] ]);
+    expect(translateService.setTranslation.args, 'translateService.setTranslation called').to.eql([ [ 'fr', locales.fr ] ]);
+    expect(translateService.use.args, 'translateService.use called').to.eql([ [ 'fr' ] ]);
+
+    fixture.detectChanges();
+
+    const title = fixture.debugElement.query(By.css('ion-title'));
+    expect(title.nativeElement.textContent).to.equal(locales.fr.app);
   });
 
   it('should perform further initialization when the platform is ready', async () => {
