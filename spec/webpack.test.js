@@ -13,7 +13,7 @@ module.exports = {
       {
         test: {
           include: /\.ts$/,
-          exclude: /\.spec\.ts$/
+          exclude: [ /spec\//, /\.spec\.ts$/ ]
         },
         loaders: [
           {
@@ -26,6 +26,14 @@ module.exports = {
             loader: 'ts-loader'
           },
           'angular2-template-loader'
+        ]
+      },
+      {
+        test: /spec\/.+\.ts$/,
+        loaders: [
+          {
+            loader: 'ts-loader'
+          }
         ]
       },
       {
