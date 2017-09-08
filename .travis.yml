@@ -16,6 +16,11 @@ before_install:
 
 before_script:
 
+  # Create env files
+  # TODO: create an npm script for this
+  - cp src/environments/environment.sample.ts src/environments/environment.ts
+  - cp src/environments/environment.sample.ts src/environments/environment.dev.ts
+
   # Generate locale files
   - npm run locales
 
