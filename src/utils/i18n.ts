@@ -9,7 +9,7 @@ import { TranslateCompiler, TranslateModule } from '@ngx-translate/core';
  * From https://github.com/lephyrus (see https://github.com/ngx-translate/core/pull/553)
  */
 @Injectable()
-class TranslateMessageFormatCompiler extends TranslateCompiler {
+export class TranslateMessageFormatCompiler extends TranslateCompiler {
   private messageFormat: any;
 
   constructor() {
