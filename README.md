@@ -33,7 +33,9 @@ Hybrid mobile application for the BioPocket project.
 
 ## Development
 
-How to set up your machine to contribute to the project.
+This section describes how to quickly set up your machine to contribute to the project.
+
+Read the [development guide](DEVELOPMENT.md) for a more detailed technical introduction.
 
 ### First-time setup
 
