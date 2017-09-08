@@ -6,7 +6,7 @@ import moment from 'moment';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs/Rx';
 
-import * as fr from '../../locales/fr.json';
+import { fr } from '../locales';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 

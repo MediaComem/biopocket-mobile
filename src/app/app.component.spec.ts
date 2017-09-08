@@ -10,8 +10,9 @@ import moment from 'moment';
 import { TranslateService } from '@ngx-translate/core';
 import { spy, stub } from 'sinon';
 
-import { createPlatformMock, locales } from '../../spec/mocks';
+import { createPlatformMock } from '../../spec/mocks';
 import { Deferred, restoreSpyOrStub } from '../../spec/utils';
+import { fr } from '../locales';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { translateModuleForRoot } from '../utils/i18n';
@@ -98,13 +99,13 @@ describe('AppComponent', () => {
     expect(moment.locale['args'], 'moment.locale called').to.eql([ [ 'fr' ] ]);
 
     expect(translateService.setDefaultLang.args, 'translateService.setDefaultLang called').to.eql([ [ 'fr' ] ]);
-    expect(translateService.setTranslation.args, 'translateService.setTranslation called').to.eql([ [ 'fr', locales.fr ] ]);
+    expect(translateService.setTranslation.args, 'translateService.setTranslation called').to.eql([ [ 'fr', fr ] ]);
     expect(translateService.use.args, 'translateService.use called').to.eql([ [ 'fr' ] ]);
 
     fixture.detectChanges();
 
     const title = fixture.debugElement.query(By.css('ion-title'));
-    expect(title.nativeElement.textContent).to.equal(locales.fr.app);
+    expect(title.nativeElement.textContent).to.equal(fr.app);
   });
 
   it('should perform further initialization when the platform is ready', async () => {

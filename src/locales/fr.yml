@@ -1,0 +1,8 @@
+app: "BioPocket"
+pages:
+  home:
+    title: "Accueil"
+    welcome: "Bienvenue dans {TITLE}!"
+    date: "Nous sommes le {DATE}"
+  list:
+    title: "Liste"

@@ -1,7 +1,5 @@
 import { stub } from 'sinon';
 
-import * as fr from '../locales/fr.json';
-
 /**
  * Returns a partial mock of Ionic's Platform object with methods that do not do anything.
  *
@@ -29,7 +27,3 @@ export function createPlatformMock(callback?: (mock: any) => void) {
 
   return platform;
 }
-
-export const locales = {
-  fr: <any>fr
-};
