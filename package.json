@@ -4,6 +4,10 @@
   "author": "Ionic Framework",
   "homepage": "http://ionicframework.com/",
   "private": true,
+  "config": {
+    "ionic_optimization": "config/optimization.config.js",
+    "ionic_webpack": "config/webpack.config.js"
+  },
   "scripts": {
     "clean": "ionic-app-scripts clean",
     "build": "ionic-app-scripts build",
