@@ -13,4 +13,8 @@
   <p>
     {{ 'pages.home.welcome' | translate: { TITLE: ('app' | translate) } }}
   </p>
+
+  <p>
+    {{ 'pages.home.date' | translate: { DATE: (date | amDateFormat: 'LL') } }}
+  </p>
 </ion-content>

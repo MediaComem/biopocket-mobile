@@ -1,15 +1,17 @@
 import { async, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
+import { MomentModule } from 'angular2-moment';
 import { expect } from 'chai';
 import { IonicModule, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import moment from 'moment';
 import { TranslateService } from '@ngx-translate/core';
 import { spy, stub } from 'sinon';
 
 import { createPlatformMock, locales } from '../../spec/mocks';
-import { Deferred } from '../../spec/utils';
+import { Deferred, restoreSpyOrStub } from '../../spec/utils';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { translateModuleForRoot } from '../utils/i18n';
@@ -50,6 +52,7 @@ describe('AppComponent', () => {
       ],
       imports: [
         IonicModule.forRoot(AppComponent),
+        MomentModule,
         translateModuleForRoot
       ],
       providers: [
@@ -66,6 +69,8 @@ describe('AppComponent', () => {
 
   beforeEach(() => {
 
+    spy(moment, 'locale');
+
     translateService = TestBed.get(TranslateService);
     spy(translateService, 'setDefaultLang');
     spy(translateService, 'setTranslation');
@@ -77,14 +82,20 @@ describe('AppComponent', () => {
     stub(component.nav, 'setRoot');
   });
 
+  afterEach(() => {
+    restoreSpyOrStub(moment.locale);
+  });
+
   it('should be initialized', async () => {
 
     expect(component instanceof AppComponent).to.equal(true);
     expect(component.pages.length).to.equal(2);
 
-    // Initialization should not be done until platform is ready
+    // Some initialization should not be done until platform is ready
     expect(splashScreenMock.hide.called, 'splashScreen.hide called').to.equal(false);
     expect(statusBarMock.styleDefault.called, 'statusBar.styleDefault called').to.equal(false);
+
+    expect(moment.locale['args'], 'moment.locale called').to.eql([ [ 'fr' ] ]);
 
     expect(translateService.setDefaultLang.args, 'translateService.setDefaultLang called').to.eql([ [ 'fr' ] ]);
     expect(translateService.setTranslation.args, 'translateService.setTranslation called').to.eql([ [ 'fr', locales.fr ] ]);

@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import moment from 'moment';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs/Rx';
 
@@ -38,6 +39,8 @@ export class AppComponent {
   }
 
   private initializeApp() {
+
+    moment.locale('fr');
 
     this.translateService.setTranslation('fr', fr);
     this.translateService.setDefaultLang('fr');
