@@ -18,7 +18,7 @@ module.exports = function(config) {
       // Entry point for unit tests
       // (it requires all src/**/*.spec.ts test files)
       {
-        pattern: './spec/karma-test-shim.js',
+        pattern: './spec/karma.entrypoint.js',
         watched: true
       },
 
@@ -38,7 +38,7 @@ module.exports = function(config) {
 
     // Auto-compile TypeScript files with webpack and generate test coverage information
     preprocessors: {
-      './spec/karma-test-shim.js': [ 'webpack', 'sourcemap', 'coverage' ]
+      './spec/karma.entrypoint.js': [ 'webpack', 'sourcemap', 'coverage' ]
     },
 
     webpack: webpackConfig,
