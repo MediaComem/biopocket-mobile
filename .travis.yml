@@ -16,6 +16,9 @@ before_install:
 
 before_script:
 
+  # Generate locale files
+  - npm run locales
+
   # Update the webdriver
   - npm run test:e2e:update
 
