@@ -1,3 +1,6 @@
+// Mocha global variables (for Windows)
+/// <reference path="../../node_modules/@types/mocha/index.d.ts" />
+
 import { async, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
@@ -9,6 +12,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import moment from 'moment';
 import { TranslateService } from '@ngx-translate/core';
 import { spy, stub } from 'sinon';
+
 
 import { createPlatformMock } from '../../spec/mocks';
 import { Deferred, restoreSpyOrStub } from '../../spec/utils';
