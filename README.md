@@ -23,7 +23,7 @@ Hybrid mobile application for the BioPocket project.
 
 ## Requirements
 
-* [Node.js](https://nodejs.org) 8.x
+* [Node.js](https://nodejs.org) 8.x & [npm](https://www.npmjs.com) 5.x
 * [Ionic](https://ionicframework.com) 3.x & [Cordova](https://cordova.apache.org) 7.x
 
       npm install -g ionic cordova
