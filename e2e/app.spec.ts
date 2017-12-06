@@ -3,20 +3,22 @@ import { Page } from './app.po';
 
 import { fr } from '../src/locales';
 
-describe('App', () => {
+describe('App', function() {
   let page: Page;
 
-  beforeEach(() => {
+  beforeEach(function() {
     page = new Page();
   });
 
-  describe('default screen', () => {
-    beforeEach(async () => {
+  describe('default screen', function() {
+    this.timeout(5000);
+
+    beforeEach(async function() {
       await page.navigateTo('/');
     });
 
-    it('should have a title saying Page One', () => {
-      expect(page.getTitle()).to.eventually.equal(fr.pages.home.title);
+    it('should have a title saying Page One', async function() {
+      await expect(page.getTitle()).to.eventually.equal(fr.pages.home.title);
     });
   })
 });
