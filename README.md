@@ -2,6 +2,7 @@
 
 Hybrid mobile application for the BioPocket project.
 
+[![Dependency Status](https://gemnasium.com/badges/github.com/MediaComem/biopocket-mobile.svg)](https://gemnasium.com/github.com/MediaComem/biopocket-mobile)
 [![Build Status](https://travis-ci.org/MediaComem/biopocket-mobile.svg?branch=master)](https://travis-ci.org/MediaComem/biopocket-mobile)
 [![Coverage Status](https://coveralls.io/repos/github/MediaComem/biopocket-mobile/badge.svg?branch=master)](https://coveralls.io/github/MediaComem/biopocket-mobile?branch=master)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE.txt)
