@@ -5,6 +5,7 @@ import { async, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { MomentModule } from 'angular2-moment';
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { expect } from 'chai';
 import { IonicModule, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -18,7 +19,7 @@ import { createPlatformMock } from '../../spec/mocks';
 import { Deferred, restoreSpyOrStub } from '../../spec/utils';
 import { fr } from '../locales';
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
+import { MapPage } from '../pages/map/map';
 import { translateModuleForRoot } from '../utils/i18n';
 import { AppComponent } from './app.component';
 
@@ -53,12 +54,13 @@ describe('AppComponent', () => {
       declarations: [
         AppComponent,
         HomePage,
-        ListPage
+        MapPage
       ],
       imports: [
         IonicModule.forRoot(AppComponent),
         MomentModule,
-        translateModuleForRoot
+        translateModuleForRoot,
+        LeafletModule.forRoot()
       ],
       providers: [
         { provide: Platform, useValue: platformMock },
@@ -67,7 +69,7 @@ describe('AppComponent', () => {
       ]
     }).overrideModule(BrowserDynamicTestingModule, {
       set: {
-        entryComponents: [ HomePage, ListPage ],
+        entryComponents: [ HomePage, MapPage ],
       }
     });
   }));
@@ -94,7 +96,7 @@ describe('AppComponent', () => {
   it('should be initialized', async () => {
 
     expect(component instanceof AppComponent).to.equal(true);
-    expect(component.pages.length).to.equal(2);
+    expect(component.menuItems.length).to.equal(2);
 
     // Some initialization should not be done until platform is ready
     expect(splashScreenMock.hide.called, 'splashScreen.hide called').to.equal(false);

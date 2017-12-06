@@ -6,3 +6,5 @@ pages:
     date: "Nous sommes le {DATE}"
   list:
     title: "Liste"
+  map:
+    title: "Carte"

@@ -11,5 +11,4 @@ export class HomePage {
   constructor(public navCtrl: NavController) {
     this.date = new Date();
   }
-
 }
