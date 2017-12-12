@@ -17,7 +17,7 @@ export class AppComponent {
 
   @ViewChild(Nav) nav: Nav;
 
-  activeItem: any;
+  activeItem: MenuItem;
 
   rootPage: any;
   menuItems: MenuItem[];
@@ -34,7 +34,7 @@ export class AppComponent {
 
     // Set the rootPage in the constructor, so that it could be set dynamically later
     this.rootPage = MapPage;
-    // Define the activeMenu 
+    // Define the activeMenu, should be the MenuItem that matches the page set as rootPage
     this.activeItem = this.menuItems[0];
   }
 
@@ -81,7 +81,7 @@ export class AppComponent {
  * This class decorates a Component with a `title` property that returns the properly translated page title.
  * It should be used when adding new items on the `AppComponent.pages` arrray.
  */
-class MenuItem {
+export class MenuItem {
 
   /**
    * @constructor
