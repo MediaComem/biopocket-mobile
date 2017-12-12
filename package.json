@@ -6,7 +6,8 @@
   "private": true,
   "config": {
     "ionic_optimization": "config/optimization.config.js",
-    "ionic_webpack": "config/webpack.config.js"
+    "ionic_webpack": "config/webpack.config.js",
+    "ionic_copy": "config/copy.config.js"
   },
   "scripts": {
     "clean": "ionic-app-scripts clean",
