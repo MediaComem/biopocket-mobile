@@ -39,7 +39,7 @@ describe('MapPage', function () {
 
   it('should be created', function () {
     component = TestBed.createComponent(MapPage).componentInstance;
-    expect(component instanceof MapPage).to.equal(true);
+    expect(component).to.be.an.instanceOf(MapPage);
   });
 
   it('should have a valid mapOptions property', function () {
@@ -48,7 +48,7 @@ describe('MapPage', function () {
     expect(component.mapOptions, 'MapPage.mapOptions has no layers property').to.haveOwnProperty('layers');
     expect(component.mapOptions.layers, 'MapPage.mapOptions.layers is not an array').to.be.an('array');
     component.mapOptions.layers.forEach(layer => {
-      expect(layer instanceof L.TileLayer, 'One of MapPage.mapOptions.layers\' item is not an instance of L.TileLayer').to.equal(true);
+      expect(layer).to.be.an.instanceOf(L.TileLayer);
     });
   });
 });

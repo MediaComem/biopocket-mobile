@@ -39,6 +39,6 @@ describe('HomePage', () => {
   });
 
   it('should be created', () => {
-    expect(component instanceof HomePage).to.equal(true);
+    expect(component).to.be.an.instanceOf(HomePage);
   });
 });

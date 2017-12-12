@@ -21,7 +21,7 @@ import { fr } from '../locales';
 import { HomePage } from '../pages/home/home';
 import { MapPage } from '../pages/map/map';
 import { translateModuleForRoot } from '../utils/i18n';
-import { AppComponent } from './app.component';
+import { AppComponent, MenuItem } from './app.component';
 
 describe('AppComponent', () => {
   let fixture;
@@ -95,8 +95,14 @@ describe('AppComponent', () => {
 
   it('should be initialized', async () => {
 
-    expect(component instanceof AppComponent).to.equal(true);
+    // expect(component instanceof AppComponent).to.equal(true);
+    expect(component).to.be.an.instanceOf(AppComponent);
     expect(component.menuItems.length).to.equal(2);
+
+    expect(component).to.haveOwnProperty('activeItem');
+    expect(component.activeItem).to.be.an.instanceOf(MenuItem);
+    // TODO : Check that the rootPage is the same as the component of the activeItem
+    // expect(component.rootPage).to.eql(component.activeItem.component);
 
     // Some initialization should not be done until platform is ready
     expect(splashScreenMock.hide.called, 'splashScreen.hide called').to.equal(false);
