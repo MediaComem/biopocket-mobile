@@ -8,7 +8,10 @@ module.exports = {
   devtool: 'inline-source-map',
 
   resolve: {
-    extensions: [ '.ts', '.js' ]
+    extensions: [ '.ts', '.js' ],
+    alias: {
+      "@app/env": path.resolve(__dirname, '../src/environments/environment.test.ts')
+    }
   },
 
   module: {
@@ -35,10 +38,12 @@ module.exports = {
         ]
       },
 
-      // Compile .ts files in the spec directory
+      // Compile .spec.ts files and .ts files in the spec directory
       // (but do not instrument them as coverage is not needed)
       {
-        test: /spec\/.+\.ts$/,
+        test: {
+          include: [ /spec\/.+.ts$/, /\.spec\.ts$/ ]
+        },
         loaders: [
           {
             loader: 'ts-loader'

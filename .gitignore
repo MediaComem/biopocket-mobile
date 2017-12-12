@@ -35,6 +35,7 @@ plugins/android.json
 plugins/ios.json
 src/environments/environment.*
 !src/environments/environment.sample.ts
+!src/environments/environment.interface.ts
 src/locales/generated
 www/
 $RECYCLE.BIN/

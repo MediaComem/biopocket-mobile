@@ -32,6 +32,33 @@ The file for the current environment can be imported like this:
 import { ENV } from '@app/env';
 ```
 
+## Logging things
+
+When in need of logging things in the application, refrain from using the javascript `console` utility.
+
+The project has its own logging utility, called `Print`.
+It provides the same API as the `console` utility but only actually log things if the value of `ENV.environment` is in its whitelist.
+
+The whitelist is found in the `./src/utils/print.ts` file, and can be updated there to add more environment :
+
+```ts
+// ./src/utils/print.ts
+const whitelist: string[] = [
+  'development'
+];
+```
+To use the `Print` utility, import it in your file, and call one of its methods :
+
+```ts
+import Print from 'path/to/utils/print';
+
+Print.log('Hello World');
+Print.debug('Foo');
+Print.info('Bar');
+Print.debug(Print);
+Print.error('Ooops');
+```
+
 ### Implementation
 
 The `@app/env` module is a [module resolution alias][webpack-resolve] defined by

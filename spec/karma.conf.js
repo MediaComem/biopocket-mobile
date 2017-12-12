@@ -29,11 +29,21 @@ module.exports = function(config) {
         included: false,
         served: true,
         nocache: false
+      },
+
+      // Serve Leaflet assets but do not watch for changes
+      {
+        pattern: './node_modules/leaflet/dist/images/**/*',
+        watched: false,
+        included: false,
+        served: true,
+        nocache: false
       }
     ],
 
     proxies: {
-      '/assets/': '/base/src/assets/'
+      '/assets/': '/base/src/assets/',
+      '/assets/leaflet/': '/base/node_modules/leaflet/dist/images/'
     },
 
     // Auto-compile TypeScript files with webpack and generate test coverage information

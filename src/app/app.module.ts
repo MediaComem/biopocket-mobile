@@ -6,10 +6,15 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
+// RXJS Operators
+import 'rxjs/add/operator/map';
+
 import { HomePage } from '../pages/home/home';
 import { MapPage } from '../pages/map/map';
 import { translateModuleForRoot } from '../utils/i18n';
 import { AppComponent } from './app.component';
+import LocationsModule from '../providers/locations-service/locations-module';
+import EnvService from '../providers/env-service/env-service';
 
 @NgModule({
   declarations: [
@@ -22,7 +27,8 @@ import { AppComponent } from './app.component';
     IonicModule.forRoot(AppComponent),
     MomentModule,
     translateModuleForRoot,
-    LeafletModule.forRoot()
+    LeafletModule.forRoot(),
+    LocationsModule
   ],
   bootstrap: [
     IonicApp
@@ -35,7 +41,8 @@ import { AppComponent } from './app.component';
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: ErrorHandler, useClass: IonicErrorHandler }
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    EnvService
   ]
 })
-export class AppModule {}
+export class AppModule { }
