@@ -65,6 +65,8 @@ When Ionic builds the application, with `ionic cordova build {platform}` or `ion
 
 The `config/copy.config.js` file can be modified to add new files to copy during this step.
 
+> This feature is documented in the Ionic Documentation : https://ionicframework.com/docs/developer-resources/app-scripts/
+
 To do so, add a new property to the exported object, named as you see fit, that has two properties :
 * `src`: an array of paths of directory or files to copy
 * `dest`: the path of the destination folder in which all files listed in `src` will be copied
@@ -89,7 +91,7 @@ module.exports = {
 ```
 > For the file to be actually copied, you need to restart the server (or rebuild the app)
 
-**When the needed files are copied on the `www` directory, then can be referenced in the `index.html` or on a component.**
+**When the needed files are copied in the `www` directory, they can be referenced in the `index.html` or in a component.**
 
 
 ## Internationalization
