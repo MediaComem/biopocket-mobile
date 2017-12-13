@@ -1,12 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { MomentModule } from 'angular2-moment';
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
+import { MapPage } from '../pages/map/map';
 import { translateModuleForRoot } from '../utils/i18n';
 import { AppComponent } from './app.component';
 
@@ -14,13 +15,14 @@ import { AppComponent } from './app.component';
   declarations: [
     AppComponent,
     HomePage,
-    ListPage
+    MapPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(AppComponent),
     MomentModule,
-    translateModuleForRoot
+    translateModuleForRoot,
+    LeafletModule.forRoot()
   ],
   bootstrap: [
     IonicApp
@@ -28,7 +30,7 @@ import { AppComponent } from './app.component';
   entryComponents: [
     AppComponent,
     HomePage,
-    ListPage
+    MapPage
   ],
   providers: [
     StatusBar,

@@ -8,7 +8,7 @@ import { Observable } from 'rxjs/Rx';
 
 import { fr } from '../locales';
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
+import { MapPage } from '../pages/map/map';
 
 @Component({
   templateUrl: 'app.html'
@@ -17,25 +17,47 @@ export class AppComponent {
 
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage;
+  activeItem: MenuItem;
 
-  pages: MenuPage[];
+  rootPage: any;
+  menuItems: MenuItem[];
 
   constructor(private platform: Platform, private statusBar: StatusBar, private splashScreen: SplashScreen, private translateService: TranslateService) {
 
     this.initializeApp();
 
     // used for an example of ngFor and navigation
-    this.pages = [
-      new MenuPage('home', HomePage, translateService),
-      new MenuPage('list', ListPage, translateService)
+    this.menuItems = [
+      new MenuItem('map', MapPage, translateService),
+      new MenuItem('home', HomePage, translateService)
     ];
+
+    // Set the rootPage in the constructor, so that it could be set dynamically later
+    this.rootPage = MapPage;
+    // Define the activeMenu, should be the MenuItem that matches the page set as rootPage
+    this.activeItem = this.menuItems[0];
   }
 
-  openPage(page) {
-    // Reset the content nav to have just this page
-    // we wouldn't want the back button to show in this scenario
-    this.nav.setRoot(page.component);
+  /**
+   * If the given MenuItem is not already the active one on the menu, its `component` property is set as the app's rootPage
+   * and the MenuItem is set as the active menu item.
+   * @param {MenuItem} menuItem 
+   */
+  openPage(menuItem: MenuItem) {
+    // Only reset the rootPage if the user clicked on a MenuItem that is not the currently active Item
+    if (!this.isActiveItem(menuItem)) {
+      this.nav.setRoot(menuItem.component);
+      this.activeItem = menuItem;
+    }
+  }
+
+  /**
+   * Checks if the given MenuItem is the currently active MenuItem
+   * @param {MenuItem} menuItem
+   * @returns {Boolean}
+   */
+  isActiveItem(menuItem: MenuItem) {
+    return menuItem.pageRef === this.activeItem.pageRef;
   }
 
   private initializeApp() {
@@ -55,11 +77,25 @@ export class AppComponent {
   }
 }
 
-class MenuPage {
-  constructor(public pageName: string, public component: any, private translateService: TranslateService) {
+/**
+ * This class decorates a Component with a `title` property that returns the properly translated page title.
+ * It should be used when adding new items on the `AppComponent.pages` arrray.
+ */
+export class MenuItem {
+
+  /**
+   * @constructor
+   * @param {String} pageRef A string that is referenced in the `src/locales/fr.yml` file as being a page name
+   * @param {any} component The page component to decorate
+   * @param {TranslateService} translateService A translate service used by the `title` property
+   */
+  constructor(public pageRef: string, public component: any, private translateService: TranslateService) {
   }
 
+  /**
+   * Returns the page title translated in the current locale, based on the `pageName` property of this `MenuItem`
+   */
   get title(): Observable<string> {
-    return this.translateService.get(`pages.${this.pageName}.title`);
+    return this.translateService.get(`pages.${this.pageRef}.title`);
   }
 }

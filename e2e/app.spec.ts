@@ -17,8 +17,8 @@ describe('App', function() {
       await page.navigateTo('/');
     });
 
-    it('should have a title saying Page One', async function() {
-      await expect(page.getTitle()).to.eventually.equal(fr.pages.home.title);
+    it('should have a title saying Carte', async function() {
+      await expect(page.getTitle()).to.eventually.equal(fr.pages.map.title);
     });
   })
 });

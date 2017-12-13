@@ -49,6 +49,49 @@ environment files has been added to the `compilerOptions.paths` property of the
 
 This mechanism is based on [Easy to use environment variables for Ionic3!][ionic-env-vars].
 
+## Including CSS files from external modules
+
+When installing external libraries or modules, it could happen that those lib/modules requires a special stylesheet that it provides.
+
+It is *not possible* to include such a file in a `.scss` file with an `@import` statement like this:
+
+```sass
+// ./src/app/app.scss
+@import 'node_modules/leaflet/dist/leaflet.css'
+```
+> This results in a `404` on the file at runtime
+
+When Ionic builds the application, with `ionic cordova build {platform}` or `ionis serve`, it executes a `copy` script that copies some ionic's core files from the `node_module` to the `www` or `build` directory.
+
+The `config/copy.config.js` file can be modified to add new files to copy during this step.
+
+> This feature is documented in the Ionic Documentation : https://ionicframework.com/docs/developer-resources/app-scripts/
+
+To do so, add a new property to the exported object, named as you see fit, that has two properties :
+* `src`: an array of paths of directory or files to copy
+* `dest`: the path of the destination folder in which all files listed in `src` will be copied
+
+Specific wildcards can be used in the above mentionned path :
+* `{{SRC}}` refers to the `./src` folder
+* `{{ROOT}}` refers to the root folder
+* `{{BUILD}}` refers to the `www/build` folder
+* `{{WWW}}` refers to the `www` folder
+
+### Example : adding the `node_modules/leaflet/dist/leaflet.css` file in the `www/build/leaflet` folder:
+
+```javascript
+// ./config/copy.config.js file
+module.exports = {
+  // previous properties
+  copyLeaflet: {
+    src: ['{{ROOT}}/node_modules/leaflet/dist/leaflet.css'],
+    dest: '{{BUILD}}/leaflet/'
+  }
+};
+```
+> For the file to be actually copied, you need to restart the server (or rebuild the app)
+
+**When the needed files are copied in the `www` directory, they can be referenced in the `index.html` or in a component.**
 
 
 ## Internationalization
