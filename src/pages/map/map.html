@@ -8,9 +8,21 @@
 </ion-header>
 
 <ion-content>
+
   <div id="map"
     leaflet
     [leafletOptions]="mapOptions"
     [leafletLayers]="layers"
     (leafletMapReady)="onMapReady($event)"></div>
+
+  <div id="map-controls">
+    <div class="center-on-me control" [style.color]="isGeolocationInProgress() ? 'lightgray' : 'black'" (click)="centerOnMe()">
+      <ion-icon name="locate"></ion-icon>
+    </div>
+  </div>
+
+  <p *ngIf="mapMessage" id="map-message">
+    {{ mapMessage }}
+  </p>
+
 </ion-content>

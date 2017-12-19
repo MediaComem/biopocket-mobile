@@ -8,15 +8,15 @@ import { By } from '@angular/platform-browser';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { MomentModule } from 'angular2-moment';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
-import { expect } from 'chai';
 import { IonicModule, Platform } from 'ionic-angular';
+import { Geolocation } from '@ionic-native/geolocation';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import moment from 'moment';
 import { TranslateService } from '@ngx-translate/core';
 import { spy, stub } from 'sinon';
 
-
+import { expect } from '../../spec/chai';
 import { createPlatformMock } from '../../spec/mocks';
 import { Deferred, restoreSpyOrStub } from '../../spec/utils';
 import { ENV as MockEnv } from '../environments/environment.test';
@@ -71,6 +71,7 @@ describe('AppComponent', () => {
         LocationsModule
       ],
       providers: [
+        Geolocation,
         { provide: Platform, useValue: platformMock },
         { provide: SplashScreen, useValue: splashScreenMock },
         { provide: StatusBar, useValue: statusBarMock },

@@ -8,3 +8,4 @@ pages:
     title: "Liste"
   map:
     title: "Carte"
+    geolocation: "Finding your position..."

@@ -69,16 +69,16 @@ to refresh the app.
 
 ### Scripts
 
-| Script                    | Purpose                                                           |
-| :---                      | :---                                                              |
-| `npm start`               | Initialize & start the app with `ionic serve`                     |
-| `npm run doctoc`          | Generate the table of contents of this README                     |
-| `npm run locales`         | Compile the .yml locale files to TypeScript once                  |
-| `npm run locales:start`   | Compile the .yml locale files to TypeScript and watch for changes |
-| `npm run locales:watch`   | Compile the .yml locale files when changes occur                  |
-| `npm run test`            | Run all unit & end-to-end tests once                              |
-| `npm run test:watch`      | Run all unit & end-to-end tests and watch for changes             |
-| `npm run test:unit`       | Run unit tests once                                               |
-| `npm run test:unit:watch` | Run unit tests and watch for changes                              |
-| `npm run test:e2e`        | Run end-to-end tests once                                         |
-| `npm run test:e2e:watch`  | Run end-to-end tests when changes occur                           |
+| Script                    | Purpose                                                                 |
+| :---                      | :---                                                                    |
+| `npm start`               | Initialize & start the app with `ionic serve`                           |
+| `npm run doctoc`          | Generate the table of contents of this README and the DEVELOPMENT guide |
+| `npm run locales`         | Compile the .yml locale files to TypeScript once                        |
+| `npm run locales:start`   | Compile the .yml locale files to TypeScript and watch for changes       |
+| `npm run locales:watch`   | Compile the .yml locale files when changes occur                        |
+| `npm run test`            | Run all unit & end-to-end tests once                                    |
+| `npm run test:watch`      | Run all unit & end-to-end tests and watch for changes                   |
+| `npm run test:unit`       | Run unit tests once                                                     |
+| `npm run test:unit:watch` | Run unit tests and watch for changes                                    |
+| `npm run test:e2e`        | Run end-to-end tests once                                               |
+| `npm run test:e2e:watch`  | Run end-to-end tests when changes occur                                 |
