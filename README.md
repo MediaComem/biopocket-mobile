@@ -56,8 +56,8 @@ Run `npm start` (it will open your browser to visit `http://localhost:8100/`).
 ### Run the automated tests
 
 * `npm run test:unit` to run the unit tests
-* `npm run test:e2e` to run the end-to-end tests (the app must be running on `http://localhost:8100`)
-* `npm run test` to run all tests
+* `npm run test:e2e` to run the [end-to-end tests][e2e] (this requires additional setup)
+* `npm run test` to run all tests (this requires additional setup for the [end-to-end tests][e2e])
 
 You can add `:watch` to each of these to automatically re-run the tests when files change (e.g. `npm run test:unit:watch`).
 
@@ -69,16 +69,24 @@ to refresh the app.
 
 ### Scripts
 
-| Script                    | Purpose                                                                 |
-| :---                      | :---                                                                    |
-| `npm start`               | Initialize & start the app with `ionic serve`                           |
-| `npm run doctoc`          | Generate the table of contents of this README and the DEVELOPMENT guide |
-| `npm run locales`         | Compile the .yml locale files to TypeScript once                        |
-| `npm run locales:start`   | Compile the .yml locale files to TypeScript and watch for changes       |
-| `npm run locales:watch`   | Compile the .yml locale files when changes occur                        |
-| `npm run test`            | Run all unit & end-to-end tests once                                    |
-| `npm run test:watch`      | Run all unit & end-to-end tests and watch for changes                   |
-| `npm run test:unit`       | Run unit tests once                                                     |
-| `npm run test:unit:watch` | Run unit tests and watch for changes                                    |
-| `npm run test:e2e`        | Run end-to-end tests once                                               |
-| `npm run test:e2e:watch`  | Run end-to-end tests when changes occur                                 |
+| Script                        | Purpose                                                                                                                   |
+| :---                          | :---                                                                                                                      |
+| `npm start`                   | Initialize & start the app with `ionic serve`                                                                             |
+| `npm run doctoc`              | Generate the table of contents of this README and the DEVELOPMENT guide                                                   |
+| `npm run lint`                | Analyze and check the project's TypeScript code for errors                                                                |
+| `npm run locales`             | Compile the .yml locale files to TypeScript once                                                                          |
+| `npm run locales:start`       | Compile the .yml locale files to TypeScript and watch for changes                                                         |
+| `npm run locales:watch`       | Compile the .yml locale files when changes occur                                                                          |
+| `npm run start:e2e`           | Start the app for [end-to-end testing][e2e]                                                                               |
+| `npm run test`                | Run all unit & end-to-end tests once (may fail if `ionic serve` is running; see [end-to-end tests][e2e])                  |
+| `npm run test:watch`          | Run all unit & end-to-end tests and watch for changes (may fail if `ionic serve` is running; see [end-to-end tests][e2e]) |
+| `npm run test:unit`           | Run unit tests once                                                                                                       |
+| `npm run test:unit:watch`     | Run unit tests and watch for changes                                                                                      |
+| `npm run test:e2e`            | Run end-to-end tests once (may fail if `ionic serve` is running; see [end-to-end tests][e2e])                             |
+| `npm run test:e2e:watch`      | Run end-to-end tests when changes occur (may fail if `ionic serve` is running; see [end-to-end tests][e2e])               |
+| `npm run test:e2e:fast`       | Run end-to-end tests once (assumes backend & app are running in test mode; see [end-to-end tests][e2e])                   |
+| `npm run test:e2e:fast:watch` | Run end-to-end tests when changes occur (assumes backend & app are running in test mode; see [end-to-end tests][e2e])     |
+
+
+
+[e2e]: DEVELOPMENT.md#end-to-end-tests

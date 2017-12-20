@@ -1,24 +1,56 @@
-import { expect } from '../spec/chai';
-import { Page } from './app.po';
+// DO NOT MOVE these lines.
+// Environment variables MUST be set BEFORE backend files are imported.
+import { setUp } from './setup';
+setUp();
 
+import * as locationFixtures from '../backend/server/spec/fixtures/location';
+import { expect } from '../spec/chai';
 import { fr } from '../src/locales';
+import { MapPageObject } from './po/map.po';
+import { compareCoordinates } from './utils';
+
+const ONEX_BBOX = {
+  southWest: [ 6.086417, 46.173987 ],
+  northEast: [ 6.112753, 46.196898 ]
+};
 
 describe('App', function() {
-  let page: Page;
 
-  beforeEach(function() {
-    page = new Page();
+  let locations;
+  let mapPage: MapPageObject;
+
+  beforeEach(async function() {
+    mapPage = new MapPageObject();
+
+    // Insert 3 random locations into the database and sort them by ascending longitude and latitude.
+    locations = await Promise.all(new Array(3).fill(0).map(() => locationFixtures.location({ bbox: ONEX_BBOX })));
+    locations.sort((a, b) => compareCoordinates(a.get('geometry'), b.get('geometry')));
   });
 
-  describe('default screen', function() {
-    this.timeout(5000);
+  it('should allow a user to view locations on the map', async function() {
+    this.timeout(10000);
 
-    beforeEach(async function() {
-      await page.navigateTo('/');
-    });
+    // Navigate to the map page.
+    await mapPage.navigateTo();
+    await expect(mapPage.getTitle()).to.eventually.equal('BioPocket');
 
-    it('should have the correct title', async function() {
-      await expect(page.getTitle()).to.eventually.equal('BioPocket');
-    });
-  })
+    // Ensure that all markers are displayed.
+    const markerIconFinders = await mapPage.getMarkerIcons();
+    expect(markerIconFinders).to.have.lengthOf(3);
+
+    // Click on the first marker (they are also sorted by ascending longitude and latitude).
+    markerIconFinders[0].click();
+
+    // Ensure that the popover is displayed.
+    const popoverFinder = mapPage.getPopover();
+    await expect(popoverFinder.isPresent()).to.eventually.equal(true);
+
+    // Ensure that the data of the correct location is displayed in the popover.
+    // Since both the location fixtures and marker icons have been sorted by ascending longitude and
+    // latitude, the first location should correspond to the first marker icon.
+    const location = locations[0];
+    const locationDetailsText = await mapPage.getLocationDetails().getText();
+    expect(locationDetailsText).to.have.string(location.get('name'));
+    expect(locationDetailsText).to.have.string(location.get('short_name'));
+  });
 });
