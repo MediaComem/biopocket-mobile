@@ -18,7 +18,7 @@ describe('App', function() {
     });
 
     it('should have a title saying Carte', async function() {
-      await expect(page.getTitle()).to.eventually.equal(fr.pages.map.title);
+      await expect(page.getTitle()).to.eventually.equal('BioPocket');
     });
   })
 });
