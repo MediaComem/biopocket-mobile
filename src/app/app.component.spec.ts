@@ -25,7 +25,6 @@ import { HomePage } from '../pages/home/home';
 import { MapPage } from '../pages/map/map';
 import EnvService from '../providers/env-service/env-service';
 import LocationsModule from '../providers/locations-service/locations-module';
-import LocationsService from '../providers/locations-service/locations-service';
 import { translateModuleForRoot } from '../utils/i18n';
 import { AppComponent, MenuItem } from './app.component';
 

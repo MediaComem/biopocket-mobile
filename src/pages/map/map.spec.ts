@@ -19,9 +19,8 @@ import { translateModuleForRoot } from '../../utils/i18n';
 import { MapPage } from './map';
 
 describe('MapPage', function () {
-  let component, fixture, backend, lastConnection;
+  let component, fixture, backend;
   let navControllerMock;
-  let responses;
 
   beforeEach(function () {
     navControllerMock = {};

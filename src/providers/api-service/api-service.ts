@@ -5,7 +5,6 @@ import { RequestBuilderService, RequestBuilder } from 'ng-request-builder';
 import { Observable } from 'rxjs/Observable';
 
 import { ApiVersion } from '../../models';
-import Print from '../../utils/print';
 
 /**
  * Global service that handles communication with the BioPocket API

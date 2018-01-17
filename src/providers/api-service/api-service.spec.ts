@@ -1,8 +1,8 @@
 // Mocha global variables (for Windows)
 /// <reference path="../../../node_modules/@types/mocha/index.d.ts" />
 
-import { TestBed, fakeAsync, inject, tick } from '@angular/core/testing';
-import { HttpModule, Http, ConnectionBackend, RequestOptions, BaseRequestOptions, Response, ResponseOptions } from '@angular/http';
+import { TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { HttpModule, Http, ConnectionBackend, Response, ResponseOptions } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
 import { expect } from 'chai';
 import { RequestBuilderModule } from 'ng-request-builder';
