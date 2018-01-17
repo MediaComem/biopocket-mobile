@@ -4,9 +4,9 @@ import { icon as IconFactory, Icon, IconOptions } from 'leaflet';
  * The default Icon used by Leaflet.
  * The iconUrl, iconRetinaUrl and shadowUrl have been overwritten so that the images are properly retrieved.
  * 
- * The icon is created with an IIFE that creates a IconDefault instance, updates the required options and return
+ * The icon is created with an IIFE that creates an IconDefault instance, updates the required options and return
  * a new Icon with these default updated options.
- * This way, we don't have to manually redefined all options for the default marker.
+ * This way, we don't have to manually redefine all options for the default marker.
  */
 export const defIcon: Icon = function (): Icon {
   const defIcon: Icon.Default = new Icon.Default;

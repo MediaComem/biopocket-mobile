@@ -11,7 +11,7 @@ import * as L from 'leaflet';
 import { spy } from 'sinon';
 
 import { ENV as MockEnv } from '../../environments/environment.test';
-import BaseMarker from '../../models/base-marker';
+import Marker from '../../models/marker';
 import EnvService from '../../providers/env-service/env-service';
 import locationsDataMock from '../../providers/locations-service/locations-data.mock';
 import LocationsModule from '../../providers/locations-service/locations-module';
@@ -98,7 +98,7 @@ describe('MapPage', function () {
 
       expect(component.layers).to.have.length(3);
       component.layers.forEach((marker, pos) => {
-        expect(marker).to.be.an.instanceOf(BaseMarker);
+        expect(marker).to.be.an.instanceOf(Marker);
 
         let latLng = marker.getLatLng();
         expect(latLng.lat).to.equal(locationsDataMock[pos].geometry.coordinates[1]);
@@ -127,9 +127,9 @@ describe('MapPage', function () {
       expect(component.layers).to.have.length(2);
 
       let markerIds = component.layers.map(marker => marker.id);
-      let excpectedIds = locationsDataMock.slice(0, 2).map(location => location.id);
+      let expectedIds = locationsDataMock.slice(0, 2).map(location => location.id);
 
-      expect(markerIds).to.have.members(excpectedIds);
+      expect(markerIds).to.have.members(expectedIds);
 
       component.map.setView([12, 4], 13);
 
@@ -144,9 +144,9 @@ describe('MapPage', function () {
       expect(spyFetchAll.getCall(1).args[0]).to.eql(callOptions);
 
       markerIds = component.layers.map(marker => marker.id);
-      excpectedIds = locationsDataMock.slice(1).map(location => location.id);
+      expectedIds = locationsDataMock.slice(1).map(location => location.id);
 
-      expect(markerIds).to.have.members(excpectedIds);
+      expect(markerIds).to.have.members(expectedIds);
     });
   });
 });

@@ -7,7 +7,9 @@ import { Location } from '../../models/location';
 import LocationsService from '../../providers/locations-service/locations-service';
 import { defIcon } from '../../utils/leafletIcons';
 import Print from '../../utils/print';
-import BaseMarker from '../../models/base-marker';
+import Marker from '../../models/marker';
+
+const LOG_REF: string = "[MapPage]";
 
 @Component({
   selector: 'map-page',
@@ -15,11 +17,9 @@ import BaseMarker from '../../models/base-marker';
 })
 export class MapPage {
 
-  private logRef: string = "[MapPage]";
-
   map: L.Map;
   mapOptions: Object;
-  layers: BaseMarker[] = [];
+  layers: Marker[] = [];
 
   constructor(public navCtrl: NavController, private locationsService: LocationsService) {
     this.mapOptions = {
@@ -59,23 +59,23 @@ export class MapPage {
   private onMapMoved() {
     this.locationsService.fetchAll({ bbox: this.map.getBounds().toBBoxString() })
       .subscribe(res => {
-        const remaining: BaseMarker[] = intersectionBy(this.layers, res, 'id');
+        const remaining: Marker[] = intersectionBy(this.layers, res, 'id');
         const toAdd: Location[] = differenceBy(res, this.layers, 'id');
 
-        Print.log(`${this.logRef} onMapMoved - remaining`, remaining, 'toAdd', toAdd);
+        Print.log(`${LOG_REF} onMapMoved - remaining`, remaining, 'toAdd', toAdd);
 
         this.layers = remaining;
         toAdd.forEach(location => this.addLocationToMap(location));
 
-        Print.log(`${this.logRef} New this.layers content`, this.layers);
+        Print.log(`${LOG_REF} New this.layers content`, this.layers);
       });
   }
 
   /**
-   * Transforms a Location object into a BaseMarker object, and adds it to 
+   * Transforms a Location object into a Marker object, and adds it to the array of currently displayed markers
    */
   private addLocationToMap(location: Location) {
-    this.layers.push(new BaseMarker(location.id, location.geometry.coordinates, { icon: defIcon }));
+    this.layers.push(new Marker(location.id, location.geometry.coordinates, { icon: defIcon }));
   }
 
 }
