@@ -42,6 +42,9 @@ before_script:
   # Run `ionic serve` in the background with screen
   - screen -dm ionic serve -b -d --address localhost --port 8100
 
+  # Copy the `environment.sample.ts` as `environment.test.ts`
+  - cp ./src/environments/environment.sample.ts ./src/environments/environment.test.ts
+
 after_success:
 
   # Send test coverage report to coveralls

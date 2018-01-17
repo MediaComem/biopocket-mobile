@@ -1,7 +1,9 @@
 // Mocha global variables (for Windows)
 /// <reference path="../../node_modules/@types/mocha/index.d.ts" />
 
-import { async, TestBed } from '@angular/core/testing';
+import { fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { Http, ConnectionBackend } from '@angular/http';
+import { MockBackend } from '@angular/http/testing';
 import { By } from '@angular/platform-browser';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { MomentModule } from 'angular2-moment';
@@ -17,11 +19,15 @@ import { spy, stub } from 'sinon';
 
 import { createPlatformMock } from '../../spec/mocks';
 import { Deferred, restoreSpyOrStub } from '../../spec/utils';
+import { ENV as MockEnv } from '../environments/environment.test';
 import { fr } from '../locales';
 import { HomePage } from '../pages/home/home';
 import { MapPage } from '../pages/map/map';
+import EnvService from '../providers/env-service/env-service';
+import LocationsModule from '../providers/locations-service/locations-module';
 import { translateModuleForRoot } from '../utils/i18n';
 import { AppComponent, MenuItem } from './app.component';
+
 
 describe('AppComponent', () => {
   let fixture;
@@ -30,11 +36,12 @@ describe('AppComponent', () => {
   let platformMock;
   let splashScreenMock;
   let statusBarMock;
+
   let translateService;
 
   let readyDeferred;
 
-  beforeEach(async(() => {
+  beforeEach(() => {
 
     readyDeferred = new Deferred();
 
@@ -60,19 +67,23 @@ describe('AppComponent', () => {
         IonicModule.forRoot(AppComponent),
         MomentModule,
         translateModuleForRoot,
-        LeafletModule.forRoot()
+        LeafletModule.forRoot(),
+        LocationsModule
       ],
       providers: [
         { provide: Platform, useValue: platformMock },
         { provide: SplashScreen, useValue: splashScreenMock },
-        { provide: StatusBar, useValue: statusBarMock }
+        { provide: StatusBar, useValue: statusBarMock },
+        Http,
+        { provide: ConnectionBackend, useClass: MockBackend },
+        { provide: EnvService, useValue: MockEnv }
       ]
     }).overrideModule(BrowserDynamicTestingModule, {
       set: {
-        entryComponents: [ HomePage, MapPage ],
+        entryComponents: [HomePage, MapPage]
       }
     });
-  }));
+  });
 
   beforeEach(() => {
 
@@ -108,11 +119,11 @@ describe('AppComponent', () => {
     expect(splashScreenMock.hide.called, 'splashScreen.hide called').to.equal(false);
     expect(statusBarMock.styleDefault.called, 'statusBar.styleDefault called').to.equal(false);
 
-    expect(moment.locale['args'], 'moment.locale called').to.eql([ [ 'fr' ] ]);
+    expect(moment.locale['args'], 'moment.locale called').to.eql([['fr']]);
 
-    expect(translateService.setDefaultLang.args, 'translateService.setDefaultLang called').to.eql([ [ 'fr' ] ]);
-    expect(translateService.setTranslation.args, 'translateService.setTranslation called').to.eql([ [ 'fr', fr ] ]);
-    expect(translateService.use.args, 'translateService.use called').to.eql([ [ 'fr' ] ]);
+    expect(translateService.setDefaultLang.args, 'translateService.setDefaultLang called').to.eql([['fr']]);
+    expect(translateService.setTranslation.args, 'translateService.setTranslation called').to.eql([['fr', fr]]);
+    expect(translateService.use.args, 'translateService.use called').to.eql([['fr']]);
 
     fixture.detectChanges();
 
@@ -120,26 +131,26 @@ describe('AppComponent', () => {
     expect(title.nativeElement.textContent).to.equal(fr.app);
   });
 
-  it('should perform further initialization when the platform is ready', async () => {
+  it('should perform further initialization when the platform is ready', fakeAsync(() => {
 
     readyDeferred.resolve('READY');
-    await readyDeferred.promise;
+    tick();
 
-    expect(splashScreenMock.hide.args, 'splashScreen.hide() called').to.eql([ [] ]);
-    expect(statusBarMock.styleDefault.args, 'statusBar.styleDefault() called').to.eql([ [] ]);
-  });
+    expect(splashScreenMock.hide.args, 'splashScreen.hide() called').to.eql([[]]);
+    expect(statusBarMock.styleDefault.args, 'statusBar.styleDefault() called').to.eql([[]]);
+  }));
 
   describe('#openPage', () => {
     it('should navigate to the page\'s component', () => {
 
-      const pageComponentMock = function() {};
+      const pageComponentMock = function () { };
 
       component.openPage({
         title: 'Foo',
         component: pageComponentMock
       });
 
-      expect(component.nav.setRoot.args, 'nav.setRoot() called once with the page\'s component').to.eql([ [ pageComponentMock ] ]);
+      expect(component.nav.setRoot.args, 'nav.setRoot() called once with the page\'s component').to.eql([[pageComponentMock]]);
     });
   });
 });
