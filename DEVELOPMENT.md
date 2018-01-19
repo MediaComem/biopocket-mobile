@@ -1,7 +1,20 @@
 # BioPocket Mobile Application Development Guide
 
-<!-- START doctoc -->
-<!-- END doctoc -->
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+
+- [Application](#application)
+- [Environment](#environment)
+  - [Implementation](#implementation)
+- [Logging things](#logging-things)
+- [Including CSS files from external modules](#including-css-files-from-external-modules)
+  - [Example : adding the `node_modules/leaflet/dist/leaflet.css` file in the `www/build/leaflet` folder:](#example--adding-the-node_modulesleafletdistleafletcss-file-in-the-wwwbuildleaflet-folder)
+- [Internationalization](#internationalization)
+  - [Message format interpolation](#message-format-interpolation)
+- [RxJS Operators](#rxjs-operators)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 
 
@@ -32,6 +45,25 @@ The file for the current environment can be imported like this:
 import { ENV } from '@app/env';
 ```
 
+### Implementation
+
+The `@app/env` module is a [module resolution alias][webpack-resolve] defined by
+augmenting Ionic's default webpack configuration in the following files:
+
+* `config/optimization.config.js`
+* `config/webpack.config.js`
+
+This configuration is applied by the `config.ionic_optimization` and
+`config.ionic_webpack` properties of `package.json`.
+
+For TypeScript to correctly identify the `@app/env` module, the path to the
+environment files has been added to the `compilerOptions.paths` property of the
+`tsconfig.json` file at the root of the project.
+
+This mechanism is based on [Easy to use environment variables for Ionic3!][ionic-env-vars].
+
+
+
 ## Logging things
 
 When in need of logging things in the application, refrain from using the javascript `console` utility.
@@ -59,22 +91,7 @@ Print.debug(Print);
 Print.error('Ooops');
 ```
 
-### Implementation
 
-The `@app/env` module is a [module resolution alias][webpack-resolve] defined by
-augmenting Ionic's default webpack configuration in the following files:
-
-* `config/optimization.config.js`
-* `config/webpack.config.js`
-
-This configuration is applied by the `config.ionic_optimization` and
-`config.ionic_webpack` properties of `package.json`.
-
-For TypeScript to correctly identify the `@app/env` module, the path to the
-environment files has been added to the `compilerOptions.paths` property of the
-`tsconfig.json` file at the root of the project.
-
-This mechanism is based on [Easy to use environment variables for Ionic3!][ionic-env-vars].
 
 ## Including CSS files from external modules
 
@@ -119,6 +136,7 @@ module.exports = {
 > For the file to be actually copied, you need to restart the server (or rebuild the app)
 
 **When the needed files are copied in the `www` directory, they can be referenced in the `index.html` or in a component.**
+
 
 
 ## Internationalization
@@ -206,6 +224,22 @@ translateService.get({ RES: 2, CAT: 2 })
 ```
 
 See the [format guide][messageformat-guide] for more information.
+
+
+
+## RxJS Operators
+
+The RxJS library does not import all operators by default.
+All operators used in code, e.g. `map`, `switchMap`, etc, must be referenced in the `src/app/rxjs.ts` file.
+
+This file is already imported:
+
+* In the application module in `src/app/app.module.ts`, meaning RxJS operators will be available in development code.
+* In the `spec/chai.ts` test file which is included by most test files to use chai expectations with plugins.
+
+If you do not import `spec/chai.ts` and your test does not import the application module either,
+you might have a warning that some RxJS operators are not available.
+In that case, import `src/app/rxjs.ts` to solve the issue.
 
 
 

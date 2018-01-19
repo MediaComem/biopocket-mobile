@@ -3,11 +3,12 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { MomentModule } from 'angular2-moment';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { Geolocation } from '@ionic-native/geolocation';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 // RXJS Operators
-import 'rxjs/add/operator/map';
+import './rxjs';
 
 import { HomePage } from '../pages/home/home';
 import { MapPage } from '../pages/map/map';
@@ -39,6 +40,7 @@ import EnvService from '../providers/env-service/env-service';
     MapPage
   ],
   providers: [
+    Geolocation,
     StatusBar,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
