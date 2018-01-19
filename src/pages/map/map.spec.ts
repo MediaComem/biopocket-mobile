@@ -168,12 +168,13 @@ describe('MapPage', function () {
 
     describe('and initialized', function() {
 
-      let map, setViewSpy;
+      let map, panToSpy, setViewSpy;
       beforeEach(function() {
 
         // The tests in this describe block use a Leaflet map that is manually
         // instantiated here rather than in the view.
         map = L.map('map');
+        panToSpy = spy(map, 'panTo');
         setViewSpy = spy(map, 'setView');
 
         expect(geolocationMock.getCurrentPosition).to.have.callCount(0);
@@ -184,7 +185,8 @@ describe('MapPage', function () {
         component.onMapReady(map);
 
         expect(geolocationMock.getCurrentPosition).to.have.callCount(1);
-        expectMapViewSet(setViewSpy.args[0], [ 46.183541, 6.100234 ], 15);
+        expect(panToSpy).to.have.callCount(0);
+        expect(setViewSpy).to.have.been.calledWith([ 46.183541, 6.100234 ], 15);
         expect(setViewSpy).to.have.callCount(1);
 
         expect(component.mapMessage).to.equal(fr.pages.map.geolocation);
@@ -197,7 +199,11 @@ describe('MapPage', function () {
 
         expect(component.mapMessage).to.equal(undefined);
 
-        expectMapViewSet(setViewSpy.args[1], L.latLng(46.18, 6.09), 15, { animate: true });
+        expect(panToSpy.args[0]).to.eql([ L.latLng(46.18, 6.09), { animate: true } ]);
+        expect(panToSpy).to.have.callCount(1);
+
+        // panTo calls setView
+        expect(setViewSpy.args[1]).to.eql([ L.latLng(46.18, 6.09), 15, { pan: { animate: true } } ]);
         expect(setViewSpy).to.have.callCount(2);
       }));
 
@@ -207,8 +213,7 @@ describe('MapPage', function () {
         tick();
 
         expect(component.mapMessage).to.equal(undefined);
-
-        expectMapViewSet(setViewSpy.args[0], [ 46.183541, 6.100234 ], 15);
+        expect(panToSpy).to.have.callCount(0);
         expect(setViewSpy).to.have.callCount(1);
       }));
 
@@ -217,18 +222,73 @@ describe('MapPage', function () {
         geolocationDeferred.reject(new Error('Dunno where you are'));
         tick();
 
-        expect(component.mapMessage).to.equal(undefined);
+        expect(component.mapMessage).to.equal(fr.pages.map.geolocationError);
+        expect(panToSpy).to.have.callCount(0);
         expect(setViewSpy).to.have.callCount(1);
       }));
 
+      it('should center the map without changing the zoom level', fakeAsync(function() {
+
+        map.setZoom(10);
+
+        // setZoom calls setView
+        expect(setViewSpy.args[1]).to.eql([ L.latLng(46.183541, 6.100234), 10, { zoom: undefined } ]);
+        expect(setViewSpy).to.have.callCount(2);
+
+        geolocationDeferred.resolve({ coords: { longitude: 6.09, latitude: 46.18 } });
+        tick();
+
+        expect(component.mapMessage).to.equal(undefined);
+
+        expect(panToSpy.args[0]).to.eql([ L.latLng(46.18, 6.09), { animate: true } ]);
+        expect(panToSpy).to.have.callCount(1);
+
+        // panTo calls setView
+        expect(setViewSpy.args[2]).to.eql([ L.latLng(46.18, 6.09), 10, { pan: { animate: true } } ]);
+        expect(setViewSpy).to.have.callCount(3);
+      }));
+
       it('should center the map on the user\'s current position when clicking on the center me button', fakeAsync(function() {
+
+        // Resolve the initial geolocation to somewhere not in Onex.
+        geolocationDeferred.resolve({ coords: { longitude: 1, latitude: 0 } });
+        tick();
+
+        // The map should not have moved.
+        expect(component.mapMessage).to.equal(undefined);
+        expect(panToSpy).to.have.callCount(0);
+        expect(setViewSpy).to.have.callCount(1);
+
+        const currentPositionDeferred = new Deferred();
+        geolocationMock.getCurrentPosition.onCall(1).returns(currentPositionDeferred.promise);
+
+        // Click on the button.
+        component.centerOnMe();
+
+        expect(component.mapMessage).to.equal(fr.pages.map.geolocation);
+
+        // Resolve the new geolocation to somewhere else not in Onex.
+        currentPositionDeferred.resolve({ coords: { longitude: 24, latitude: 42 } });
+        tick();
+
+        expect(component.mapMessage).to.equal(undefined);
+
+        // The map should have been centered on that position.
+        expect(panToSpy.args[0]).to.eql([ L.latLng(42, 24), { animate: true } ]);
+        expect(panToSpy).to.have.callCount(1);
+
+        // panTo calls setView
+        expect(setViewSpy.args[1]).to.eql([ L.latLng(42, 24), 15, { pan: { animate: true } } ]);
+        expect(setViewSpy).to.have.callCount(2);
+      }));
+
+      it('should display an error message if geolocation fails after clicking on the center me button', fakeAsync(function() {
 
         geolocationDeferred.resolve({ coords: { longitude: 1, latitude: 0 } });
         tick();
 
         expect(component.mapMessage).to.equal(undefined);
-
-        expectMapViewSet(setViewSpy.args[0], [ 46.183541, 6.100234 ], 15);
+        expect(panToSpy).to.have.callCount(0);
         expect(setViewSpy).to.have.callCount(1);
 
         const currentPositionDeferred = new Deferred();
@@ -238,63 +298,63 @@ describe('MapPage', function () {
 
         expect(component.mapMessage).to.equal(fr.pages.map.geolocation);
 
-        currentPositionDeferred.resolve({ coords: { longitude: 24, latitude: 42 } });
+        currentPositionDeferred.reject(new Error('Dunno where you are'));
         tick();
 
-        expect(component.mapMessage).to.equal(undefined);
-
-        expectMapViewSet(setViewSpy.args[1], L.latLng(42, 24), 15, { animate: true });
-        expect(setViewSpy).to.have.callCount(2);
+        expect(component.mapMessage).to.equal(fr.pages.map.geolocationError);
+        expect(panToSpy).to.have.callCount(0);
+        expect(setViewSpy).to.have.callCount(1);
       }));
 
+      /**
+       * This test simulates the following scenario:
+       *
+       * * The map is displayed, an initial geolocation starts.
+       * * The user clicks on the "center on me" button before the initial geolocation has completed. Nothing should happen.
+       * * The initial geolocation completes and the map centers on that position.
+       *
+       * The expected behavior is that the user's click should have no effect.
+       * A possible error condition would be that a second geolocation is triggered
+       * and the map is centered twice (once as a result of the initial geolocation,
+       * and a second time as a result of the user's click).
+       */
       it('should center the map on the user\'s initial position when clicking on the center me button before the initial position has been determined', fakeAsync(function() {
 
+        // Mock for the initial geolocation
         const currentPositionDeferred = new Deferred();
         geolocationMock.getCurrentPosition.onCall(1).returns(currentPositionDeferred.promise);
 
+        // Mock for the second geolocation (will not be used when successful, but
+        // it must be there to test the error case)
         const nextPositionDeferred = new Deferred();
         geolocationMock.getCurrentPosition.onCall(2).returns(nextPositionDeferred.promise);
 
-        // Click before initial position has been determined.
+        // Click before the initial position has been determined.
         component.centerOnMe();
 
+        // Resolve the initial position.
         geolocationDeferred.resolve({ coords: { longitude: 6.09, latitude: 46.18 } });
         tick();
 
+        // The map is correctly centered on the initial position.
+        expect(panToSpy.args[0]).to.eql([ L.latLng(46.18, 6.09), { animate: true } ]);
+        expect(panToSpy).to.have.callCount(1);
+
+        // panTo calls setView
+        expect(setViewSpy.args[1]).to.eql([ L.latLng(46.18, 6.09), 15, { pan: { animate: true } } ]);
         expect(setViewSpy).to.have.callCount(2);
-        expectMapViewSet(setViewSpy.args[1], L.latLng(46.18, 6.09), 15, { animate: true });
+
         expect(component.mapMessage).to.equal(undefined);
 
+        // Resolve the second position.
         currentPositionDeferred.resolve({ coords: { longitude: 24, latitude: 42 } });
         tick();
 
+        // Check that nothing happens.
+        expect(panToSpy).to.have.callCount(1);
         expect(setViewSpy).to.have.callCount(2);
         expect(component.mapMessage).to.equal(undefined);
       }));
     });
-
-    function expectMapViewSet(actual, coordinates, zoom, options?: any) {
-
-      if (coordinates instanceof L.LatLng) {
-        expect(actual[0]).to.be.an.instanceof(L.LatLng);
-        expect(actual[0].lng).to.equal(coordinates.lng);
-        expect(actual[0].lat).to.equal(coordinates.lat);
-      } else {
-        expect(actual[0]).to.eql(coordinates);
-      }
-
-      expect(actual[1]).to.equal(zoom);
-
-      const actualOptions = actual[2];
-      if (options) {
-        for (let property in options) {
-          expect(actualOptions[property], `options.${property}`).to.eql(options[property]);
-        }
-      } else {
-        expect(actualOptions).to.equal(undefined);
-      }
-
-      expect(actual).to.have.lengthOf.at.most(3);
-    }
   });
 });

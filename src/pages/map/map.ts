@@ -69,7 +69,9 @@ export class MapPage {
    */
   centerOnMe() {
     if (!this.isGeolocationInProgress()) {
-      this.getCurrentPosition().then(currentPosition => this.centerMap(currentPosition));
+      this.getCurrentPosition()
+        .then(currentPosition => this.centerMap(currentPosition))
+        .catch(() => { /* Avoid unhandled promise rejection (warning already logged in getCurrentPosition) */ });
     }
   }
 
@@ -123,15 +125,14 @@ export class MapPage {
       if (turf.inside(currentPosition, ONEX_BBOX)) {
         this.centerMap(currentPosition);
       }
-    }).catch(() => { /* do nothing */ });
+    }).catch(() => { /* Avoid unhandled promise rejection (warning already logged in getCurrentPosition) */ });
   }
 
   /**
    * Gets the user's current position, displaying a message on the map while it
    * is being determined.
    *
-   * @param {function} [action] - An optional action to execute once the position is available.
-   * @returns {Promise<UserPosition>} A GeoJSON point feature.
+   * @returns {Promise<UserPosition>} A promise which will be resolved with a GeoJSON point feature.
    */
   private getCurrentPosition(): Promise<UserPosition> {
 
@@ -143,27 +144,27 @@ export class MapPage {
       .then(result => {
         this.setGeolocationDone();
         return turf.point([ result.coords.longitude, result.coords.latitude ]);
-      }, err => {
-        this.setGeolocationDone();
+      }).catch(err => {
+        this.setGeolocationDone(this.translateService.instant('pages.map.geolocationError'));
         Print.warn('Could not get user position', err);
         return Promise.reject(err);
       });
   }
 
   /**
-   * Centers the map on the specified position at zoom level 15.
+   * Centers the map on the specified position.
    *
    * @param {UserPosition} The position to center the map on.
    */
   private centerMap(position: UserPosition) {
-    this.map.setView(turfPointToLeafletLatLng(position), 15, { animate: true });
+    this.map.panTo(turfPointToLeafletLatLng(position), { animate: true });
   }
 
   /**
    * Marks geolocation as complete and hides the corresponding message on the map.
    */
-  private setGeolocationDone() {
-    this.mapMessage = undefined;
+  private setGeolocationDone(message?: string) {
+    this.mapMessage = message;
     this.geolocationInProgress = false;
   }
 
