@@ -17,7 +17,7 @@ describe('App', function() {
       await page.navigateTo('/');
     });
 
-    it('should have a title saying Carte', async function() {
+    it('should have the correct title', async function() {
       await expect(page.getTitle()).to.eventually.equal('BioPocket');
     });
   })
