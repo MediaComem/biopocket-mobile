@@ -12,16 +12,18 @@ import './rxjs';
 
 import { HomePage } from '../pages/home/home';
 import { MapPage } from '../pages/map/map';
-import { translateModuleForRoot } from '../utils/i18n';
-import { AppComponent } from './app.component';
+import LocationDetails from '../popovers/location-details/location-details';
 import LocationsModule from '../providers/locations-service/locations-module';
 import EnvService from '../providers/env-service/env-service';
+import { translateModuleForRoot } from '../utils/i18n';
+import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomePage,
-    MapPage
+    MapPage,
+    LocationDetails
   ],
   imports: [
     BrowserModule,
@@ -37,7 +39,8 @@ import EnvService from '../providers/env-service/env-service';
   entryComponents: [
     AppComponent,
     HomePage,
-    MapPage
+    MapPage,
+    LocationDetails
   ],
   providers: [
     Geolocation,
