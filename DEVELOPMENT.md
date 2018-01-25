@@ -13,6 +13,7 @@
 - [Internationalization](#internationalization)
   - [Message format interpolation](#message-format-interpolation)
 - [RxJS Operators](#rxjs-operators)
+- [TODO](#todo)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -240,6 +241,27 @@ This file is already imported:
 If you do not import `spec/chai.ts` and your test does not import the application module either,
 you might have a warning that some RxJS operators are not available.
 In that case, import `src/app/rxjs.ts` to solve the issue.
+
+
+
+## TODO
+
+* Remove fixed dependency on `postcss` when Ionic issue has been fixed.
+
+  Updating `@ionic/app-scripts` to 3.1.8 caused the following warning to be displayed when starting the app:
+
+  ```
+  [17:10:06]  sass started ...
+  Without `from` option PostCSS could generate wrong source map and will not find Browserslist config. Set it to CSS file path or to `undefined` to prevent this warning.
+  [17:10:07]  sass finished in 819 ms
+  ```
+
+  This has been temporarily fixed by adding a fixed dependency to `postcss` version 6.0.14
+  (`@ionic/app-scripts` is currently incompatible with the latest version of this dependency).
+
+  See https://github.com/ionic-team/ionic/issues/13763
+
+  The new dependency should be removed with `npm uninstall postcss` once the issue has been fixed by the Ionic team.
 
 
 
