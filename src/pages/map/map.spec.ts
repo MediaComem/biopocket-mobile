@@ -75,7 +75,6 @@ describe('MapPage', function () {
     component = fixture.componentInstance;
 
     backend = TestBed.get(ConnectionBackend) as MockBackend;
-    // backend.connections.subscribe((connection: any) => { lastConnection = connection });
   });
 
   afterEach(function () {
@@ -227,17 +226,17 @@ describe('MapPage', function () {
         panToSpy = spy(map, 'panTo');
         setViewSpy = spy(map, 'setView');
 
-        expect(geolocationMock.getCurrentPosition).to.have.callCount(0);
-        expect(setViewSpy).to.have.callCount(0);
+        expect(geolocationMock.getCurrentPosition).to.have.not.been.called;
+        expect(setViewSpy).to.have.not.been.called;
 
         expect(component.mapMessage).to.equal(undefined);
 
         component.onMapReady(map);
 
-        expect(geolocationMock.getCurrentPosition).to.have.callCount(1);
-        expect(panToSpy).to.have.callCount(0);
+        expect(geolocationMock.getCurrentPosition).to.have.been.calledOnce;
+        expect(panToSpy).to.have.not.been.called;
         expect(setViewSpy).to.have.been.calledWith([46.183541, 6.100234], 15);
-        expect(setViewSpy).to.have.callCount(1);
+        expect(setViewSpy).to.have.been.calledOnce;
 
         expect(component.mapMessage).to.equal(fr.pages.map.geolocation);
       });
@@ -250,11 +249,11 @@ describe('MapPage', function () {
         expect(component.mapMessage).to.equal(undefined);
 
         expect(panToSpy.args[0]).to.eql([L.latLng(46.18, 6.09), { animate: true }]);
-        expect(panToSpy).to.have.have.been.calledOnce;
+        expect(panToSpy).to.have.been.calledOnce;
 
         // panTo calls setView
         expect(setViewSpy.args[1]).to.eql([L.latLng(46.18, 6.09), 15, { pan: { animate: true } }]);
-        expect(setViewSpy).to.have.have.been.calledTwice;
+        expect(setViewSpy).to.have.been.calledTwice;
       }));
 
       it('should leave the map centered on Onex if the user is not there', fakeAsync(function () {
