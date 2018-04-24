@@ -18,7 +18,8 @@ import { spy, stub } from 'sinon';
 
 import { expect } from '../../spec/chai';
 import { createPlatformMock } from '../../spec/mocks';
-import { Deferred, restoreSpyOrStub } from '../../spec/utils';
+import { asSpy, restoreSpy } from '../../spec/sinon';
+import { Deferred } from '../../spec/utils';
 import { ENV as MockEnv } from '../environments/environment.test';
 import { fr } from '../locales';
 import { HomePage } from '../pages/home/home';
@@ -27,7 +28,6 @@ import EnvService from '../providers/env-service/env-service';
 import LocationsModule from '../providers/locations-service/locations-module';
 import { translateModuleForRoot } from '../utils/i18n';
 import { AppComponent, MenuItem } from './app.component';
-
 
 describe('AppComponent', () => {
   let fixture;
@@ -83,6 +83,13 @@ describe('AppComponent', () => {
       set: {
         entryComponents: [HomePage, MapPage]
       }
+    }).overrideComponent(MapPage, {
+      set: {
+        // Replacing the map page's template avoids an actual map being rendered. This avoids a lot
+        // of things being triggered in the map page (such as fetching locations) so that we don't
+        // have to worry about mocking it here.
+        template: '<p>Map</p>'
+      }
     });
   });
 
@@ -102,7 +109,7 @@ describe('AppComponent', () => {
   });
 
   afterEach(() => {
-    restoreSpyOrStub(moment.locale);
+    restoreSpy(moment.locale);
   });
 
   it('should be initialized', async () => {
@@ -120,7 +127,7 @@ describe('AppComponent', () => {
     expect(splashScreenMock.hide.called, 'splashScreen.hide called').to.equal(false);
     expect(statusBarMock.styleDefault.called, 'statusBar.styleDefault called').to.equal(false);
 
-    expect(moment.locale['args'], 'moment.locale called').to.eql([['fr']]);
+    expect(asSpy(moment.locale).args, 'moment.locale called').to.eql([['fr']]);
 
     expect(translateService.setDefaultLang.args, 'translateService.setDefaultLang called').to.eql([['fr']]);
     expect(translateService.setTranslation.args, 'translateService.setTranslation called').to.eql([['fr', fr]]);

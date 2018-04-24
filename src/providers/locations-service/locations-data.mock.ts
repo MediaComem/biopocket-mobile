@@ -1,3 +1,5 @@
+import { Location } from '../../models/location';
+
 export default [
   {
     id: 'c821bc0f-85b4-44d5-9bbe-a30cf197c30a',
@@ -63,4 +65,4 @@ export default [
     createdAt: '2000-01-01T16:30:00.123Z',
     updatedAt: '2000-02-03T17:00:00.123Z'
   }
-];
+].map(data => new Location(data));

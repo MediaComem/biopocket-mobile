@@ -80,8 +80,8 @@ describe('Location Object', function () {
 
     expect(locationObj.geometry.type, 'locationObj.geometry.type').to.equal(locationData.geometry.type);
     // We swaps coordinates value when creating the Location so that they're in the right order for Leaflet.
-    expect(locationObj.geometry.coordinates[0], 'locationObj.geometry.coordinates[0]').to.equal(locationData.geometry.coordinates[1]);
-    expect(locationObj.geometry.coordinates[1], 'locationObj.geometry.coordinates[1]').to.equal(locationData.geometry.coordinates[0]);
+    expect(locationObj.geometry.coordinates[0], 'locationObj.geometry.coordinates[0]').to.equal(locationData.geometry.coordinates[0]);
+    expect(locationObj.geometry.coordinates[1], 'locationObj.geometry.coordinates[1]').to.equal(locationData.geometry.coordinates[1]);
 
     expect(locationObj.address.street, 'locationObj.address.street').to.equal(locationData.address.street);
     expect(locationObj.address.zipCode, 'locationObj.address.zipCode').to.equal(locationData.address.zipCode);

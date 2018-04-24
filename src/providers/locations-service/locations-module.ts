@@ -1,11 +1,11 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from "@angular/core";
 
 import LocationsService from "../../providers/locations-service/locations-service";
-import ApiModule from "../../providers/api-service/api-module";
 
 @NgModule({
   imports: [
-    ApiModule
+    HttpClientModule
   ],
   providers: [
     LocationsService

@@ -121,7 +121,8 @@ export class MapPage {
    * Also adds a callback to react at a click on the marker.
    */
   private addLocationToMap(location: Location) {
-    const marker = new Marker(location.id, location.geometry.coordinates, { icon: defIcon });
+    const coords = location.geometry.coordinates;
+    const marker = new Marker(location.id, [ coords[1], coords[0] ], { icon: defIcon });
     marker.on('click', e => this.onLocationClicked(<L.LeafletMouseEvent>e));
     this.layers.push(marker);
   }

@@ -1,19 +1,22 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
-import ApiService from '../api-service/api-service';
 import { Location } from '../../models';
 
+export type FetchLocationsParams = {
+  bbox?: string;
+};
+
 /**
- * Handles request on the BioPocket API that are related to the management of Locations of interest 
+ * Handles request on the BioPocket API that are related to the management of Locations of interest.
  */
 @Injectable()
 export default class LocationsService {
 
-  private resourceName: string = '/locations'
+  private resourcePath: string = '/locations'
 
-  constructor(private api: ApiService) { }
+  constructor(private httpClient: HttpClient) { }
 
   /**
    * Fetch all the locations from the backend
@@ -22,15 +25,8 @@ export default class LocationsService {
    * @param {string} options.bbox - A string representing the bbox that the returned points must be within
    * @returns {Observable<Location>} An Observable of a Location array
    */
-  fetchAll(options?: any): Observable<Location[]> {
-    const request = this.api.get(this.resourceName)
-    if (options && options.bbox) request.setSearchParam('bbox', options.bbox);
-    return request.execute()
-      .map((res: Response) => {
-        return res.json().map((locData: Object) => {
-          return new Location(locData);
-        })
-      });
+  fetchAll(params: FetchLocationsParams = {}): Observable<Location[]> {
+    return this.httpClient.get<any[]>(this.resourcePath, { params }).map(data => data.map(parseApiLocation));
   }
 
   /**
@@ -39,11 +35,11 @@ export default class LocationsService {
    * @returns {Observable<Location>} An Observable of a Location
    */
   fetchOne(id: string): Observable<Location> {
-    return this.api.get(`${this.resourceName}/${id}`)
-      .execute()
-      .map((res: Response) => {
-        return new Location(res.json());
-      });
+    return this.httpClient.get(`${this.resourcePath}/${id}`).map(parseApiLocation);
   }
 
+}
+
+function parseApiLocation(data: any): Location {
+  return new Location(data);
 }
