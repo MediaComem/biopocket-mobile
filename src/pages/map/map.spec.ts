@@ -23,6 +23,7 @@ import LocationsService from '../../providers/locations-service/locations-servic
 import { expect } from '../../../spec/chai';
 import { resetStub } from '../../../spec/sinon';
 import { translateModuleForRoot } from '../../utils/i18n';
+import { observableOf, observableThatThrows } from '../../utils/observable';
 import { MapPage } from './map';
 
 type LocationsServiceMock = Partial<LocationsService>;
@@ -50,8 +51,8 @@ describe('MapPage', function () {
     };
 
     locationsServiceMock = {
-      fetchAll: stub().returns(Observable.of([])),
-      fetchOne: stub().returns(Observable.throw('No result mocked for fetchOne'))
+      fetchAll: stub().returns(observableOf([])),
+      fetchOne: stub().returns(observableThatThrows('No result mocked for fetchOne'))
     };
 
     navControllerMock = {};
@@ -123,7 +124,7 @@ describe('MapPage', function () {
 
     it('should load location points on the map', async function () {
 
-      resetStub(locationsServiceMock.fetchAll).returns(Observable.of(locationsDataMock));
+      resetStub(locationsServiceMock.fetchAll).returns(observableOf(locationsDataMock));
 
       expect(component.layers).to.be.an('array');
       expect(component.layers).to.have.length(0);
@@ -144,8 +145,8 @@ describe('MapPage', function () {
     it('should reload locations after the map has been panned', async function () {
 
       resetStub(locationsServiceMock.fetchAll, stub => {
-        stub.onCall(0).returns(Observable.of(locationsDataMock.slice(0, 2)));
-        stub.onCall(1).returns(Observable.of(locationsDataMock.slice(1)));
+        stub.onCall(0).returns(observableOf(locationsDataMock.slice(0, 2)));
+        stub.onCall(1).returns(observableOf(locationsDataMock.slice(1)));
       });
 
       fixture.detectChanges();
@@ -180,7 +181,7 @@ describe('MapPage', function () {
     it('should open a Popover when a location\'s marker is clicked', async function () {
 
       resetStub(locationsServiceMock.fetchAll, stub => {
-        stub.returns(Observable.of(locationsDataMock));
+        stub.returns(observableOf(locationsDataMock));
       });
 
       const eMock = {

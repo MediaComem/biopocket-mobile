@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
+import { map } from 'rxjs/operators/map';
 
 import { ApiVersion } from '../../models';
 
@@ -18,7 +19,7 @@ export default class ApiService {
    * @returns {Observable<ApiVersion>} An Observable of an ApiVersion object
    */
   public version(): Observable<ApiVersion> {
-    return this.httpClient.get('/').map(data => new ApiVersion(data));
+    return this.httpClient.get('/').pipe(map(data => new ApiVersion(data)));
   }
 
 }
