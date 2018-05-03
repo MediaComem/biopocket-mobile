@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { map } from 'rxjs/operators/map';
 
 import { Location } from '../../models';
 
@@ -26,7 +27,7 @@ export default class LocationsService {
    * @returns {Observable<Location>} An Observable of a Location array
    */
   fetchAll(params: FetchLocationsParams = {}): Observable<Location[]> {
-    return this.httpClient.get<any[]>(this.resourcePath, { params }).map(data => data.map(parseApiLocation));
+    return this.httpClient.get<any[]>(this.resourcePath, { params }).pipe(map(data => data.map(parseApiLocation)));
   }
 
   /**
@@ -35,7 +36,7 @@ export default class LocationsService {
    * @returns {Observable<Location>} An Observable of a Location
    */
   fetchOne(id: string): Observable<Location> {
-    return this.httpClient.get(`${this.resourcePath}/${id}`).map(parseApiLocation);
+    return this.httpClient.get(`${this.resourcePath}/${id}`).pipe(map(parseApiLocation));
   }
 
 }

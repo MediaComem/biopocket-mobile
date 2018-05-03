@@ -12,7 +12,6 @@
   - [Example : adding the `node_modules/leaflet/dist/leaflet.css` file in the `www/build/leaflet` folder:](#example--adding-the-node_modulesleafletdistleafletcss-file-in-the-wwwbuildleaflet-folder)
 - [Internationalization](#internationalization)
   - [Message format interpolation](#message-format-interpolation)
-- [RxJS Operators](#rxjs-operators)
 - [End-to-end tests](#end-to-end-tests)
   - [Running the end-to-end tests](#running-the-end-to-end-tests)
     - [Required end-to-end setup](#required-end-to-end-setup)
@@ -250,22 +249,6 @@ translateService.get({ RES: 2, CAT: 2 })
 ```
 
 See the [format guide][messageformat-guide] for more information.
-
-
-
-## RxJS Operators
-
-The RxJS library does not import all operators by default.
-All operators used in code, e.g. `map`, `switchMap`, etc, must be referenced in the `src/app/rxjs.ts` file.
-
-This file is already imported:
-
-* In the application module in `src/app/app.module.ts`, meaning RxJS operators will be available in development code.
-* In the `spec/chai.ts` test file which is included by most test files to use chai expectations with plugins.
-
-If you do not import `spec/chai.ts` and your test does not import the application module either,
-you might have a warning that some RxJS operators are not available.
-In that case, import `src/app/rxjs.ts` to solve the issue.
 
 
 

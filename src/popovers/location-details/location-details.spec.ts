@@ -18,6 +18,7 @@ import locationsDataMock from '../../providers/locations-service/locations-data.
 import LocationsModule from '../../providers/locations-service/locations-module';
 import LocationsService from '../../providers/locations-service/locations-service';
 import { translateModuleForRoot } from '../../utils/i18n';
+import { observableOf } from '../../utils/observable';
 import LocationDetails from '../location-details/location-details';
 
 describe('LocationDetails', function () {
@@ -35,7 +36,7 @@ describe('LocationDetails', function () {
     };
 
     locationsServiceMock = {
-      fetchOne: stub().returns(Observable.of(locationsDataMock[2]))
+      fetchOne: stub().returns(observableOf(locationsDataMock[2]))
     };
 
     TestBed.configureTestingModule({
