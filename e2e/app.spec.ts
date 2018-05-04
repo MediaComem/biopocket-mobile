@@ -1,3 +1,5 @@
+import { distance, point } from '@turf/turf';
+
 // DO NOT MOVE these lines.
 // Environment variables MUST be set BEFORE backend files are imported.
 import { setUp } from './setup';
@@ -11,8 +13,17 @@ import { compareCoordinates } from './utils';
 
 const ONEX_BBOX = {
   southWest: [ 6.086417, 46.173987 ],
-  northEast: [ 6.112753, 46.196898 ]
+  northEast: [ 6.112753, 46.196898 ],
+  padding: []
 };
+
+// Add a 10% padding to latitude & longitude (to make sure markers are displayed well within the screen area).
+ONEX_BBOX.padding.push((ONEX_BBOX.northEast[1] - ONEX_BBOX.southWest[1]) / 10);
+ONEX_BBOX.padding.push((ONEX_BBOX.northEast[0] - ONEX_BBOX.southWest[0]) / 10);
+
+// Compute bounding box width & height in kilometers.
+const ONEX_BBOX_WIDTH = distance(point(ONEX_BBOX.southWest), point([ ONEX_BBOX.northEast[0], ONEX_BBOX.southWest[1] ]));
+const ONEX_BBOX_HEIGHT = distance(point(ONEX_BBOX.southWest), point([ ONEX_BBOX.southWest[0], ONEX_BBOX.northEast[1] ]));
 
 describe('App', function() {
 
@@ -25,6 +36,11 @@ describe('App', function() {
     // Insert 3 random locations into the database and sort them by ascending longitude and latitude.
     locations = await Promise.all(new Array(3).fill(0).map(() => locationFixtures.location({ bbox: ONEX_BBOX })));
     locations.sort((a, b) => compareCoordinates(a.get('geometry'), b.get('geometry')));
+
+    // Set a window size with the same width/height ratio as the Onex bounding box.
+    const windowWidth = 1440;
+    const windowHeight = windowWidth / (ONEX_BBOX_WIDTH / ONEX_BBOX_HEIGHT);
+    await mapPage.setWindowSize(windowWidth, windowHeight)
   });
 
   it('should allow a user to view locations on the map', async function() {
