@@ -11,4 +11,8 @@ export class AbstractPageObject {
   async getTitle(): Promise<string> {
     return browser.getTitle();
   }
+
+  async setWindowSize(width: number, height: number): Promise<void> {
+    await browser.driver.manage().window().setSize(width, height);
+  }
 }

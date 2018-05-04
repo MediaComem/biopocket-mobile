@@ -104,7 +104,6 @@ export function setUp() {
 
   // Hook run before each test to set the window size and wipe the database.
   beforeEach(async function() {
-    await browser.driver.manage().window().setSize(1440, 900);
     await cleanDatabase();
   });
 }
