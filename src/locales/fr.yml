@@ -11,5 +11,5 @@ pages:
     geolocation: "Localisation en cours..."
     geolocationError: "Échec de la localisation"
 popovers:
-  location-details:
+  locationDetails:
     website: "site internet"
