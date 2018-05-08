@@ -8,7 +8,6 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { IonicModule, NavController, PopoverController } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 import * as L from 'leaflet';
-import { MockComponent } from 'ng2-mock-component';
 import { TranslateService } from '@ngx-translate/core';
 import { spy, stub } from 'sinon';
 
@@ -48,8 +47,7 @@ describe('MapPage', function () {
 
     TestBed.configureTestingModule({
       declarations: [
-        MapPage,
-        MockComponent({ template: `<h1>Toto</h1>` })
+        MapPage
       ],
       imports: [
         IonicModule.forRoot(MapPage),
@@ -209,8 +207,10 @@ describe('MapPage', function () {
       component.onLocationClicked(eMock);
 
       expect(popoverCtrlMock.create).to.have.been.calledOnce;
+      expect(popoverCtrlMock.create.args[0]).to.have.lengthOf(3);
       expect(popoverCtrlMock.create.args[0][0]).to.eql(LocationDetails);
       expect(popoverCtrlMock.create.args[0][1]).to.eql({ locationId: eMock.target.id });
+      expect(popoverCtrlMock.create.args[0][2]).to.be.an('object');
 
       expect(popoverMock.present).to.have.calledOnce;
     });

@@ -4,7 +4,6 @@ import { Observable } from 'rxjs/Observable';
 
 import ApiService from '../api-service/api-service';
 import { Location } from '../../models';
-import Print from '../../utils/print';
 
 /**
  * Handles request on the BioPocket API that are related to the management of Locations of interest 

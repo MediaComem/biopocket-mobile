@@ -10,3 +10,6 @@ pages:
     title: "Carte"
     geolocation: "Localisation en cours..."
     geolocationError: "Échec de la localisation"
+popovers:
+  location-details:
+    website: "site internet"

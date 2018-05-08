@@ -1,20 +1,23 @@
 // Mocha global variables (for Windows)
 /// <reference path="../../../node_modules/@types/mocha/index.d.ts" />
 
-import { TestBed, fakeAsync, tick, async } from '@angular/core/testing';
-import { ConnectionBackend, ResponseOptions, Http } from '@angular/http';
+import { TestBed, async } from '@angular/core/testing';
+import { ConnectionBackend } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
 import { IonicModule, ViewController, NavParams } from 'ionic-angular';
-import { stub, spy } from 'sinon';
+import { TranslateService } from '@ngx-translate/core';
+import { stub } from 'sinon';
 
 import { expect } from '../../../spec/chai';
 import { ENV as MockEnv } from '../../environments/environment.test';
-import LocationDetails from '../location-details/location-details';
+import { fr } from '../../locales';
+import { Location } from '../../models';
 import EnvService from '../../providers/env-service/env-service';
 import locationsDataMock from '../../providers/locations-service/locations-data.mock';
 import LocationsModule from '../../providers/locations-service/locations-module';
 import LocationsService from '../../providers/locations-service/locations-service';
-import { Location } from '../../models';
+import { translateModuleForRoot } from '../../utils/i18n';
+import LocationDetails from '../location-details/location-details';
 
 describe('LocationDetails', function () {
   let component: LocationDetails, fixture;
@@ -44,7 +47,8 @@ describe('LocationDetails', function () {
       ],
       imports: [
         IonicModule.forRoot(LocationDetails),
-        LocationsModule
+        LocationsModule,
+        translateModuleForRoot
       ],
       providers: [
         { provide: ViewController, useValue: viewControllerMock },
@@ -53,8 +57,13 @@ describe('LocationDetails', function () {
         { provide: EnvService, useValue: MockEnv },
         { provide: LocationsService, useValue: locationsServiceMock }
       ]
-    }).compileComponents();
+    });
+
+    const translateService = TestBed.get(TranslateService);
+    translateService.setTranslation('fr', fr);
+    translateService.use('fr');
   }));
+
 
   beforeEach(function () {
     fixture = TestBed.createComponent(LocationDetails)

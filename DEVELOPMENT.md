@@ -245,7 +245,7 @@ In that case, import `src/app/rxjs.ts` to solve the issue.
 
 ## Documentation
 
-Here are the links to the documentation of the technologies, framework or librairies used in the project :
+Here are the links to the documentation of the technologies, framework or libraries used in the project :
 
 * [Ionic][ionic-doc]
 * [Angular2][ng2-doc]

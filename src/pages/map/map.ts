@@ -11,7 +11,7 @@ import Marker from '../../models/marker';
 import LocationDetails from '../../popovers/location-details/location-details';
 import LocationsService from '../../providers/locations-service/locations-service';
 import { turfPointToLeafletLatLng } from '../../utils/geo';
-import { defIcon, redIcon } from '../../utils/leafletIcons';
+import { defIcon } from '../../utils/leafletIcons';
 import Print from '../../utils/print';
 
 const LOG_REF: string = "[MapPage]";
