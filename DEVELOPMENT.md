@@ -13,6 +13,7 @@
 - [Internationalization](#internationalization)
   - [Message format interpolation](#message-format-interpolation)
 - [RxJS Operators](#rxjs-operators)
+- [Documentation](#documentation)
 - [TODO](#todo)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -242,6 +243,18 @@ If you do not import `spec/chai.ts` and your test does not import the applicatio
 you might have a warning that some RxJS operators are not available.
 In that case, import `src/app/rxjs.ts` to solve the issue.
 
+## Documentation
+
+Here are the links to the documentation of the technologies, framework or libraries used in the project :
+
+* [Ionic][ionic-doc]
+* [Angular2][ng2-doc]
+* [ngx-leaflet][ngl-doc] (This is the component that displays leaflet maps)
+* [Leaflet][leaflet-doc]
+* [Lodash][_doc]
+* [Chai][chai-doc] (The library used for making assumptions in the tests)
+* [Sinon][sinon-doc] (The library used in the test to mock and spy on things)
+* [Turf][turf-doc] (The library used to manipulate geographical information)
 
 
 ## TODO
@@ -263,7 +276,18 @@ In that case, import `src/app/rxjs.ts` to solve the issue.
 
   The new dependency should be removed with `npm uninstall postcss` once the issue has been fixed by the Ionic team.
 
+* Remove calls to `detectChanges()` when the issue from `ngx-leaflet` has been fixed or a workaround has been deployed.
 
+  Updating `ngx-leaflet` to a version higher than 2.5.x caused an issue when updating markers visible on the map.
+  Previously, the library automatically notified Angular when changes where happening inside a Leaflet event (such as `onMapMoved()`).
+  With 2.6.x and onward, the decision has been made (although the author is still not sure about it) to remove this automatic update.
+
+  Thus, when updating a component's property from inside a leaflet event, Angular does not detect those changes and does not update itself accordingly.
+  To solve this issue, one has to manually tell angular when changes are made.
+
+  This can be done by importing the `ChangeDetectorRef` angular component from `@angular/core` and using its `detectChanges()` method the desired changes.
+
+  For more information, see https://github.com/Asymmetrik/ngx-leaflet/issues/123 and https://github.com/Asymmetrik/ngx-leaflet#a-note-about-change-detection
 
 [ionic]: https://ionicframework.com
 [ionic-env-vars]: https://github.com/gshigeto/ionic-environment-variables
@@ -273,3 +297,11 @@ In that case, import `src/app/rxjs.ts` to solve the issue.
 [ngx-translate]: http://www.ngx-translate.com
 [webpack-resolve]: https://webpack.js.org/configuration/resolve/
 [yaml]: http://yaml.org
+[ng2-doc]: https://angular.io/docs
+[ngl-doc]: https://github.com/Asymmetrik/ngx-leaflet
+[leaflet-doc]: http://leafletjs.com/reference-1.3.0.html
+[_doc]: https://lodash.com/docs/4.17.4
+[chai-doc]: http://chaijs.com/api/
+[sinon-doc]: http://sinonjs.org/releases/v4.2.1/
+[turf-doc]: http://turfjs.org/docs/
+[ionic-doc]: https://ionicframework.com/docs/

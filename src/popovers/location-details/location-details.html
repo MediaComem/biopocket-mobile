@@ -1,0 +1,9 @@
+<ion-list *ngIf="location">
+  <ion-list-header>{{ location.shortName }}</ion-list-header>
+  <ion-item>{{location.name}}</ion-item>
+  <ion-item>{{ location.address.number }}, {{ location.address.street }}</ion-item>
+  <ion-item>{{ location.address.zipCode }} - {{ location.address.city }}</ion-item>
+  <ion-item>{{ location.address.state }}</ion-item>
+  <ion-item><a href="tel:{{ location.phone }}">{{ location.phone }}</a></ion-item>
+  <ion-item><a href="{{ location.siteUrl }}">{{ 'popovers.locationsDetails.website' | translate }}</a></ion-item>
+</ion-list>

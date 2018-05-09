@@ -15,10 +15,6 @@ export default class LocationsService {
 
   constructor(private api: ApiService) { }
 
-  testCall() {
-    return "called";
-  }
-
   /**
    * Fetch all the locations from the backend
    * These locations can be filtered by passing an `options.bbox` argument (see here : https://mediacomem.github.io/biopocket-backend/api/#locations_get)
@@ -34,6 +30,19 @@ export default class LocationsService {
         return res.json().map((locData: Object) => {
           return new Location(locData);
         })
+      });
+  }
+
+  /**
+   * Fetches one location from the backend, based on the given `id` argument.
+   * @param {string} id The location id to fetch
+   * @returns {Observable<Location>} An Observable of a Location
+   */
+  fetchOne(id: string): Observable<Location> {
+    return this.api.get(`${this.resourceName}/${id}`)
+      .execute()
+      .map((res: Response) => {
+        return new Location(res.json());
       });
   }
 

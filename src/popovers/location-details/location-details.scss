@@ -1,0 +1,9 @@
+$location-details-margin: 10px;
+
+.location-details .popover-content {
+  bottom: 0px;
+  width: calc(100vw - 2 * #{$location-details-margin});
+  top: auto !important;
+  left: $location-details-margin !important;
+  margin-bottom: $location-details-margin;
+}
