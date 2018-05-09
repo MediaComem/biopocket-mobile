@@ -69,7 +69,7 @@ class Geometry {
    */
   constructor(data: any) {
     this.type = data.type;
-    this.coordinates = [data.coordinates[1], data.coordinates[0]];
+    this.coordinates = data.coordinates;
   }
 
 }

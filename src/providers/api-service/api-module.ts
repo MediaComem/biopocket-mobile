@@ -1,13 +1,11 @@
 import { NgModule } from "@angular/core";
-import { HttpModule } from "@angular/http";
-import { RequestBuilderModule } from "ng-request-builder";
+import { HttpClientModule } from "@angular/common/http";
 
 import ApiService from "../../providers/api-service/api-service";
 
 @NgModule({
   imports: [
-    RequestBuilderModule,
-    HttpModule
+    HttpClientModule
   ],
   providers: [
     ApiService

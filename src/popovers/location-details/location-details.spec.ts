@@ -6,6 +6,7 @@ import { ConnectionBackend } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
 import { IonicModule, ViewController, NavParams } from 'ionic-angular';
 import { TranslateService } from '@ngx-translate/core';
+import { Observable } from 'rxjs/Rx';
 import { stub } from 'sinon';
 
 import { expect } from '../../../spec/chai';
@@ -34,11 +35,7 @@ describe('LocationDetails', function () {
     };
 
     locationsServiceMock = {
-      fetchOne: stub().returns({
-        subscribe: callback => {
-          return callback(new Location(locationsDataMock[2]));
-        }
-      })
+      fetchOne: stub().returns(Observable.of(locationsDataMock[2]))
     };
 
     TestBed.configureTestingModule({
