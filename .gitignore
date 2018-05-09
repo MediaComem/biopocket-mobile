@@ -19,6 +19,7 @@ npm-debug.log*
 .sourcemaps/
 .tmp/
 .versions/
+config/e2e.config.ts
 coverage/
 resources/android
 resources/ios

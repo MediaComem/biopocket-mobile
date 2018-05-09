@@ -1,18 +1,24 @@
 language: node_js
+
 node_js:
-  - 8.3.0
+  - 8.9.3
 
 addons:
   apt:
     packages:
       - curl
-      - screen
   chrome: stable
+  postgresql: 9.6
+
+services:
+  - postgresql
 
 env:
-  - NODE_ENV=test
+  - IONIC_E2E_DEBUG=1 IONIC_E2E_STANDALONE_TIMEOUT=60000 IONIC_ENV=test NODE_ENV=test SESSION_SECRET=secret
 
 before_install:
+  - sudo apt-get -qq update
+  - sudo apt-get install postgresql-9.6-postgis-2.3
   - npm install -g cordova ionic
 
 before_script:
@@ -35,15 +41,19 @@ before_script:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
 
-  # Fix permissions for screen
-  - sudo mkdir -p /var/run/screen
-  - sudo chmod 775 /var/run/screen
+  # Copy configuration files for the Travis test environment
+  - cp ./spec/travis/e2e.config.ts ./config/e2e.config.ts
+  - cp ./spec/travis/environment.test.ts ./src/environments/environment.test.ts
 
-  # Run `ionic serve` in the background with screen
-  - screen -dm ionic serve -b -d --address localhost --port 8100
+  # Prepare backend database
+  - psql -U postgres -c 'create database biopocket;'
+  - psql -U postgres -c 'create extension postgis;' biopocket
+  - psql -U postgres -c 'create extension "uuid-ossp";' biopocket
 
-  # Copy the `environment.sample.ts` as `environment.test.ts`
-  - cp ./src/environments/environment.sample.ts ./src/environments/environment.test.ts
+  # Set up & start backend
+  - cd $TRAVIS_BUILD_DIR/backend && npm install
+  - cd $TRAVIS_BUILD_DIR/backend && npm run migrate:test
+  - cd $TRAVIS_BUILD_DIR
 
 after_success:
 
