@@ -30,7 +30,7 @@ export function Deferred() {
    * A newly created Pomise object.
    * Initially in pending state.
    */
-  this.promise = new Promise((resolve, reject) => {
+  this.promise = new Promise((resolve: (result: any) => void, reject: (error: any) => void) => {
     this.resolve = resolve;
     this.reject = reject;
   });

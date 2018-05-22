@@ -1,9 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
-import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import moment from 'moment';
+import { StatusBar } from '@ionic-native/status-bar';
 import { TranslateService } from '@ngx-translate/core';
+import { Nav, Platform } from 'ionic-angular';
+import moment from 'moment';
 import { Observable } from 'rxjs/Rx';
 
 import { fr } from '../locales';
@@ -20,9 +20,14 @@ export class AppComponent {
   activeItem: MenuItem;
 
   rootPage: any;
-  menuItems: MenuItem[];
+  readonly menuItems: MenuItem[];
 
-  constructor(private platform: Platform, private statusBar: StatusBar, private splashScreen: SplashScreen, private translateService: TranslateService) {
+  constructor(
+    private readonly platform: Platform,
+    private readonly statusBar: StatusBar,
+    private readonly splashScreen: SplashScreen,
+    private readonly translateService: TranslateService
+  ) {
 
     this.initializeApp();
 
@@ -89,7 +94,7 @@ export class MenuItem {
    * @param {any} component The page component to decorate
    * @param {TranslateService} translateService A translate service used by the `title` property
    */
-  constructor(public pageRef: string, public component: any, private translateService: TranslateService) {
+  constructor(readonly pageRef: string, readonly component: any, private readonly translateService: TranslateService) {
   }
 
   /**

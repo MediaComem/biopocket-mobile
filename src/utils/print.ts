@@ -1,9 +1,10 @@
+/* tslint:disable:no-console */
 import { ENV } from '@app/env';
 
 /**
  * An array of string, each of which is the name of an environment in which this service will log on the console
  */
-const whitelist: string[] = [
+const whitelist = [
   'development'
 ];
 
@@ -14,22 +15,30 @@ const whitelist: string[] = [
 const Print = {
 
   log(...values: any[]): void {
-    isAllowed(ENV.environment) && console.log(values[0], ...values.slice(1));
+    if (isAllowed(ENV.environment)) {
+      console.log(values[0], ...values.slice(1));
+    }
   },
 
   debug(...values: any[]): void {
-    isAllowed(ENV.environment) && console.debug(values[0], ...values.slice(1));
+    if (isAllowed(ENV.environment)) {
+      console.debug(values[0], ...values.slice(1));
+    }
   },
 
   warn(...values: any[]): void {
-    isAllowed(ENV.environment) && console.warn(values[0], ...values.slice(1));
+    if (isAllowed(ENV.environment)) {
+      console.warn(values[0], ...values.slice(1));
+    }
   },
 
   error(...values: any[]): void {
-    isAllowed(ENV.environment) && console.error(values[0], ...values.slice(1));
-  },
+    if (isAllowed(ENV.environment)) {
+      console.error(values[0], ...values.slice(1));
+    }
+  }
 
-}
+};
 
 /**
  * Indicates wether or not the given `env` string matches any of the whitelisted environments

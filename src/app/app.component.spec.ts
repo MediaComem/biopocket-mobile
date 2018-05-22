@@ -2,18 +2,19 @@
 /// <reference path="../../node_modules/@types/mocha/index.d.ts" />
 
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
-import { Http, ConnectionBackend } from '@angular/http';
+import { ConnectionBackend, Http } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
 import { By } from '@angular/platform-browser';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
-import { MomentModule } from 'angular2-moment';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
-import { IonicModule, Platform } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
-import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import moment from 'moment';
+import { StatusBar } from '@ionic-native/status-bar';
 import { TranslateService } from '@ngx-translate/core';
+import { MomentModule } from 'angular2-moment';
+import { IonicModule, Platform } from 'ionic-angular';
+import { noop } from 'lodash';
+import moment from 'moment';
 import { spy, stub } from 'sinon';
 
 import { expect } from '../../spec/chai';
@@ -81,7 +82,7 @@ describe('AppComponent', () => {
       ]
     }).overrideModule(BrowserDynamicTestingModule, {
       set: {
-        entryComponents: [HomePage, MapPage]
+        entryComponents: [ HomePage, MapPage ]
       }
     }).overrideComponent(MapPage, {
       set: {
@@ -127,11 +128,11 @@ describe('AppComponent', () => {
     expect(splashScreenMock.hide.called, 'splashScreen.hide called').to.equal(false);
     expect(statusBarMock.styleDefault.called, 'statusBar.styleDefault called').to.equal(false);
 
-    expect(asSpy(moment.locale).args, 'moment.locale called').to.eql([['fr']]);
+    expect(asSpy(moment.locale).args, 'moment.locale called').to.eql([ [ 'fr' ] ]);
 
-    expect(translateService.setDefaultLang.args, 'translateService.setDefaultLang called').to.eql([['fr']]);
-    expect(translateService.setTranslation.args, 'translateService.setTranslation called').to.eql([['fr', fr]]);
-    expect(translateService.use.args, 'translateService.use called').to.eql([['fr']]);
+    expect(translateService.setDefaultLang.args, 'translateService.setDefaultLang called').to.eql([ [ 'fr' ] ]);
+    expect(translateService.setTranslation.args, 'translateService.setTranslation called').to.eql([ [ 'fr', fr ] ]);
+    expect(translateService.use.args, 'translateService.use called').to.eql([ [ 'fr' ] ]);
 
     fixture.detectChanges();
 
@@ -144,21 +145,21 @@ describe('AppComponent', () => {
     readyDeferred.resolve('READY');
     tick();
 
-    expect(splashScreenMock.hide.args, 'splashScreen.hide() called').to.eql([[]]);
-    expect(statusBarMock.styleDefault.args, 'statusBar.styleDefault() called').to.eql([[]]);
+    expect(splashScreenMock.hide.args, 'splashScreen.hide() called').to.eql([ [] ]);
+    expect(statusBarMock.styleDefault.args, 'statusBar.styleDefault() called').to.eql([ [] ]);
   }));
 
   describe('#openPage', () => {
     it('should navigate to the page\'s component', () => {
 
-      const pageComponentMock = function () { };
+      const pageComponentMock = noop;
 
       component.openPage({
         title: 'Foo',
         component: pageComponentMock
       });
 
-      expect(component.nav.setRoot.args, 'nav.setRoot() called once with the page\'s component').to.eql([[pageComponentMock]]);
+      expect(component.nav.setRoot.args, 'nav.setRoot() called once with the page\'s component').to.eql([ [ pageComponentMock ] ]);
     });
   });
 });

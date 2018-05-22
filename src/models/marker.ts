@@ -1,11 +1,8 @@
-import { MarkerOptions, LatLngExpression, Marker as LeafletMarker} from 'leaflet';
-
-interface MarkerData {
-}
+import { LatLngExpression, Marker as LeafletMarker, MarkerOptions } from 'leaflet';
 
 export default class Marker extends LeafletMarker {
 
-  constructor(public id: string, coordinates: LatLngExpression, options: MarkerOptions, public data?: MarkerData) {
+  constructor(public id: string, coordinates: LatLngExpression, options: MarkerOptions, public data?: {}) {
     super(coordinates, options);
   }
 

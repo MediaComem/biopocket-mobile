@@ -11,10 +11,10 @@ describe('Location Object', function () {
   const locationRequiredKeys = [
     'id', 'name', 'description', 'phone', 'photoUrl', 'siteUrl', 'geometry', 'address', 'properties', 'createdAt', 'updatedAt'
   ];
-  const locationOptionalKeys = ['shortName'];
-  const geometryRequiredKeys = ['type', 'coordinates'];
-  const addressRequiredKeys = ['street', 'city', 'zipCode', 'state'];
-  const addressOptionalKeys = ['number'];
+  const locationOptionalKeys = [ 'shortName' ];
+  const geometryRequiredKeys = [ 'type', 'coordinates' ];
+  const addressRequiredKeys = [ 'street', 'city', 'zipCode', 'state' ];
+  const addressOptionalKeys = [ 'number' ];
 
   beforeEach(function () {
     locationData = {
@@ -26,7 +26,7 @@ describe('Location Object', function () {
       siteUrl: 'http://example.com',
       geometry: {
         type: 'Point',
-        coordinates: [56, 9]
+        coordinates: [ 56, 9 ]
       },
       address: {
         street: 'Riverside Drive',
@@ -37,15 +37,15 @@ describe('Location Object', function () {
       properties: {},
       createdAt: '2000-01-01T16:30:00.123Z',
       updatedAt: '2000-02-03T17:00:00.123Z'
-    }
+    };
   });
 
   it('should only have correct required values', function () {
     locationObj = new Location(locationData);
     compareRequiredValues(locationObj, locationData);
 
-    expect(locationObj.shortName).to.be.undefined;
-    expect(locationObj.address.number).to.be.undefined;
+    expect(locationObj.shortName).to.equal(undefined);
+    expect(locationObj.address.number).to.equal(undefined);
 
     expect(locationObj, 'The new Location has more or less keys than expected').to.have.all.keys(locationRequiredKeys);
     expect(locationObj.geometry, 'The new Location\'s geometry property has more or less keys than expected.').to.have.all.keys(geometryRequiredKeys);
@@ -53,7 +53,7 @@ describe('Location Object', function () {
   });
 
   it('should have all correct values', function () {
-    locationData.shortName = "Somewhere";
+    locationData.shortName = 'Somewhere';
     locationData.address.number = 125;
 
     locationObj = new Location(locationData);
@@ -70,26 +70,26 @@ describe('Location Object', function () {
       .to.have.all.keys(addressRequiredKeys.concat(addressOptionalKeys));
   });
 
-  function compareRequiredValues(locationObj, locationData) {
-    expect(locationObj.id, 'locationObj.id').to.equal(locationData.id);
-    expect(locationObj.name, 'locationObj.name').to.equal(locationData.name);
-    expect(locationObj.description, 'locationObj.description').to.equal(locationData.description);
-    expect(locationObj.phone, 'locationObj.phone').to.equal(locationData.phone);
-    expect(locationObj.photoUrl, 'locationObj.photoUrl').to.equal(locationData.photoUrl);
-    expect(locationObj.siteUrl, 'locationObj.siteUrl').to.equal(locationData.siteUrl);
+  function compareRequiredValues(actual, expected) {
+    expect(actual.id, 'location.id').to.equal(expected.id);
+    expect(actual.name, 'location.name').to.equal(expected.name);
+    expect(actual.description, 'location.description').to.equal(expected.description);
+    expect(actual.phone, 'location.phone').to.equal(expected.phone);
+    expect(actual.photoUrl, 'location.photoUrl').to.equal(expected.photoUrl);
+    expect(actual.siteUrl, 'location.siteUrl').to.equal(expected.siteUrl);
 
-    expect(locationObj.geometry.type, 'locationObj.geometry.type').to.equal(locationData.geometry.type);
+    expect(actual.geometry.type, 'location.geometry.type').to.equal(expected.geometry.type);
     // We swaps coordinates value when creating the Location so that they're in the right order for Leaflet.
-    expect(locationObj.geometry.coordinates[0], 'locationObj.geometry.coordinates[0]').to.equal(locationData.geometry.coordinates[0]);
-    expect(locationObj.geometry.coordinates[1], 'locationObj.geometry.coordinates[1]').to.equal(locationData.geometry.coordinates[1]);
+    expect(actual.geometry.coordinates[0], 'location.geometry.coordinates[0]').to.equal(expected.geometry.coordinates[0]);
+    expect(actual.geometry.coordinates[1], 'location.geometry.coordinates[1]').to.equal(expected.geometry.coordinates[1]);
 
-    expect(locationObj.address.street, 'locationObj.address.street').to.equal(locationData.address.street);
-    expect(locationObj.address.zipCode, 'locationObj.address.zipCode').to.equal(locationData.address.zipCode);
-    expect(locationObj.address.city, 'locationObj.address.city').to.equal(locationData.address.city);
-    expect(locationObj.address.state, 'locationObj.address.state').to.equal(locationData.address.state);
-    
-    expect(locationObj.properties, 'locationObj.properties').to.equal(locationData.properties);
-    expect(locationObj.createdAt.toISOString(), 'locationObj.createdAt').to.equal(locationData.createdAt);
-    expect(locationObj.updatedAt.toISOString(), 'locationObj.updatedAt').to.equal(locationData.updatedAt);
+    expect(actual.address.street, 'location.address.street').to.equal(expected.address.street);
+    expect(actual.address.zipCode, 'location.address.zipCode').to.equal(expected.address.zipCode);
+    expect(actual.address.city, 'location.address.city').to.equal(expected.address.city);
+    expect(actual.address.state, 'location.address.state').to.equal(expected.address.state);
+
+    expect(actual.properties, 'location.properties').to.equal(expected.properties);
+    expect(actual.createdAt.toISOString(), 'location.createdAt').to.equal(expected.createdAt);
+    expect(actual.updatedAt.toISOString(), 'location.updatedAt').to.equal(expected.updatedAt);
   }
 });

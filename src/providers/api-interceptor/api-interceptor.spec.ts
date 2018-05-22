@@ -1,11 +1,11 @@
 // Mocha global variables (for Windows)
 /// <reference path="../../../node_modules/@types/mocha/index.d.ts" />
 
-import { HttpClient, HttpHeaders, HTTP_INTERCEPTORS, HttpParams, HttpRequest } from '@angular/common/http';
-import { TestBed } from '@angular/core/testing';
+import { HTTP_INTERCEPTORS, HttpClient, HttpRequest } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { TestBed } from '@angular/core/testing';
 import { expect } from 'chai';
-import { compact, isEqual } from 'lodash';
+import { compact } from 'lodash';
 import { Observable } from 'rxjs/Rx';
 
 import { HeadersOrParams, httpRequestMatcher } from '../../../spec/http';
@@ -50,14 +50,14 @@ describe('ApiInterceptor', function () {
     httpTestingCtrl.verify();
   });
 
-  type TestDefinition = {
+  interface TestDefinition {
     method: string;
     body?: any;
     options?: {
       headers?: HeadersOrParams;
       params?: HeadersOrParams;
-    }
-  };
+    };
+  }
 
   // This array defines various HTTP request parameters to use for the following tests.
   const tests: TestDefinition[] = [

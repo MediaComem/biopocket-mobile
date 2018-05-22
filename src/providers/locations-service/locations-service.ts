@@ -5,9 +5,12 @@ import { map } from 'rxjs/operators/map';
 
 import { Location } from '../../models';
 
-export type FetchLocationsParams = {
+export interface FetchLocationsParams {
   bbox?: string;
-};
+  [key: string]: string | string[];
+}
+
+const resourcePath = '/locations';
 
 /**
  * Handles request on the BioPocket API that are related to the management of Locations of interest.
@@ -15,9 +18,7 @@ export type FetchLocationsParams = {
 @Injectable()
 export default class LocationsService {
 
-  private resourcePath: string = '/locations'
-
-  constructor(private httpClient: HttpClient) { }
+  constructor(private readonly httpClient: HttpClient) { }
 
   /**
    * Fetch all the locations from the backend
@@ -27,7 +28,7 @@ export default class LocationsService {
    * @returns {Observable<Location>} An Observable of a Location array
    */
   fetchAll(params: FetchLocationsParams = {}): Observable<Location[]> {
-    return this.httpClient.get<any[]>(this.resourcePath, { params }).pipe(map(data => data.map(parseApiLocation)));
+    return this.httpClient.get<any[]>(resourcePath, { params }).pipe(map(data => data.map(parseApiLocation)));
   }
 
   /**
@@ -36,7 +37,7 @@ export default class LocationsService {
    * @returns {Observable<Location>} An Observable of a Location
    */
   fetchOne(id: string): Observable<Location> {
-    return this.httpClient.get(`${this.resourcePath}/${id}`).pipe(map(parseApiLocation));
+    return this.httpClient.get(`${resourcePath}/${id}`).pipe(map(parseApiLocation));
   }
 
 }

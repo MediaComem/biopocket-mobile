@@ -13,7 +13,7 @@ export class ApiVersion {
    * Creates a new ApiVersion object
    * @param {{version: string}} data An object with at least a `version` property
    */
-  constructor(data: Object) {
+  constructor(data: any) {
     extend(this, pick(data || {}, 'version'));
   }
 

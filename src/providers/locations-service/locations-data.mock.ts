@@ -10,7 +10,7 @@ export default [
     siteUrl: 'http://example.com',
     geometry: {
       type: 'Point',
-      coordinates: [56, 9]
+      coordinates: [ 56, 9 ]
     },
     address: {
       street: 'Riverside Drive',
@@ -21,7 +21,8 @@ export default [
     properties: {},
     createdAt: '2000-01-01T16:30:00.123Z',
     updatedAt: '2000-02-03T17:00:00.123Z'
-  }, {
+  },
+  {
     id: '5e8gh4s8-1c5f-aa44-8r9n-9e8j4s8hjt5j',
     name: 'Random place',
     shortName: 'Random',
@@ -31,7 +32,7 @@ export default [
     siteUrl: 'http://example.com/2',
     geometry: {
       type: 'Point',
-      coordinates: [45, 18]
+      coordinates: [ 45, 18 ]
     },
     address: {
       street: 'Market Street',
@@ -43,7 +44,8 @@ export default [
     properties: {},
     createdAt: '2000-01-01T16:30:00.123Z',
     updatedAt: '2000-02-03T17:00:00.123Z'
-  }, {
+  },
+  {
     id: '8e4fuiwh-e4g5-peok-998k-9e8j4s8hjt5j',
     name: 'Lorem Ipsum',
     description: 'Dolor sit amen',
@@ -52,7 +54,7 @@ export default [
     siteUrl: 'http://example.com/3',
     geometry: {
       type: 'Point',
-      coordinates: [44, 17]
+      coordinates: [ 44, 17 ]
     },
     address: {
       street: 'Market Street',

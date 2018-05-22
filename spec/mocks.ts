@@ -17,7 +17,7 @@ export function createPlatformMock(callback?: (mock: any) => void) {
     ready: stub().resolves('READY'),
     registerBackButtonAction: () => (() => true),
     registerListener: () => (() => true),
-    timeout: (callback: any, timer: number) => setTimeout(callback, timer),
+    timeout: setTimeout,
     win: () => window
   };
 

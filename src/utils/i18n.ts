@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import * as MessageFormat from 'messageformat';
 import { TranslateCompiler, TranslateModule } from '@ngx-translate/core';
+import * as MessageFormat from 'messageformat';
 
 /**
  * This compiler expects ICU syntax and compiles the expressions with messageformat.js
@@ -10,14 +10,14 @@ import { TranslateCompiler, TranslateModule } from '@ngx-translate/core';
  */
 @Injectable()
 export class TranslateMessageFormatCompiler extends TranslateCompiler {
-  private messageFormat: any;
+  private readonly messageFormat: any;
 
   constructor() {
     super();
     this.messageFormat = new MessageFormat();
   }
 
-  compile(value: string, lang: string): string | Function {
+  compile(value: string, lang: string): string | ((...args: any[]) => any) {
     return this.messageFormat.compile(value, lang);
   }
 

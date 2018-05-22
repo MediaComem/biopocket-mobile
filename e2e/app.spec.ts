@@ -7,7 +7,6 @@ setUp();
 
 import * as locationFixtures from '../backend/server/spec/fixtures/location';
 import { expect } from '../spec/chai';
-import { fr } from '../src/locales';
 import { MapPageObject } from './po/map.po';
 import { compareCoordinates } from './utils';
 
@@ -40,7 +39,7 @@ describe('App', function() {
     // Set a window size with the same width/height ratio as the Onex bounding box.
     const windowWidth = 1440;
     const windowHeight = windowWidth / (ONEX_BBOX_WIDTH / ONEX_BBOX_HEIGHT);
-    await mapPage.setWindowSize(windowWidth, windowHeight)
+    await mapPage.setWindowSize(windowWidth, windowHeight);
   });
 
   it('should allow a user to view locations on the map', async function() {
