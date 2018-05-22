@@ -1,7 +1,7 @@
-import { NgModule } from "@angular/core";
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule } from '@angular/common/http';
+import { NgModule } from '@angular/core';
 
-import ApiService from "../../providers/api-service/api-service";
+import ApiService from '../../providers/api-service/api-service';
 
 @NgModule({
   imports: [
@@ -11,4 +11,4 @@ import ApiService from "../../providers/api-service/api-service";
     ApiService
   ]
 })
-export default class ApiModule { };
+export default class ApiModule { }

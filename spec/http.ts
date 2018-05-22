@@ -1,7 +1,5 @@
 import { HttpHeaders, HttpParams, HttpRequest } from '@angular/common/http';
-import { isEqual, isEmpty } from 'lodash';
-
-import { expect } from './chai';
+import { isEmpty, isEqual } from 'lodash';
 
 /**
  * A single value of an HTTP header or query parameter.
@@ -12,13 +10,17 @@ export type HeadersOrParamsValue = boolean | number | string;
  * A plain object that represents the headers or query parameters of an HTTP request. Single or
  * multiple values of various types are permitted.
  */
-export type HeadersOrParams = { [name: string]: HeadersOrParamsValue | HeadersOrParamsValue[]; };
+export interface HeadersOrParams {
+  [name: string]: HeadersOrParamsValue | HeadersOrParamsValue[];
+}
 
 /**
  * A plain object that represents the headers or query parameters of an HTTP request in a normalized
  * format. The value of a header or param is always a string array.
  */
-export type NormalizedHeadersOrParams = { [name: string]: string[]; };
+export interface NormalizedHeadersOrParams {
+  [name: string]: string[];
+}
 
 /**
  * Asserts that the specified HTTP request has the expected properties. If not, an error is thrown
@@ -88,32 +90,38 @@ export function describeHttpRequest(method: string, url: string, body?: any, hea
 
 export function describeHttpRequest(reqOrMethod: HttpRequest<any> | string, url?: string, body?: any, headers?: HttpHeaders | HeadersOrParams, params?: HttpParams | HeadersOrParams): string {
 
-  let method: string;
+  let actualMethod: string;
+  let actualUrl: string;
+  let actualBody: any;
+  let actualHeaders: NormalizedHeadersOrParams;
+  let actualParams: NormalizedHeadersOrParams;
   if (reqOrMethod instanceof HttpRequest) {
-    method = reqOrMethod.method;
-    url = reqOrMethod.url;
-    body = reqOrMethod.body;
-    headers = normalizeHeadersOrParams(reqOrMethod.headers);
-    params = normalizeHeadersOrParams(reqOrMethod.params);
+    actualMethod = reqOrMethod.method;
+    actualUrl = reqOrMethod.url;
+    actualBody = reqOrMethod.body;
+    actualHeaders = normalizeHeadersOrParams(reqOrMethod.headers);
+    actualParams = normalizeHeadersOrParams(reqOrMethod.params);
   } else {
-    method = reqOrMethod;
-    headers = normalizeHeadersOrParams(headers);
-    params = normalizeHeadersOrParams(params);
+    actualMethod = reqOrMethod;
+    actualUrl = url;
+    actualBody = body;
+    actualHeaders = normalizeHeadersOrParams(headers);
+    actualParams = normalizeHeadersOrParams(params);
   }
 
-  let description = `${method} ${url}`;
-  let details = [];
+  let description = `${actualMethod} ${actualUrl}`;
+  const details = [];
 
-  if (body) {
-    details.push(`body ${JSON.stringify(body)}`);
+  if (actualBody) {
+    details.push(`body ${JSON.stringify(actualBody)}`);
   }
 
-  if (headers && !isEmpty(headers)) {
-    details.push(`headers ${JSON.stringify(headers)}`);
+  if (actualHeaders && !isEmpty(actualHeaders)) {
+    details.push(`headers ${JSON.stringify(actualHeaders)}`);
   }
 
-  if (params && !isEmpty(params)) {
-    details.push(`params ${JSON.stringify(params)}`);
+  if (actualParams && !isEmpty(actualParams)) {
+    details.push(`params ${JSON.stringify(actualParams)}`);
   }
 
   if (details.length) {
@@ -140,7 +148,7 @@ export function describeHttpRequest(reqOrMethod: HttpRequest<any> | string, url?
  * @returns True (or an error is thrown).
  */
 export function httpRequestMatcher(expectedMethod: string, expectedUrl: string, expectedBody?: any, expectedHeaders?: HttpHeaders | HeadersOrParams, expectedParams?: HttpParams | HeadersOrParams): (req: HttpRequest<any>) => boolean {
-  return (req: HttpRequest<any>) => {
+  return req => {
     assertHttpRequest(req, expectedMethod, expectedUrl, expectedBody, expectedHeaders, expectedParams);
     return true;
   };
@@ -160,21 +168,17 @@ export function httpRequestMatcher(expectedMethod: string, expectedUrl: string, 
  * @param data The Angular headers or params to convert.
  * @returns A plain object.
  */
-export function normalizeHeadersOrParams(data: HttpHeaders | HttpParams | HeadersOrParams): NormalizedHeadersOrParams {
+export function normalizeHeadersOrParams(data: HttpHeaders | HttpParams | HeadersOrParams): NormalizedHeadersOrParams {
   const result = {};
 
   if (data instanceof HttpHeaders || data instanceof HttpParams) {
-    for (let name of data.keys()) {
-      result[name] = data.getAll(name).map(value => String(value));
+    for (const name of data.keys()) {
+      result[name] = data.getAll(name).map(String);
     }
   } else if (data) {
-    for (let name in data) {
+    for (const name in data) {
       const values = data[name];
-      if (Array.isArray(values)) {
-        result[name] = values.map(value => String(value));
-      } else {
-        result[name] = [ String(values) ];
-      }
+      result[name] = Array.isArray(values) ? values.map(String) : [ String(values) ];
     }
   }
 

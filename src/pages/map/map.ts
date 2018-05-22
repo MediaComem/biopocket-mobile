@@ -1,10 +1,10 @@
-import { Component, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation';
-import { PopoverController, PopoverOptions } from 'ionic-angular';
-import * as L from 'leaflet';
-import { intersectionBy, differenceBy } from 'lodash';
 import { TranslateService } from '@ngx-translate/core';
 import * as turf from '@turf/turf';
+import { PopoverController, PopoverOptions } from 'ionic-angular';
+import * as L from 'leaflet';
+import { differenceBy, intersectionBy } from 'lodash';
 
 import { Location } from '../../models/location';
 import Marker from '../../models/marker';
@@ -14,11 +14,11 @@ import { turfPointToLeafletLatLng } from '../../utils/geo';
 import { defIcon } from '../../utils/leafletIcons';
 import Print from '../../utils/print';
 
-const LOG_REF: string = "[MapPage]";
+const LOG_REF = '[MapPage]';
 
-const ONEX_SOUTH_WEST = turf.point([6.086417, 46.173987]);
-const ONEX_NORTH_EAST = turf.point([6.112753, 46.196898]);
-const ONEX_BBOX = turf.bboxPolygon(turf.bbox(turf.featureCollection([ONEX_SOUTH_WEST, ONEX_NORTH_EAST])));
+const ONEX_SOUTH_WEST = turf.point([ 6.086417, 46.173987 ]);
+const ONEX_NORTH_EAST = turf.point([ 6.112753, 46.196898 ]);
+const ONEX_BBOX = turf.bboxPolygon(turf.bbox(turf.featureCollection([ ONEX_SOUTH_WEST, ONEX_NORTH_EAST ])));
 
 type UserPosition = turf.Feature<turf.Point>;
 
@@ -30,18 +30,19 @@ export class MapPage {
 
   map: L.Map;
   mapMessage: string;
-  mapOptions: Object;
-  layers: Marker[] = [];
+  mapOptions: L.MapOptions;
+  layers: Marker[];
 
   private geolocationInProgress: boolean;
 
   constructor(
-    private geolocation: Geolocation,
-    private locationsService: LocationsService,
-    private translateService: TranslateService,
-    private changeDetector: ChangeDetectorRef,
-    public popoverCtrl: PopoverController
+    private readonly geolocation: Geolocation,
+    private readonly locationsService: LocationsService,
+    private readonly translateService: TranslateService,
+    private readonly changeDetector: ChangeDetectorRef,
+    private readonly popoverCtrl: PopoverController
   ) {
+    this.layers = [];
     this.mapOptions = {
       layers: [
         L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -59,7 +60,7 @@ export class MapPage {
   onMapReady(map: L.Map) {
 
     this.map = map;
-    this.map.setView([46.183541, 6.100234], 15);
+    this.map.setView([ 46.183541, 6.100234 ], 15);
     this.map.on('moveend', () => this.onMapMoved());
 
     this.autoCenterMap();
@@ -72,11 +73,13 @@ export class MapPage {
    * Centers the map on the user's current position (unless geolocation is already in progress).
    */
   centerOnMe() {
-    if (!this.isGeolocationInProgress()) {
-      this.getCurrentPosition()
-        .then(currentPosition => this.centerMap(currentPosition))
-        .catch(() => { /* Avoid unhandled promise rejection (warning already logged in getCurrentPosition) */ });
+    if (this.isGeolocationInProgress()) {
+      return;
     }
+
+    this.getCurrentPosition()
+      .then(currentPosition => this.centerMap(currentPosition))
+      .catch(() => { /* Avoid unhandled promise rejection (warning already logged in getCurrentPosition) */ });
   }
 
   /**
@@ -85,6 +88,28 @@ export class MapPage {
    */
   isGeolocationInProgress(): boolean {
     return this.geolocationInProgress;
+  }
+
+  /**
+   * React to a click event on a location's marker in the map.
+   * This shows a basic Ionic Popover (although ultimately we should create our own compoment) containing the details of the location.
+   * This also center the map (or rather the visible part of the map) on the clicked location's marker.
+   * @param {L.LeafletMouseEvent} e The event fired by leaflet when a location's marker is clicked
+   */
+  onLocationClicked(e: L.LeafletMouseEvent) {
+    Print.log(`${LOG_REF} - Marker clicked`, e);
+    const opt: PopoverOptions = {
+      cssClass: 'location-details',
+      showBackdrop: true,
+      enableBackdropDismiss: true
+    };
+    const popover = this.popoverCtrl.create(LocationDetails, { locationId: e.target.id }, opt);
+    popover.present()
+      .then(() => {
+        // Yeah... I don't like this way of getting the popover height...
+        const locationDetailsEle = document.getElementsByClassName('popover-content')[0] as HTMLElement;
+        this.centerViewportOn(e.target._latlng, new L.Point(0, locationDetailsEle.offsetHeight));
+      });
   }
 
   /**
@@ -123,30 +148,8 @@ export class MapPage {
   private addLocationToMap(location: Location) {
     const coords = location.geometry.coordinates;
     const marker = new Marker(location.id, [ coords[1], coords[0] ], { icon: defIcon });
-    marker.on('click', e => this.onLocationClicked(<L.LeafletMouseEvent>e));
+    marker.on('click', e => this.onLocationClicked(e as L.LeafletMouseEvent));
     this.layers.push(marker);
-  }
-
-  /**
-   * React to a click event on a location's marker in the map.
-   * This shows a basic Ionic Popover (although ultimately we should create our own compoment) containing the details of the location.
-   * This also center the map (or rather the visible part of the map) on the clicked location's marker.
-   * @param {L.LeafletMouseEvent} e The event fired by leaflet when a location's marker is clicked
-   */
-  onLocationClicked(e: L.LeafletMouseEvent) {
-    Print.log(`${LOG_REF} - Marker clicked`, e);
-    const opt: PopoverOptions = {
-      cssClass: "location-details",
-      showBackdrop: true,
-      enableBackdropDismiss: true
-    };
-    const popover = this.popoverCtrl.create(LocationDetails, { locationId: e.target.id }, opt);
-    popover.present()
-      .then(() => {
-        // Yeah... I don't like this way of getting the popover height...
-        const locationDetailsEle = <HTMLElement> document.getElementsByClassName("popover-content")[0];
-        this.centerViewportOn(e.target._latlng, new L.Point(0, locationDetailsEle.offsetHeight));
-      });
   }
 
   /**
@@ -176,7 +179,7 @@ export class MapPage {
       .getCurrentPosition()
       .then(result => {
         this.setGeolocationDone();
-        return turf.point([result.coords.longitude, result.coords.latitude]);
+        return turf.point([ result.coords.longitude, result.coords.latitude ]);
       }).catch(err => {
         this.setGeolocationDone(this.translateService.instant('pages.map.geolocationError'));
         Print.warn('Could not get user position', err);
@@ -208,12 +211,12 @@ export class MapPage {
    * while the `y` property will be substracted from the bottom of the height of the viewport.
    * *This method uses only the x/y representation of the Leaflet map.*
    * @param {L.LatLng} location A LatLng that will be used to center the map upon
-   * @param {L.Point} viewportOffset An optionnal Point that contains the width (`x` property) and the height (`y` property) to substract from the viewport.
+   * @param {L.Point} viewportOffset An optional Point that contains the width (`x` property) and the height (`y` property) to substract from the viewport.
    */
   private centerViewportOn(location: L.LatLng, viewportOffset?: L.Point) {
-    viewportOffset = viewportOffset || new L.Point(0, 0);
+    const actualViewportOffset = viewportOffset || new L.Point(0, 0);
     // get the coordinates for the center of the viewport, taking into account the optional offset
-    const centerOfViewPort = this.map.getSize().subtract(viewportOffset).divideBy(2);
+    const centerOfViewPort = this.map.getSize().subtract(actualViewportOffset).divideBy(2);
     // convert the LatLng `location` to a Point for further calculation
     const locationPoint = this.map.latLngToContainerPoint(location);
     // Calculate the delta between `location` and the center

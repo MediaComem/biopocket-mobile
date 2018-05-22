@@ -21,4 +21,4 @@ export const config = {
    * variable.
    */
   standaloneTimeout: 30000
-}
+};

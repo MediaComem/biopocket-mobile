@@ -4,13 +4,14 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
-import { IonicModule, NavController, PopoverController } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
-import * as L from 'leaflet';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable } from 'rxjs/Observable';
+import { IonicModule, NavController, PopoverController } from 'ionic-angular';
+import * as L from 'leaflet';
 import { spy, stub } from 'sinon';
 
+import { expect } from '../../../spec/chai';
+import { resetStub } from '../../../spec/sinon';
 import { Deferred } from '../../../spec/utils';
 import { ENV as MockEnv } from '../../environments/environment.test';
 import { fr } from '../../locales';
@@ -20,8 +21,6 @@ import EnvService from '../../providers/env-service/env-service';
 import locationsDataMock from '../../providers/locations-service/locations-data.mock';
 import LocationsModule from '../../providers/locations-service/locations-module';
 import LocationsService from '../../providers/locations-service/locations-service';
-import { expect } from '../../../spec/chai';
-import { resetStub } from '../../../spec/sinon';
 import { translateModuleForRoot } from '../../utils/i18n';
 import { observableOf, observableThatThrows } from '../../utils/observable';
 import { MapPage } from './map';
@@ -136,7 +135,7 @@ describe('MapPage', function () {
       component.layers.forEach((marker, pos) => {
         expect(marker).to.be.an.instanceOf(Marker);
 
-        let latLng = marker.getLatLng();
+        const latLng = marker.getLatLng();
         expect(latLng.lat).to.equal(locationsDataMock[pos].geometry.coordinates[1]);
         expect(latLng.lng).to.equal(locationsDataMock[pos].geometry.coordinates[0]);
       });
@@ -144,15 +143,15 @@ describe('MapPage', function () {
 
     it('should reload locations after the map has been panned', async function () {
 
-      resetStub(locationsServiceMock.fetchAll, stub => {
-        stub.onCall(0).returns(observableOf(locationsDataMock.slice(0, 2)));
-        stub.onCall(1).returns(observableOf(locationsDataMock.slice(1)));
+      resetStub(locationsServiceMock.fetchAll, fetchAll => {
+        fetchAll.onCall(0).returns(observableOf(locationsDataMock.slice(0, 2)));
+        fetchAll.onCall(1).returns(observableOf(locationsDataMock.slice(1)));
       });
 
       fixture.detectChanges();
       await fixture.whenStable();
 
-      expect(locationsServiceMock.fetchAll).to.have.been.calledOnce;
+      expect(locationsServiceMock.fetchAll).to.have.callCount(1);
       expect(component.layers).to.have.length(2);
 
       let markerIds = component.layers.map(marker => marker.id);
@@ -160,7 +159,7 @@ describe('MapPage', function () {
 
       expect(markerIds).to.have.members(expectedIds);
 
-      component.map.setView([12, 4], 15);
+      component.map.setView([ 12, 4 ], 15);
 
       const callOptions = {
         bbox: component.map.getBounds().toBBoxString()
@@ -169,7 +168,7 @@ describe('MapPage', function () {
       fixture.detectChanges();
       await fixture.whenStable();
 
-      expect(locationsServiceMock.fetchAll).to.have.been.calledTwice;
+      expect(locationsServiceMock.fetchAll).to.have.callCount(2);
       expect(locationsServiceMock.fetchAll).to.have.been.calledWith(callOptions);
 
       markerIds = component.layers.map(marker => marker.id);
@@ -180,8 +179,8 @@ describe('MapPage', function () {
 
     it('should open a Popover when a location\'s marker is clicked', async function () {
 
-      resetStub(locationsServiceMock.fetchAll, stub => {
-        stub.returns(observableOf(locationsDataMock));
+      resetStub(locationsServiceMock.fetchAll, fetchAll => {
+        fetchAll.returns(observableOf(locationsDataMock));
       });
 
       const eMock = {
@@ -194,17 +193,17 @@ describe('MapPage', function () {
       fixture.detectChanges();
       await fixture.whenStable();
 
-      expect(locationsServiceMock.fetchOne).not.to.have.been.called;
+      expect(locationsServiceMock.fetchOne).to.have.callCount(0);
 
       component.onLocationClicked(eMock);
 
-      expect(popoverCtrlMock.create).to.have.been.calledOnce;
+      expect(popoverCtrlMock.create).to.have.callCount(1);
       expect(popoverCtrlMock.create.args[0]).to.have.lengthOf(3);
       expect(popoverCtrlMock.create.args[0][0]).to.eql(LocationDetails);
       expect(popoverCtrlMock.create.args[0][1]).to.eql({ locationId: eMock.target.id });
       expect(popoverCtrlMock.create.args[0][2]).to.be.an('object');
 
-      expect(popoverMock.present).to.have.calledOnce;
+      expect(popoverMock.present).to.have.callCount(1);
     });
 
     describe('and initialized', function () {
@@ -218,17 +217,17 @@ describe('MapPage', function () {
         panToSpy = spy(map, 'panTo');
         setViewSpy = spy(map, 'setView');
 
-        expect(geolocationMock.getCurrentPosition).to.have.not.been.called;
-        expect(setViewSpy).to.have.not.been.called;
+        expect(geolocationMock.getCurrentPosition).to.have.callCount(0);
+        expect(setViewSpy).to.have.callCount(0);
 
         expect(component.mapMessage).to.equal(undefined);
 
         component.onMapReady(map);
 
-        expect(geolocationMock.getCurrentPosition).to.have.been.calledOnce;
-        expect(panToSpy).to.have.not.been.called;
-        expect(setViewSpy).to.have.been.calledWith([46.183541, 6.100234], 15);
-        expect(setViewSpy).to.have.been.calledOnce;
+        expect(geolocationMock.getCurrentPosition).to.have.callCount(1);
+        expect(panToSpy).to.have.callCount(0);
+        expect(setViewSpy).to.have.been.calledWith([ 46.183541, 6.100234 ], 15);
+        expect(setViewSpy).to.have.callCount(1);
 
         expect(component.mapMessage).to.equal(fr.pages.map.geolocation);
       }
@@ -241,12 +240,12 @@ describe('MapPage', function () {
 
         expect(component.mapMessage).to.equal(undefined);
 
-        expect(panToSpy.args[0]).to.eql([L.latLng(46.18, 6.09), { animate: true }]);
-        expect(panToSpy).to.have.been.calledOnce;
+        expect(panToSpy.args[0]).to.eql([ L.latLng(46.18, 6.09), { animate: true } ]);
+        expect(panToSpy).to.have.callCount(1);
 
         // panTo calls setView
-        expect(setViewSpy.args[1]).to.eql([L.latLng(46.18, 6.09), 15, { pan: { animate: true } }]);
-        expect(setViewSpy).to.have.been.calledTwice;
+        expect(setViewSpy.args[1]).to.eql([ L.latLng(46.18, 6.09), 15, { pan: { animate: true } } ]);
+        expect(setViewSpy).to.have.callCount(2);
       }));
 
       it('should leave the map centered on Onex if the user is not there', fakeAsync(function () {
@@ -256,8 +255,8 @@ describe('MapPage', function () {
         tick();
 
         expect(component.mapMessage).to.equal(undefined);
-        expect(panToSpy).to.have.not.been.called;
-        expect(setViewSpy).to.have.been.calledOnce;
+        expect(panToSpy).to.have.callCount(0);
+        expect(setViewSpy).to.have.callCount(1);
       }));
 
       it('should leave the map centered on Onex if the user cannot be located', fakeAsync(function () {
@@ -267,8 +266,8 @@ describe('MapPage', function () {
         tick();
 
         expect(component.mapMessage).to.equal(fr.pages.map.geolocationError);
-        expect(panToSpy).to.have.not.been.called;
-        expect(setViewSpy).to.have.been.calledOnce;
+        expect(panToSpy).to.have.callCount(0);
+        expect(setViewSpy).to.have.callCount(1);
       }));
 
       it('should center the map without changing the zoom level', fakeAsync(function () {
@@ -279,12 +278,12 @@ describe('MapPage', function () {
 
         expect(component.mapMessage).to.equal(undefined);
 
-        expect(panToSpy.args[0]).to.eql([L.latLng(46.18, 6.09), { animate: true }]);
-        expect(panToSpy).to.have.been.calledOnce;
+        expect(panToSpy.args[0]).to.eql([ L.latLng(46.18, 6.09), { animate: true } ]);
+        expect(panToSpy).to.have.callCount(1);
 
         // panTo calls setView
-        expect(setViewSpy.args[1]).to.eql([L.latLng(46.18, 6.09), 15, { pan: { animate: true } }]);
-        expect(setViewSpy).to.have.been.calledTwice;
+        expect(setViewSpy.args[1]).to.eql([ L.latLng(46.18, 6.09), 15, { pan: { animate: true } } ]);
+        expect(setViewSpy).to.have.callCount(2);
       }));
 
       it('should center the map on the user\'s current position when clicking on the center me button', fakeAsync(function () {
@@ -296,8 +295,8 @@ describe('MapPage', function () {
 
         // The map should not have moved.
         expect(component.mapMessage).to.equal(undefined);
-        expect(panToSpy).to.have.not.been.called;
-        expect(setViewSpy).to.have.been.calledOnce;
+        expect(panToSpy).to.have.callCount(0);
+        expect(setViewSpy).to.have.callCount(1);
 
         const currentPositionDeferred = new Deferred();
         geolocationMock.getCurrentPosition.onCall(1).returns(currentPositionDeferred.promise);
@@ -314,12 +313,12 @@ describe('MapPage', function () {
         expect(component.mapMessage).to.equal(undefined);
 
         // The map should have been centered on that position.
-        expect(panToSpy.args[0]).to.eql([L.latLng(42, 24), { animate: true }]);
-        expect(panToSpy).to.have.been.calledOnce;
+        expect(panToSpy.args[0]).to.eql([ L.latLng(42, 24), { animate: true } ]);
+        expect(panToSpy).to.have.callCount(1);
 
         // panTo calls setView
-        expect(setViewSpy.args[1]).to.eql([L.latLng(42, 24), 15, { pan: { animate: true } }]);
-        expect(setViewSpy).to.have.been.calledTwice;
+        expect(setViewSpy.args[1]).to.eql([ L.latLng(42, 24), 15, { pan: { animate: true } } ]);
+        expect(setViewSpy).to.have.callCount(2);
       }));
 
       it('should display an error message if geolocation fails after clicking on the center me button', fakeAsync(function () {
@@ -329,8 +328,8 @@ describe('MapPage', function () {
         tick();
 
         expect(component.mapMessage).to.equal(undefined);
-        expect(panToSpy).to.have.not.been.called;
-        expect(setViewSpy).to.have.been.calledOnce;
+        expect(panToSpy).to.have.callCount(0);
+        expect(setViewSpy).to.have.callCount(1);
 
         const currentPositionDeferred = new Deferred();
         geolocationMock.getCurrentPosition.onCall(1).returns(currentPositionDeferred.promise);
@@ -343,8 +342,8 @@ describe('MapPage', function () {
         tick();
 
         expect(component.mapMessage).to.equal(fr.pages.map.geolocationError);
-        expect(panToSpy).to.have.not.been.called;
-        expect(setViewSpy).to.have.been.calledOnce;
+        expect(panToSpy).to.have.callCount(0);
+        expect(setViewSpy).to.have.callCount(1);
       }));
 
       /**
@@ -379,12 +378,12 @@ describe('MapPage', function () {
         tick();
 
         // The map is correctly centered on the initial position.
-        expect(panToSpy.args[0]).to.eql([L.latLng(46.18, 6.09), { animate: true }]);
-        expect(panToSpy).to.have.been.calledOnce;
+        expect(panToSpy.args[0]).to.eql([ L.latLng(46.18, 6.09), { animate: true } ]);
+        expect(panToSpy).to.have.callCount(1);
 
         // panTo calls setView
-        expect(setViewSpy.args[1]).to.eql([L.latLng(46.18, 6.09), 15, { pan: { animate: true } }]);
-        expect(setViewSpy).to.have.been.calledTwice;
+        expect(setViewSpy.args[1]).to.eql([ L.latLng(46.18, 6.09), 15, { pan: { animate: true } } ]);
+        expect(setViewSpy).to.have.callCount(2);
 
         expect(component.mapMessage).to.equal(undefined);
 
@@ -393,8 +392,8 @@ describe('MapPage', function () {
         tick();
 
         // Check that nothing happens.
-        expect(panToSpy).to.have.been.calledOnce;
-        expect(setViewSpy).to.have.been.calledTwice;
+        expect(panToSpy).to.have.callCount(1);
+        expect(setViewSpy).to.have.callCount(2);
         expect(component.mapMessage).to.equal(undefined);
       }));
     });

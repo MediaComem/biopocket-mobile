@@ -1,8 +1,8 @@
 // Mocha global variables (for Windows)
 /// <reference path="../../../node_modules/@types/mocha/index.d.ts" />
 
-import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { TestBed } from '@angular/core/testing';
 import { expect } from 'chai';
 
 import { httpRequestMatcher } from '../../../spec/http';
@@ -33,13 +33,13 @@ describe('ApiService', function () {
   });
 
   it('should construct', function () {
-    expect(apiService).to.not.be.undefined;
+    expect(apiService).to.not.equal(undefined);
   });
 
   describe('a call to the version() method', function () {
 
     const mockResponse = {
-      version: "1.0.0"
+      version: '1.0.0'
     };
 
     it('should return the correct API version number', function () {

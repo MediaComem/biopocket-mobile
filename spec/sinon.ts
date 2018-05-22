@@ -1,5 +1,8 @@
 import { SinonSpy, SinonStub } from 'sinon';
 
+/* tslint:disable-next-line:ban-types */
+export type SpiedOrStubbedFunction = Function;
+
 /**
  * A Sinon spy or stub.
  */
@@ -11,24 +14,38 @@ export type SinonSpyOrStub = SinonSpy | SinonStub;
 export type SinonSpyOrStubCallback<T extends SinonSpyOrStub> = (spyOrStub: T) => void;
 
 /**
- * Returns the specified function typed as a Sinon spy.
+ * Ensures the specified function is a Sinon spy and sequentially invoke each provided callback with it.
  * An error is thrown if the function is in fact not a Sinon spy.
  *
- * @param func The Sinon spy function.
- * @param callbacks A series of callbacks that will be invoked sequentially with the spy if provided.
+ * @param func A Sinon spy.
+ * @param callbacks Callbacks to invoke with the Sinon spy as argument.
  * @returns The Sinon spy.
  */
-export const asSpy = (func: Function, ...callbacks: SinonSpyOrStubCallback<SinonSpy>[]) => doWithSpy(func, ...callbacks);
+export const asSpy = (func: SpiedOrStubbedFunction, ...callbacks: Array<SinonSpyOrStubCallback<SinonSpy>>): SinonSpy => {
+  if (!ensureSpy(func)) {
+    throw new Error('Function is not a Sinon spy');
+  }
+
+  callbacks.forEach(callback => callback(func));
+  return func;
+};
 
 /**
- * Returns the specified function typed as a Sinon stub.
+ * Ensures the specified function is a Sinon stub and sequentially invoke each provided callback with it.
  * An error is thrown if the function is in fact not a Sinon stub.
  *
- * @param func The Sinon stub function.
- * @param callbacks A series of callbacks that will be invoked sequentially with the stub if provided.
+ * @param func A Sinon stub.
+ * @param callbacks Callbacks to invoke with the Sinon stub as argument.
  * @returns The Sinon stub.
  */
-export const asStub = (func: Function, ...callbacks: SinonSpyOrStubCallback<SinonStub>[]) => doWithStub(func, ...callbacks);
+export const asStub = (func: SpiedOrStubbedFunction, ...callbacks: Array<SinonSpyOrStubCallback<SinonStub>>): SinonStub => {
+  if (!ensureStub(func)) {
+    throw new Error('Function is not a Sinon stub');
+  }
+
+  callbacks.forEach(callback => callback(func));
+  return func;
+};
 
 /**
  * Returns the specified function typed as a Sinon spy and with its history reset (i.e. any
@@ -48,7 +65,7 @@ export const asStub = (func: Function, ...callbacks: SinonSpyOrStubCallback<Sino
  * @param callbacks A series of callbacks that will be invoked sequentially with the spy if provided (after reset).
  * @returns The Sinon spy.
  */
-export const resetSpy = (func: Function, ...callbacks: SinonSpyOrStubCallback<SinonSpy>[]) => doWithSpy(func, spy => spy.resetHistory(), ...callbacks);
+export const resetSpy = (func: SpiedOrStubbedFunction, ...callbacks: Array<SinonSpyOrStubCallback<SinonSpy>>) => asSpy(func, spy => spy.resetHistory(), ...callbacks);
 
 /**
  * Returns the specified function typed as a Sinon stub and with both its behavior and history reset
@@ -71,7 +88,7 @@ export const resetSpy = (func: Function, ...callbacks: SinonSpyOrStubCallback<Si
  * @param callbacks A series of callbacks that will be invoked sequentially with the stub if provided (after reset).
  * @returns The Sinon stub.
  */
-export const resetStub = (func: Function, ...callbacks: SinonSpyOrStubCallback<SinonStub>[]) => doWithStub(func, stub => stub.reset(), ...callbacks);
+export const resetStub = (func: SpiedOrStubbedFunction, ...callbacks: Array<SinonSpyOrStubCallback<SinonStub>>) => asStub(func, stub => stub.reset(), ...callbacks);
 
 /**
  * Restores an object method spied with Sinon to its original behavior.
@@ -87,7 +104,9 @@ export const resetStub = (func: Function, ...callbacks: SinonSpyOrStubCallback<S
  *
  * @param method The Sinon spy method to restore.
  */
-export const restoreSpy = (method: Function) => { doWithSpy(method, spy => spy.restore()); };
+export const restoreSpy = (method: SpiedOrStubbedFunction) => {
+  asSpy(method, spy => spy.restore());
+};
 
 /**
  * Restores an object method stubbed with Sinon to its original behavior.
@@ -104,7 +123,9 @@ export const restoreSpy = (method: Function) => { doWithSpy(method, spy => spy.r
  *
  * @param method The Sinon stub method to restore.
  */
-export const restoreStub = (method: Function) => { doWithStub(method, stub => stub.restore()); };
+export const restoreStub = (method: SpiedOrStubbedFunction) => {
+  asStub(method, stub => stub.restore());
+};
 
 /**
  * Type guard to check that the specified function is a Sinon spy.
@@ -112,7 +133,8 @@ export const restoreStub = (method: Function) => { doWithStub(method, stub => st
  * @param func The function to check.
  * @returns True if the function is a Sinon spy, false otherwise.
  */
-function ensureSpy(func: Function): func is SinonSpy {
+function ensureSpy(func: SpiedOrStubbedFunction): func is SinonSpy {
+  /* tslint:disable-next-line:no-string-literal */
   return typeof(func) === 'function' && typeof(func['callCount']) === 'number';
 }
 
@@ -122,38 +144,7 @@ function ensureSpy(func: Function): func is SinonSpy {
  * @param func The function to check.
  * @returns True if the function is a Sinon stub, false otherwise.
  */
-function ensureStub(func: Function): func is SinonStub {
+function ensureStub(func: SpiedOrStubbedFunction): func is SinonStub {
+  /* tslint:disable-next-line:no-string-literal */
   return ensureSpy(func) && typeof(func['resetBehavior']) === 'function';
-}
-
-/**
- * Ensures the specified function is a Sinon spy and sequentially invoke each provided callback with it.
- *
- * @param func A Sinon spy.
- * @param callbacks Callbacks to invoke with the Sinon spy as argument.
- * @returns The Sinon spy.
- */
-function doWithSpy(func: Function, ...callbacks: SinonSpyOrStubCallback<SinonSpy>[]): SinonSpy {
-  if (!ensureSpy(func)) {
-    throw new Error('Function is not a Sinon spy');
-  } else {
-    callbacks.forEach(callback => callback(func));
-    return func;
-  }
-}
-
-/**
- * Ensures the specified function is a Sinon stub and sequentially invoke each provided callback with it.
- *
- * @param func A Sinon stub.
- * @param callbacks Callbacks to invoke with the Sinon stub as argument.
- * @returns The Sinon stub.
- */
-function doWithStub(func: Function, ...callbacks: SinonSpyOrStubCallback<SinonStub>[]): SinonStub {
-  if (!ensureStub(func)) {
-    throw new Error('Function is not a Sinon stub');
-  } else {
-    callbacks.forEach(callback => callback(func));
-    return func;
-  }
 }

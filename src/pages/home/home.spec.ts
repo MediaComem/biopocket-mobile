@@ -3,8 +3,8 @@
 
 import { async, TestBed } from '@angular/core/testing';
 import { MomentModule } from 'angular2-moment';
-import { IonicModule, NavController } from 'ionic-angular';
 import { expect } from 'chai';
+import { IonicModule, NavController } from 'ionic-angular';
 
 import { translateModuleForRoot } from '../../utils/i18n';
 import { HomePage } from './home';
@@ -30,7 +30,7 @@ describe('HomePage', () => {
       providers: [
         { provide: NavController, useValue: navControllerMock }
       ]
-    })
+    });
   }));
 
   beforeEach(() => {

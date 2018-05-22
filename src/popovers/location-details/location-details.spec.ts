@@ -1,12 +1,11 @@
 // Mocha global variables (for Windows)
 /// <reference path="../../../node_modules/@types/mocha/index.d.ts" />
 
-import { TestBed, async } from '@angular/core/testing';
+import { async, TestBed } from '@angular/core/testing';
 import { ConnectionBackend } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
-import { IonicModule, ViewController, NavParams } from 'ionic-angular';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable } from 'rxjs/Rx';
+import { IonicModule, NavParams, ViewController } from 'ionic-angular';
 import { stub } from 'sinon';
 
 import { expect } from '../../../spec/chai';
@@ -64,18 +63,18 @@ describe('LocationDetails', function () {
 
 
   beforeEach(function () {
-    fixture = TestBed.createComponent(LocationDetails)
+    fixture = TestBed.createComponent(LocationDetails);
     component = fixture.componentInstance;
   });
 
   it('should initialize with the requested Location', async function () {
     expect(component).to.be.an.instanceof(LocationDetails);
-    expect(component.location).to.be.undefined;
+    expect(component.location).to.equal(undefined);
 
     fixture.detectChanges();
     await fixture.whenStable();
 
-    expect(locationsServiceMock.fetchOne).to.have.been.calledOnce;
+    expect(locationsServiceMock.fetchOne).to.have.callCount(1);
     expect(locationsServiceMock.fetchOne).to.have.been.calledWithExactly(navParamsMock.data.locationId);
 
     expect(component.location).to.be.an.instanceof(Location);
@@ -85,6 +84,6 @@ describe('LocationDetails', function () {
   it('should close itself', function () {
     component.close();
 
-    expect(viewControllerMock.dismiss).to.have.been.calledOnce;
-  })
+    expect(viewControllerMock.dismiss).to.have.callCount(1);
+  });
 });

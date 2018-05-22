@@ -1,20 +1,20 @@
-import { Component } from "@angular/core";
-import { ViewController, NavParams } from "ionic-angular";
+import { Component } from '@angular/core';
+import { NavParams, ViewController } from 'ionic-angular';
 
-import LocationsService from "../../providers/locations-service/locations-service";
-import { Location } from "../../models";
+import { Location } from '../../models';
+import LocationsService from '../../providers/locations-service/locations-service';
 
 @Component({
   templateUrl: 'location-details.html'
 })
 export default class LocationDetails {
 
-  public location: Location;
+  location: Location;
 
   constructor(
-    private viewCtrl: ViewController,
-    private navParams: NavParams,
-    private locationsService: LocationsService
+    private readonly viewCtrl: ViewController,
+    private readonly navParams: NavParams,
+    private readonly locationsService: LocationsService
   ) { }
 
   ngOnInit() {

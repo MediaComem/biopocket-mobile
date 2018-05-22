@@ -9,7 +9,7 @@ import EnvInterface from '../../environments/environment.interface';
 @Injectable()
 export default class EnvService implements EnvInterface {
 
-  private envData: EnvInterface;
+  private readonly envData: EnvInterface;
 
   constructor() {
     this.envData = ENV;
