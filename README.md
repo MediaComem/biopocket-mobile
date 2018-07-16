@@ -77,6 +77,7 @@ to refresh the app.
 | `npm run locales`             | Compile the .yml locale files to TypeScript once                                                                          |
 | `npm run locales:start`       | Compile the .yml locale files to TypeScript and watch for changes                                                         |
 | `npm run locales:watch`       | Compile the .yml locale files when changes occur                                                                          |
+| `npm run start:lab`           | Start the app with the Ionic Lab feature                                                                                  |
 | `npm run start:e2e`           | Start the app for [end-to-end testing][e2e]                                                                               |
 | `npm run test`                | Run all unit & end-to-end tests once (may fail if `ionic serve` is running; see [end-to-end tests][e2e])                  |
 | `npm run test:watch`          | Run all unit & end-to-end tests and watch for changes (may fail if `ionic serve` is running; see [end-to-end tests][e2e]) |

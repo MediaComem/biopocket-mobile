@@ -1,0 +1,20 @@
+<ion-header mode="md">
+  <ion-navbar color="light">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>{{ 'pages.actionsList.title' | translate }}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+
+  <ion-list>
+    <ion-item *ngFor="let action of actions">{{action.title}}</ion-item>
+  </ion-list>
+
+  <ion-infinite-scroll (ionInfinite)="loadMoreActions($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

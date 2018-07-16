@@ -1,6 +1,6 @@
-<ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle>
+<ion-header mode="md">
+  <ion-navbar color="light">
+    <button ion-button menuToggle color="boreal">
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>{{ 'pages.map.title' | translate }}</ion-title>
@@ -9,17 +9,16 @@
 
 <ion-content>
 
-  <div id="map"
-    leaflet
-    [leafletOptions]="mapOptions"
-    [leafletLayers]="layers"
-    (leafletMapReady)="onMapReady($event)"></div>
+  <button ion-button round id="go-to-list" color="warning" (click)="goToActionsList()">{{ 'pages.map.goToListButton' | translate }}</button>
 
-  <div id="map-controls">
-    <div class="center-on-me control" [style.color]="isGeolocationInProgress() ? 'lightgray' : 'black'" (click)="centerOnMe()">
-      <ion-icon name="locate"></ion-icon>
-    </div>
-  </div>
+  <div id="map" leaflet [leafletOptions]="mapOptions" [leafletLayers]="layers" (leafletMapReady)="onMapReady($event)"></div>
+
+  <ion-fab right bottom id="map-locate-user">
+    <button ion-fab color="light" (click)="centerOnMe()">
+      <bip-icon *ngIf="!geolocationInProgress" name="location" color="secondary"></bip-icon>
+      <ion-spinner name="bubbles" *ngIf="geolocationInProgress"></ion-spinner>
+    </button>
+  </ion-fab>
 
   <p *ngIf="mapMessage" id="map-message">
     {{ mapMessage }}

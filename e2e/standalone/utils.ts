@@ -1,3 +1,5 @@
+// tslint:disable:no-console
+
 import chalk from 'chalk';
 import { ChildProcess, spawn, SpawnOptions } from 'child_process';
 import { join, resolve } from 'path';
@@ -54,11 +56,11 @@ export abstract class StandaloneProcess {
   async spawn(): Promise<void> {
 
     // Spawn the child process.
-    const command = this.command[0];
+    const command = this.command[ 0 ];
     const args = this.command.slice(1);
     const options = this.getSpawnOptions();
     this.process = spawn(command, args, options);
-    console.log(chalk.magenta(`Spawned ${this.spawnDescription} (PID ${this.process.pid})...`))
+    console.log(chalk.magenta(`Spawned ${this.spawnDescription} (PID ${this.process.pid})...`));
 
     // Log the process's stdout and stderr streams if debug is enabled.
     if (isDebugEnabled()) {
@@ -70,17 +72,16 @@ export abstract class StandaloneProcess {
     // defaults to 30 seconds).
     let attempts = 0;
     const standaloneTimeout = getStandaloneTimeout();
-    let start = new Date();
+    const start = new Date();
     while ((new Date().getTime() - start.getTime()) < standaloneTimeout) {
       const running = await this.isRunning();
       if (running) {
-        const duration = new Date().getTime() - start.getTime();
-        console.log(chalk.green(`Started ${this.name} in ${duration / 1000}s`));
+        const time = new Date().getTime() - start.getTime();
+        console.log(chalk.green(`Started ${this.name} in ${time / 1000}s`));
         return;
-      } else {
-        console.log(chalk.yellow(`Waiting for ${this.name} to start... (${attempts++})`));
-        await new Promise(resolve => setTimeout(resolve, 1000));
       }
+      console.log(chalk.yellow(`Waiting for ${this.name} to start... (${attempts++})`));
+      await new Promise(resolveFn => setTimeout(resolveFn, 1000));
     }
 
     // Kill the child process and throw an error if it could not be started within the expected time.
@@ -93,11 +94,12 @@ export abstract class StandaloneProcess {
    * Kills the process (if it was spawned).
    */
   kill(): void {
-    if (this.process) {
-      console.log(chalk.magenta(`Killing ${this.name} process ${this.process.pid}...`));
-      this.process.kill();
-      this.process = undefined;
+    if (!this.process) {
+      return;
     }
+    console.log(chalk.magenta(`Killing ${this.name} process ${this.process.pid}...`));
+    this.process.kill();
+    this.process = undefined;
   }
 
   /**
@@ -121,7 +123,7 @@ export abstract class StandaloneProcess {
   /**
    * Returns the environment variables that should be provided to the child process.
    */
-  protected getEnvironment(): { [key: string]: string } {
+  protected getEnvironment(): { [ key: string ]: string } {
     return process.env;
   }
 
@@ -133,5 +135,5 @@ export abstract class StandaloneProcess {
       cwd: ROOT,
       env: this.getEnvironment()
     };
-  };
+  }
 }

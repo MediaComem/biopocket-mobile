@@ -1,6 +1,6 @@
+// tslint:disable:no-console
 import chalk from 'chalk';
 import { compact } from 'lodash';
-import { browser } from 'protractor';
 
 // DO NOT MOVE these lines.
 // Environment variables MUST be set BEFORE backend files are imported.

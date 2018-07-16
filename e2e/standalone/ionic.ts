@@ -21,6 +21,7 @@ export class StandaloneIonicProcess extends StandaloneProcess {
   async spawn(): Promise<void> {
 
     // Reject the promise if an Ionic dev server is already running.
+    // tslint:disable-next-line:no-console
     console.log(chalk.yellow(`Checking if ${this.name} is already running at ${IONIC_URL}...`));
     if (await r2(IONIC_URL).text.then(() => true, () => false)) {
       throw new Error(`${this.name} is already running at ${IONIC_URL}`);

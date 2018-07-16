@@ -1,0 +1,12 @@
+// Shorthand to get a specific color from either the main or secondary color map.
+// Raises a SASS warning if the desired $key does not exist in neither.
+@function bipColor($key) {
+  @if map-has-key($colors, $key) {
+    @return map-get($colors, $key);
+  } @else if map-has-key($secondaryColors, $key) {
+    @return map-get($secondaryColors, $key);
+  }
+
+  @warn "Unknown `#{$key}` in $colors and $secondaryColors.";
+  @return null;
+}

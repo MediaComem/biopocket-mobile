@@ -10,20 +10,21 @@ import { IonicModule, NavController, PopoverController } from 'ionic-angular';
 import * as L from 'leaflet';
 import { spy, stub } from 'sinon';
 
-import { expect } from '../../../spec/chai';
-import { resetStub } from '../../../spec/sinon';
-import { Deferred } from '../../../spec/utils';
-import { ENV as MockEnv } from '../../environments/environment.test';
-import { fr } from '../../locales';
-import Marker from '../../models/marker';
-import LocationDetails from '../../popovers/location-details/location-details';
-import EnvService from '../../providers/env-service/env-service';
-import locationsDataMock from '../../providers/locations-service/locations-data.mock';
-import LocationsModule from '../../providers/locations-service/locations-module';
-import LocationsService from '../../providers/locations-service/locations-service';
-import { translateModuleForRoot } from '../../utils/i18n';
-import { observableOf, observableThatThrows } from '../../utils/observable';
-import { MapPage } from './map';
+import { ENV as MockEnv } from '@app/environments/environment.test';
+import { fr } from '@app/locales';
+import LocationDetails from '@app/popovers/location-details/location-details';
+import { BipIconStub } from '@components/bip-icon/bip-icon.stub';
+import Marker from '@models/marker';
+import { MapPage } from '@pages/map/map';
+import EnvService from '@providers/env-service/env-service';
+import locationsDataMock from '@providers/locations-service/locations-data.mock';
+import LocationsModule from '@providers/locations-service/locations-module';
+import LocationsService from '@providers/locations-service/locations-service';
+import { expect } from '@spec/chai';
+import { resetStub } from '@spec/sinon';
+import { Deferred } from '@spec/utils';
+import { translateModuleForRoot } from '@utils/i18n';
+import { observableOf, observableThatThrows } from '@utils/observable';
 
 type LocationsServiceMock = Partial<LocationsService>;
 
@@ -58,7 +59,8 @@ describe('MapPage', function () {
 
     TestBed.configureTestingModule({
       declarations: [
-        MapPage
+        MapPage,
+        BipIconStub
       ],
       imports: [
         HttpClientTestingModule,
@@ -136,8 +138,8 @@ describe('MapPage', function () {
         expect(marker).to.be.an.instanceOf(Marker);
 
         const latLng = marker.getLatLng();
-        expect(latLng.lat).to.equal(locationsDataMock[pos].geometry.coordinates[1]);
-        expect(latLng.lng).to.equal(locationsDataMock[pos].geometry.coordinates[0]);
+        expect(latLng.lat).to.equal(locationsDataMock[ pos ].geometry.coordinates[ 1 ]);
+        expect(latLng.lng).to.equal(locationsDataMock[ pos ].geometry.coordinates[ 0 ]);
       });
     });
 
@@ -185,7 +187,7 @@ describe('MapPage', function () {
 
       const eMock = {
         target: {
-          id: locationsDataMock[0].id,
+          id: locationsDataMock[ 0 ].id,
           _latlng: new L.LatLng(56, 9)
         }
       };
@@ -198,10 +200,10 @@ describe('MapPage', function () {
       component.onLocationClicked(eMock);
 
       expect(popoverCtrlMock.create).to.have.callCount(1);
-      expect(popoverCtrlMock.create.args[0]).to.have.lengthOf(3);
-      expect(popoverCtrlMock.create.args[0][0]).to.eql(LocationDetails);
-      expect(popoverCtrlMock.create.args[0][1]).to.eql({ locationId: eMock.target.id });
-      expect(popoverCtrlMock.create.args[0][2]).to.be.an('object');
+      expect(popoverCtrlMock.create.args[ 0 ]).to.have.lengthOf(3);
+      expect(popoverCtrlMock.create.args[ 0 ][ 0 ]).to.eql(LocationDetails);
+      expect(popoverCtrlMock.create.args[ 0 ][ 1 ]).to.eql({ locationId: eMock.target.id });
+      expect(popoverCtrlMock.create.args[ 0 ][ 2 ]).to.be.an('object');
 
       expect(popoverMock.present).to.have.callCount(1);
     });
@@ -240,11 +242,11 @@ describe('MapPage', function () {
 
         expect(component.mapMessage).to.equal(undefined);
 
-        expect(panToSpy.args[0]).to.eql([ L.latLng(46.18, 6.09), { animate: true } ]);
+        expect(panToSpy.args[ 0 ]).to.eql([ L.latLng(46.18, 6.09), { animate: true } ]);
         expect(panToSpy).to.have.callCount(1);
 
         // panTo calls setView
-        expect(setViewSpy.args[1]).to.eql([ L.latLng(46.18, 6.09), 15, { pan: { animate: true } } ]);
+        expect(setViewSpy.args[ 1 ]).to.eql([ L.latLng(46.18, 6.09), 15, { pan: { animate: true } } ]);
         expect(setViewSpy).to.have.callCount(2);
       }));
 
@@ -278,11 +280,11 @@ describe('MapPage', function () {
 
         expect(component.mapMessage).to.equal(undefined);
 
-        expect(panToSpy.args[0]).to.eql([ L.latLng(46.18, 6.09), { animate: true } ]);
+        expect(panToSpy.args[ 0 ]).to.eql([ L.latLng(46.18, 6.09), { animate: true } ]);
         expect(panToSpy).to.have.callCount(1);
 
         // panTo calls setView
-        expect(setViewSpy.args[1]).to.eql([ L.latLng(46.18, 6.09), 15, { pan: { animate: true } } ]);
+        expect(setViewSpy.args[ 1 ]).to.eql([ L.latLng(46.18, 6.09), 15, { pan: { animate: true } } ]);
         expect(setViewSpy).to.have.callCount(2);
       }));
 
@@ -313,11 +315,11 @@ describe('MapPage', function () {
         expect(component.mapMessage).to.equal(undefined);
 
         // The map should have been centered on that position.
-        expect(panToSpy.args[0]).to.eql([ L.latLng(42, 24), { animate: true } ]);
+        expect(panToSpy.args[ 0 ]).to.eql([ L.latLng(42, 24), { animate: true } ]);
         expect(panToSpy).to.have.callCount(1);
 
         // panTo calls setView
-        expect(setViewSpy.args[1]).to.eql([ L.latLng(42, 24), 15, { pan: { animate: true } } ]);
+        expect(setViewSpy.args[ 1 ]).to.eql([ L.latLng(42, 24), 15, { pan: { animate: true } } ]);
         expect(setViewSpy).to.have.callCount(2);
       }));
 
@@ -378,11 +380,11 @@ describe('MapPage', function () {
         tick();
 
         // The map is correctly centered on the initial position.
-        expect(panToSpy.args[0]).to.eql([ L.latLng(46.18, 6.09), { animate: true } ]);
+        expect(panToSpy.args[ 0 ]).to.eql([ L.latLng(46.18, 6.09), { animate: true } ]);
         expect(panToSpy).to.have.callCount(1);
 
         // panTo calls setView
-        expect(setViewSpy.args[1]).to.eql([ L.latLng(46.18, 6.09), 15, { pan: { animate: true } } ]);
+        expect(setViewSpy.args[ 1 ]).to.eql([ L.latLng(46.18, 6.09), 15, { pan: { animate: true } } ]);
         expect(setViewSpy).to.have.callCount(2);
 
         expect(component.mapMessage).to.equal(undefined);

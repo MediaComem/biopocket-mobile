@@ -8,17 +8,17 @@ import { TranslateService } from '@ngx-translate/core';
 import { IonicModule, NavParams, ViewController } from 'ionic-angular';
 import { stub } from 'sinon';
 
-import { expect } from '../../../spec/chai';
-import { ENV as MockEnv } from '../../environments/environment.test';
-import { fr } from '../../locales';
-import { Location } from '../../models';
-import EnvService from '../../providers/env-service/env-service';
-import locationsDataMock from '../../providers/locations-service/locations-data.mock';
-import LocationsModule from '../../providers/locations-service/locations-module';
-import LocationsService from '../../providers/locations-service/locations-service';
-import { translateModuleForRoot } from '../../utils/i18n';
-import { observableOf } from '../../utils/observable';
-import LocationDetails from '../location-details/location-details';
+import { ENV as MockEnv } from '@app/environments/environment.test';
+import { fr } from '@app/locales';
+import { Location } from '@models/location';
+import EnvService from '@providers/env-service/env-service';
+import locationsDataMock from '@providers/locations-service/locations-data.mock';
+import LocationsModule from '@providers/locations-service/locations-module';
+import LocationsService from '@providers/locations-service/locations-service';
+import { expect } from '@spec/chai';
+import { translateModuleForRoot } from '@utils/i18n';
+import { observableOf } from '@utils/observable';
+import LocationDetails from './location-details';
 
 describe('LocationDetails', function () {
   let component: LocationDetails, fixture;

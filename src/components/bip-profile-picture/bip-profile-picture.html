@@ -1,0 +1,6 @@
+<div class="picture-gradient-wrapper">
+  <div class="picture-white-wrapper" [class.no-picture]="!src">
+    <img *ngIf="src" src="{{src}}" alt="Profile picture">
+    <bip-icon *ngIf="!src" name="user" color="light"></bip-icon>
+  </div>
+</div>

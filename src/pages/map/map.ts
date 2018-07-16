@@ -2,17 +2,18 @@ import { ChangeDetectorRef, Component } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation';
 import { TranslateService } from '@ngx-translate/core';
 import * as turf from '@turf/turf';
-import { PopoverController, PopoverOptions } from 'ionic-angular';
+import { NavController, PopoverController, PopoverOptions } from 'ionic-angular';
 import * as L from 'leaflet';
 import { differenceBy, intersectionBy } from 'lodash';
 
-import { Location } from '../../models/location';
-import Marker from '../../models/marker';
-import LocationDetails from '../../popovers/location-details/location-details';
-import LocationsService from '../../providers/locations-service/locations-service';
-import { turfPointToLeafletLatLng } from '../../utils/geo';
-import { defIcon } from '../../utils/leafletIcons';
-import Print from '../../utils/print';
+import LocationDetails from '@app/popovers/location-details/location-details';
+import { Location } from '@models/location';
+import Marker from '@models/marker';
+import { ActionsListPage } from '@pages/actions-list/actions-list';
+import Print from '@print';
+import LocationsService from '@providers/locations-service/locations-service';
+import { turfPointToLeafletLatLng } from '@utils/geo';
+import { defIcon } from '@utils/leafletIcons';
 
 const LOG_REF = '[MapPage]';
 
@@ -40,7 +41,8 @@ export class MapPage {
     private readonly locationsService: LocationsService,
     private readonly translateService: TranslateService,
     private readonly changeDetector: ChangeDetectorRef,
-    private readonly popoverCtrl: PopoverController
+    private readonly popoverCtrl: PopoverController,
+    private readonly navCtrl: NavController
   ) {
     this.layers = [];
     this.mapOptions = {
@@ -49,8 +51,14 @@ export class MapPage {
           attribution: 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
           maxZoom: 19
         })
-      ]
+      ],
+      zoomControl: false,
+      attributionControl: false
     };
+  }
+
+  goToActionsList() {
+    this.navCtrl.push(ActionsListPage);
   }
 
   /**
@@ -107,7 +115,7 @@ export class MapPage {
     popover.present()
       .then(() => {
         // Yeah... I don't like this way of getting the popover height...
-        const locationDetailsEle = document.getElementsByClassName('popover-content')[0] as HTMLElement;
+        const locationDetailsEle = document.getElementsByClassName('popover-content')[ 0 ] as HTMLElement;
         this.centerViewportOn(e.target._latlng, new L.Point(0, locationDetailsEle.offsetHeight));
       });
   }
@@ -147,7 +155,7 @@ export class MapPage {
    */
   private addLocationToMap(location: Location) {
     const coords = location.geometry.coordinates;
-    const marker = new Marker(location.id, [ coords[1], coords[0] ], { icon: defIcon });
+    const marker = new Marker(location.id, [ coords[ 1 ], coords[ 0 ] ], { icon: defIcon });
     marker.on('click', e => this.onLocationClicked(e as L.LeafletMouseEvent));
     this.layers.push(marker);
   }

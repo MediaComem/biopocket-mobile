@@ -10,8 +10,18 @@ module.exports = {
   resolve: {
     extensions: [ '.ts', '.js' ],
     alias: {
-      "@app/env": path.resolve(__dirname, '../src/environments/environment.test.ts')
-    }
+      "@app/env": path.resolve('./src/environments/environment.test.ts'),
+      "@print": path.resolve('./src/utils/print.ts'),
+      "@spec": path.resolve('./spec'),
+      "@utils": path.resolve('./src/utils'),
+      "@pages": path.resolve('./src/pages'),
+      "@components": path.resolve('./src/components'),
+      "@classes": path.resolve('./src/classes'),
+      "@providers": path.resolve('./src/providers'),
+      "@models": path.resolve('./src/models'),
+      "@app": path.resolve('./src')
+    },
+    modules: [ path.resolve('./node_modules'), path.resolve('./src') ]
   },
 
   module: {

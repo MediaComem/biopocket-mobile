@@ -8,8 +8,8 @@ import { expect } from 'chai';
 import { compact } from 'lodash';
 import { Observable } from 'rxjs/Rx';
 
-import { HeadersOrParams, httpRequestMatcher } from '../../../spec/http';
-import EnvService from '../env-service/env-service';
+import EnvService from '@providers/env-service/env-service';
+import { HeadersOrParams, httpRequestMatcher } from '@spec/http';
 import { ApiInterceptor } from './api-interceptor';
 
 type EnvServiceMock = Partial<EnvService>;

@@ -3,14 +3,20 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators/map';
 
-import { Location } from '../../models';
+import { Location } from '@models/location';
 
-export interface FetchLocationsParams {
+/**
+ * Represents available parameters when fetching all the locations
+ * @property {string} [bbox] - A string representing the bbox that the returned points must be within.
+ */
+interface FetchLocationsParams {
   bbox?: string;
   [key: string]: string | string[];
 }
 
-const resourcePath = '/locations';
+// tslint:disable-next-line:no-unused no-unused-variable
+const LOG_REF = '[LocationsService]';
+const RESOURCE_PATH = '/locations';
 
 /**
  * Handles request on the BioPocket API that are related to the management of Locations of interest.
@@ -22,13 +28,12 @@ export default class LocationsService {
 
   /**
    * Fetch all the locations from the backend
-   * These locations can be filtered by passing an `options.bbox` argument (see here : https://mediacomem.github.io/biopocket-backend/api/#locations_get)
-   * @param {Object} options - An option object to configure the fetch
-   * @param {string} options.bbox - A string representing the bbox that the returned points must be within
+   * These locations can be filtered by passing an `params.bbox` argument (see here : https://mediacomem.github.io/biopocket-backend/api/#locations_get)
+   * @param {FetchLocationsParams} params - An params object to configure the fetch
    * @returns {Observable<Location>} An Observable of a Location array
    */
   fetchAll(params: FetchLocationsParams = {}): Observable<Location[]> {
-    return this.httpClient.get<any[]>(resourcePath, { params }).pipe(map(data => data.map(parseApiLocation)));
+    return this.httpClient.get<any[]>(RESOURCE_PATH, { params }).pipe(map(data => data.map(parseApiLocation)));
   }
 
   /**
@@ -37,7 +42,7 @@ export default class LocationsService {
    * @returns {Observable<Location>} An Observable of a Location
    */
   fetchOne(id: string): Observable<Location> {
-    return this.httpClient.get(`${resourcePath}/${id}`).pipe(map(parseApiLocation));
+    return this.httpClient.get(`${RESOURCE_PATH}/${id}`).pipe(map(parseApiLocation));
   }
 
 }

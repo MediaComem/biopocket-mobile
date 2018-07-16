@@ -7,16 +7,20 @@
 - [Documentation](#documentation)
 - [Environment](#environment)
   - [Implementation](#implementation)
+- [Module aliases](#module-aliases)
 - [Logging things](#logging-things)
 - [Including CSS files from external modules](#including-css-files-from-external-modules)
   - [Example : adding the `node_modules/leaflet/dist/leaflet.css` file in the `www/build/leaflet` folder:](#example--adding-the-node_modulesleafletdistleafletcss-file-in-the-wwwbuildleaflet-folder)
+- [Colors](#colors)
+  - [Main colors](#main-colors)
+  - [Secondary colors](#secondary-colors)
 - [Internationalization](#internationalization)
   - [Message format interpolation](#message-format-interpolation)
 - [End-to-end tests](#end-to-end-tests)
   - [Running the end-to-end tests](#running-the-end-to-end-tests)
     - [Required end-to-end setup](#required-end-to-end-setup)
     - [Letting the tests automatically spawn a backend and mobile application (slower tests)](#letting-the-tests-automatically-spawn-a-backend-and-mobile-application-slower-tests)
-    - [Running a backend and mobile application for testing manually (longer setup)](#running-a-backend-and-mobile-applications-for-testing-manually-longer-setup)
+    - [Running a backend and mobile application for testing manually (longer setup)](#running-a-backend-and-mobile-application-for-testing-manually-longer-setup)
   - [Writing end-to-end tests](#writing-end-to-end-tests)
     - [Using page objects](#using-page-objects)
     - [Watching for changes](#watching-for-changes)
@@ -43,7 +47,7 @@ Here are the links to the documentation of the main technologies, framework and 
 * [ngx-leaflet][ngl-doc] - Angular component to display leaflet maps
 * [Leaflet][leaflet-doc]
 * [Lodash][_doc]
-* [Turf][turf-doc] Utilities to manipulate geographical information
+* [Turf][turf-doc] - Utilities to manipulate geographical information
 
 And the same for the libraries and frameworks used to test the project:
 
@@ -87,7 +91,32 @@ environment files has been added to the `compilerOptions.paths` property of the
 
 This mechanism is based on [Easy to use environment variables for Ionic3!][ionic-env-vars].
 
+## Module aliases
 
+Following the mechanism as described in the [Environment > Implementation](#implementation) section, several custom module aliases have been defined for this app.
+
+Those aliases have been added to the `spec/webpack.test.js` file, so that tests that use them can be properly resolved by webpack.
+
+Here is a list of those aliases and the path (relative to the root folder) for the file or folder to which they point to:
+
+> Using those aliases improves writing and reading imports, as one does not have to care about the relative paths
+
+| Alias         | Path                                  | Note |
+|:---           |:---                                   |:---  |
+| `@app/env`    | `src/environments/<environment-file>` | (1)  |
+| `@print`      | `src/utils/print.ts`                  | (2)  |
+| `@utils`      | `src/utils`                           |      |
+| `@pages`      | `src/pages`                           |      |
+| `@components` | `src/components`                      |      |
+| `@providers`  | `src/providers`                       |      |
+| `@models`     | `src/models`                          |      |
+| `@app`        | `src`                                 | (3)  |
+
+> (1): Specific environment file. See [here](#implementation).
+>
+> (2): Direct access to the logging utility. See [here](#logging-things).
+>
+> (3): Access something that is not accessible using the other aliases.
 
 ## Logging things
 
@@ -107,7 +136,7 @@ const whitelist: string[] = [
 To use the `Print` utility, import it in your file, and call one of its methods :
 
 ```ts
-import Print from 'path/to/utils/print';
+import Print from '@print';
 
 Print.log('Hello World');
 Print.debug('Foo');
@@ -115,8 +144,6 @@ Print.info('Bar');
 Print.debug(Print);
 Print.error('Ooops');
 ```
-
-
 
 ## Including CSS files from external modules
 
@@ -162,7 +189,100 @@ module.exports = {
 
 **When the needed files are copied in the `www` directory, they can be referenced in the `index.html` or in a component.**
 
+## Colors
 
+Several colors have been defined for the BioPocket project by the design team. They have been declared inside two color maps in the `src/theme/variables.scss` file.
+
+One map, `$colors`, contains the main color of the BioPocket color theme.
+The second map, `$secondaryColors`, contains what its name implies : the secondary colors of the color theme.
+Each color have been given a specific key in the map.
+
+Following are two tables (one for the main colors, the other for the secondary colors) that matches the color with their key and their HEX and RGB values.
+
+> Use the SASS utility function `bipColor($key)` to retrieve the HEX code for the color.
+>
+> ```css
+> .exemple {
+>   color: bipColor('primary');
+>   background-color: bipColor('boreal');
+>   border-color: bipColor('lagoon');
+> }
+> ```
+
+### Main colors
+
+| Color                                  | Key           | HEX       | RGB           |
+|:---                                    |:---           |:---       |:---           |
+| <span style="color:#4a8ec8">▐█▌</span> | `'primary'`   | `#4a8ec8` | 74, 142, 200  |
+| <span style="color:#23808b">▐█▌</span> | `'ocean'`     | `#23808b` | 35, 128, 139  |
+| <span style="color:#5bb697">▐█▌</span> | `'boreal'`    | `#5bb697` | 91, 182, 151  |
+| <span style="color:#4eae67">▐█▌</span> | `'secondary'` | `#4eae67` | 78, 174, 103  |
+| <span style="color:#e78c48">▐█▌</span> | `'warning'`   | `#e78c48` | 231, 140, 72  |
+| <span style="color:#de5d6e">▐█▌</span> | `'danger'`    | `#de5d6e` | 222, 93, 110  |
+| <span style="color:#ffffff">▐█▌</span> | `'light'`     | `#ffffff` | 255, 255, 255 |
+| <span style="color:#999999">▐█▌</span> | `'grey '`     | `#999999` | 153, 153, 153 |
+| <span style="color:#222222">▐█▌</span> | `'dark'`      | `#222222` | 34, 34, 34    |
+
+### Secondary colors
+
+| Color                                  | Key           | HEX       | RGB           |
+|:---                                    |:---           |:---       |:---           |
+| <span style="color:#2c3681">▐█▌</span> | `'night'`     | `#2c3681` | 44, 54, 129   |
+| <span style="color:#2b6bb0">▐█▌</span> | `'sky'`       | `#2b6bb0` | 43, 107, 176  |
+| <span style="color:#55a7db">▐█▌</span> | `'clear'`     | `#55a7db` | 85, 167, 219  |
+| <span style="color:#4ab9ce">▐█▌</span> | `'lagoon'`    | `#4ab9ce` | 74, 185, 206  |
+| <span style="color:#4fb398">▐█▌</span> | `'river'`     | `#4fb398` | 79, 179, 152  |
+| <span style="color:#5eb157">▐█▌</span> | `'grass'`     | `#5eb157` | 94, 177, 87   |
+| <span style="color:#207f8c">▐█▌</span> | `'seabed'`    | `#207f8c` | 32, 127, 140  |
+| <span style="color:#7e6131">▐█▌</span> | `'wood'`      | `#7e6131` | 126, 97, 49   |
+
+## Icons
+
+Icons specific to BioPocket are displayed in the app using inline SVG and an SVG sprite file.
+
+Each icon from the icon set is represented by a `.svg` file in the `src/assets/icon/svg` folder.
+When updating or creating a new icon for the set, simply put the exported `.svg` file from Illustrator in this folder.
+
+Several scripts will concatenate all those individual `.svg` files into one single SVG sprite file, named `bip-icon-set.svg` and located in the `src/assets/icon` folder.
+This file will then be copied by the bundling process to the correct path so that the Ionic app can display the icon, using a special `bip-icon` component (see [Components](#components)).
+One script, `svg-sprite`, generate the sprite file, while the other, `svg-sprite:watch`, will run the `svg-sprite` script whenever it detects changes on the above mentioned `svg` folder.
+
+> Please note that this process is handled by the `npm start` script, so you shouldn't have to run it manually.
+
+Here's a list of available icons and the name that should be used when referencing them in `bip-icon` components (or other components that support them).
+
+| Icon                              | Name               |
+|:---                               |:---                |
+| ![bell][ibell]                    | `'bell'`           |
+| ![calendar check][icalendarcheck] | `'calendar-check'` |
+| ![calendar][icalendar]            | `'calendar'`       |
+| ![camera][icamera]                | `'camera'`         |
+| ![clock][iclock]                  | `'clock'`          |
+| ![comments][icomments]            | `'comments'`       |
+| ![cross][icross]                  | `'cross'`          |
+| ![gear][igear]                    | `'gear'`           |
+| ![heart][iheart]                  | `'heart'`          |
+| ![hourglass][ihourglass]          | `'hourglass'`      |
+| ![info][iinfo]                    | `'info'`           |
+| ![list][ilist]                    | `'list'`           |
+| ![location][ilocation]            | `'location'`       |
+| ![map][imap]                      | `'map'`            |
+| ![question][iquestion]            | `'question'`       |
+| ![repeat][irepeat]                | `'repeat'`         |
+| ![spiral][ispiral]                | `'spiral'`         |
+| ![user][iuser]                    | `'user'`           |
+
+## Components
+
+Here's a list of the custom Angular components that are available in the BioPocket app.
+
+| Selector              | Purpose                                                       | Documentation   |
+|:---                   |:---                                                           |:---             |
+| `bip-icon`            | To diisplay [BioPocket icons](#Icons)                         | [API][bic-doc]  |
+| `bip-menu-item-icon`  | To display [BioPocket icons](#Icons) in menu items            | [API][bmiic-doc] |
+| `bip-menu-item`       | To display menu item in the app's main menu                   | [API][bmic-doc]  |
+| `bip-menu-header`     | To display the user profile in the app's main menu            | [API][bmhc-doc]  |
+| `bip-profile-picture` | To display a profile picture (with the double rounded border) | [API][bppc-doc]  |
 
 ## Internationalization
 
@@ -534,3 +654,28 @@ Do not forget to:
 [turf-doc]: http://turfjs.org/docs/
 [webpack-resolve]: https://webpack.js.org/configuration/resolve/
 [yaml]: http://yaml.org
+
+[ibell]: ./docs/icon-set/bell.png
+[icalendarcheck]: ./docs/icon-set/calendar-check.png
+[icalendar]: ./docs/icon-set/calendar.png
+[icamera]: ./docs/icon-set/camera.png
+[iclock]: ./docs/icon-set/clock.png
+[icomments]: ./docs/icon-set/comments.png
+[icross]: ./docs/icon-set/cross.png
+[igear]: ./docs/icon-set/gear.png
+[iheart]: ./docs/icon-set/heart.png
+[ihourglass]: ./docs/icon-set/hourglass.png
+[iinfo]: ./docs/icon-set/info.png
+[ilist]: ./docs/icon-set/list.png
+[ilocation]: ./docs/icon-set/location.png
+[imap]: ./docs/icon-set/map.png
+[iquestion]: ./docs/icon-set/question.png
+[irepeat]: ./docs/icon-set/repeat.png
+[ispiral]: ./docs/icon-set/spiral.png
+[iuser]: ./docs/icon-set/user.png
+
+[bic-doc]: ./docs/components/bip-icon.md
+[bmiic-doc]: ./docs/components/bip-menu-item-icon.md
+[bmic-doc]: ./docs/components/bip-menu-item.md
+[bmhc-doc]: ./docs/components/bip-menu-header.md
+[bppc-doc]: ./docs/components/bip-profile-picture.md

@@ -6,8 +6,8 @@ import { MomentModule } from 'angular2-moment';
 import { expect } from 'chai';
 import { IonicModule, NavController } from 'ionic-angular';
 
-import { translateModuleForRoot } from '../../utils/i18n';
-import { HomePage } from './home';
+import { HomePage } from '@pages/home/home';
+import { translateModuleForRoot } from '@utils/i18n';
 
 describe('HomePage', () => {
   let fixture;
