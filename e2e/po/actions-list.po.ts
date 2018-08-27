@@ -26,7 +26,7 @@ export class ActionsListPageObject extends AbstractPageObject {
    * Each of these item should display information about a particular action.
    */
   getActionListItems(): ElementArrayFinder {
-    return this.getActionsList().all(by.css('ion-item'));
+    return this.getActionsList().all(by.css('bip-action-card'));
   }
 
   /**

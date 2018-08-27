@@ -10,6 +10,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import LocationDetails from '@app/popovers/location-details/location-details';
 import { ComponentsModule } from '@components/components.module';
+import { ActionPage } from '@pages/action/action';
 import { ActionsListPage } from '@pages/actions-list/actions-list';
 import { HomePage } from '@pages/home/home';
 import { MapPage } from '@pages/map/map';
@@ -26,7 +27,8 @@ import { AppComponent } from './app.component';
     ActionsListPage,
     HomePage,
     LocationDetails,
-    MapPage
+    MapPage,
+    ActionPage
   ],
   imports: [
     BrowserModule,
@@ -46,7 +48,8 @@ import { AppComponent } from './app.component';
     ActionsListPage,
     HomePage,
     LocationDetails,
-    MapPage
+    MapPage,
+    ActionPage
   ],
   providers: [
     Geolocation,

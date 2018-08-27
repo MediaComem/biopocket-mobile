@@ -1,6 +1,7 @@
 // Mocha global variables (for Windows)
 /// <reference path="../../node_modules/@types/mocha/index.d.ts" />
 
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { ConnectionBackend, Http } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
@@ -22,8 +23,10 @@ import { ENV as MockEnv } from '@app/environments/environment.test';
 import { fr } from '@app/locales';
 import MenuItem from '@classes/menu-item.class';
 import { StubComponentsModule as ComponentsModule } from '@components/stub-components.module';
+import { ActionsListPage } from '@pages/actions-list/actions-list';
 import { HomePage } from '@pages/home/home';
 import { MapPage } from '@pages/map/map';
+import ActionsModule from '@providers/actions-service/actions-module';
 import EnvService from '@providers/env-service/env-service';
 import LocationsModule from '@providers/locations-service/locations-module';
 import { expect } from '@spec/chai';
@@ -35,6 +38,7 @@ import { translateModuleForRoot } from '@utils/i18n';
 describe('AppComponent', () => {
   let fixture;
   let component;
+  let httpTestingCtrl: HttpTestingController;
 
   let platformMock;
   let splashScreenMock;
@@ -44,7 +48,7 @@ describe('AppComponent', () => {
 
   let readyDeferred;
 
-  beforeEach(() => {
+  beforeEach(async () => {
 
     readyDeferred = new Deferred();
 
@@ -60,19 +64,22 @@ describe('AppComponent', () => {
       styleDefault: spy()
     };
 
-    TestBed.configureTestingModule({
+    await TestBed.configureTestingModule({
       declarations: [
         AppComponent,
         HomePage,
-        MapPage
+        MapPage,
+        ActionsListPage
       ],
       imports: [
+        HttpClientTestingModule,
         IonicModule.forRoot(AppComponent),
         MomentModule,
         translateModuleForRoot,
         LeafletModule.forRoot(),
         LocationsModule,
-        ComponentsModule
+        ComponentsModule,
+        ActionsModule
       ],
       providers: [
         Geolocation,
@@ -85,7 +92,7 @@ describe('AppComponent', () => {
       ]
     }).overrideModule(BrowserDynamicTestingModule, {
       set: {
-        entryComponents: [ HomePage, MapPage ]
+        entryComponents: [ HomePage, MapPage, ActionsListPage ]
       }
     }).overrideComponent(MapPage, {
       set: {
@@ -110,11 +117,14 @@ describe('AppComponent', () => {
     fixture = TestBed.createComponent(AppComponent);
     component = fixture.componentInstance;
 
+    httpTestingCtrl = TestBed.get(HttpTestingController);
+
     stub(component.nav, 'setRoot');
   });
 
   afterEach(() => {
     restoreSpy(moment.locale);
+    httpTestingCtrl.verify();
   });
 
   it('should be initialized', async () => {
@@ -125,8 +135,6 @@ describe('AppComponent', () => {
 
     expect(component).to.haveOwnProperty('activeItem');
     expect(component.activeItem).to.be.an.instanceOf(MenuItem);
-    // TODO : Check that the rootPage is the same as the component of the activeItem
-    // expect(component.rootPage).to.eql(component.activeItem.component);
 
     // Some initialization should not be done until platform is ready
     expect(splashScreenMock.hide.called, 'splashScreen.hide() called').to.equal(false);

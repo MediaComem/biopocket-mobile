@@ -3,6 +3,8 @@ import { InfiniteScroll, NavController } from 'ionic-angular';
 import { Observable } from 'rxjs';
 
 import Action from '@models/action';
+import { ActionPage } from '@pages/action/action';
+import Print from '@print';
 import ActionsService from '@providers/actions-service/actions-service';
 
 // tslint:disable-next-line:no-unused no-unused-variable
@@ -16,6 +18,7 @@ export class ActionsListPage {
 
   actions: Action[];
   fetchActionObs: Observable<Action[]>;
+  actionPage: any;
 
   constructor(
     public navCtrl: NavController,
@@ -23,6 +26,7 @@ export class ActionsListPage {
   ) {
     this.actions = [];
     this.fetchActionObs = null;
+    this.actionPage = ActionPage;
   }
 
   ionViewDidLoad(): void {
@@ -31,11 +35,13 @@ export class ActionsListPage {
 
   loadMoreActions(infiniteScroll?: InfiniteScroll) {
     const fetchParams = {
-      offset: String(this.actions.length)
+      offset: String(this.actions.length),
+      include: 'theme'
     };
     // TODO: handle fetch paginated actions error
     this.actionsService.fetchPaginatedActions(fetchParams)
       .subscribe(response => {
+        Print.debug(LOG_REF, response.data);
         this.actions = this.actions.concat(response.data);
         if (infiniteScroll) {
           infiniteScroll.complete();

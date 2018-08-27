@@ -41,8 +41,6 @@ export class AppComponent {
       new MenuItem('map', MapPage, new MenuItemIcon('map', 'warning'), translateService)
     ];
 
-    // this.rootPage = MapPage;
-    // this.rootPage = ActionsListPage;
     // Define the active menu item. Its page will be used as the rootPage of the app.
     this.activeItem = this.menuItems[ 2 ];
     // Set the rootPage based on the activeItem. This is only the case when instanciating the app.

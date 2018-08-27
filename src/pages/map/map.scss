@@ -33,14 +33,20 @@ map-page {
       fill: bipColor('secondary');
     }
   }
+  .wrapper {
+    width: 100%;
+    pointer-events: none;
+    display: flex;
+    justify-content: center;
+    margin-top: $globalSpacing;
+  }
   #go-to-list {
-    position: absolute;
-    z-index: 999;
-    width: 60vw;
-    margin: 0 auto;
-    left: 0;
-    right: 0;
-    margin-top: 20px;
-    @include smoothShadow;
+    font-size: 1.6rem;
+    pointer-events: all;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, .16);
+    padding: 12px ($globalSpacing * 2);
+    border-radius: 12px;
+    background-color: bipColor('warning');
+    color: bipColor('light');
   }
 }

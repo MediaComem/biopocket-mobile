@@ -9,6 +9,7 @@ import { spy, stub } from 'sinon';
 
 import { ENV as MockEnv } from '@app/environments/environment.test';
 import { fr } from '@app/locales';
+import { StubComponentsModule } from '@components/stub-components.module';
 import Action from '@models/action';
 import { ActionsListPage } from '@pages/actions-list/actions-list';
 import ActionsModule from '@providers/actions-service/actions-module';
@@ -52,7 +53,8 @@ describe('ActionsListPage', function () {
         HttpClientTestingModule,
         IonicModule.forRoot(ActionsListPage),
         translateModuleForRoot,
-        ActionsModule
+        ActionsModule,
+        StubComponentsModule
       ],
       providers: [
         { provide: NavController, useValue: navControllerMock },

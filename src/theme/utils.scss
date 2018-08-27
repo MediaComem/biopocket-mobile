@@ -7,6 +7,6 @@
     @return map-get($secondaryColors, $key);
   }
 
-  @warn "Unknown `#{$key}` in $colors and $secondaryColors.";
+  @warn "Unknown '#{$key}' color in $colors and $secondaryColors.";
   @return null;
 }
