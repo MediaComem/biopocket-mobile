@@ -12,9 +12,9 @@ import { fr } from '@app/locales';
 import { StubComponentsModule } from '@components/stub-components.module';
 import Action from '@models/action';
 import { ActionsListPage } from '@pages/actions-list/actions-list';
+import paginatedResponseMock from '@providers/actions-service/action-data.mock';
 import ActionsModule from '@providers/actions-service/actions-module';
 import ActionsService from '@providers/actions-service/actions-service';
-import paginatedResponseMock from '@providers/actions-service/pagination-response.mock';
 import EnvService from '@providers/env-service/env-service';
 import { expect } from '@spec/chai';
 import { resetStub } from '@spec/sinon';
@@ -24,7 +24,7 @@ import { observableOf } from '@utils/observable';
 
 type ActionsServiceMock = Partial<ActionsService>;
 
-describe('ActionsListPage', function () {
+describe('ActionsListPage', function() {
   let component, fixture;
   let httpTestingCtrl: HttpTestingController;
   let navControllerMock;
@@ -32,7 +32,7 @@ describe('ActionsListPage', function () {
   let infiniteScrollMock;
   let loadMoareActionsSpy;
 
-  beforeEach(function () {
+  beforeEach(function() {
 
     infiniteScrollMock = {
       complete: spy(),
@@ -75,67 +75,75 @@ describe('ActionsListPage', function () {
     httpTestingCtrl = TestBed.get(HttpTestingController);
   });
 
-  afterEach(function () {
+  afterEach(function() {
     // Make sure no HTTP requests were made during these tests (services should be mocked).
     httpTestingCtrl.verify();
   });
 
-  it('should be created', function () {
+  it('should be created', function() {
     expect(component).to.be.an.instanceOf(ActionsListPage);
   });
 
-  it('should load actions when loaded into view', function () {
+  describe('#ionViewDidLoad', () => {
 
-    resetStub(actionsServiceMock.fetchPaginatedActions).returns(observableOf(paginatedResponseMock()));
+    it('should load actions', function() {
 
-    expect(component.actions).to.be.an('array');
-    expect(component.actions).to.have.length(0);
+      resetStub(actionsServiceMock.fetchPaginatedActions).returns(observableOf(paginatedResponseMock()));
 
-    component.ionViewDidLoad();
+      expect(component.actions).to.be.an('array');
+      expect(component.actions).to.have.length(0);
 
-    expect(loadMoareActionsSpy).to.have.callCount(1);
+      component.ionViewDidLoad();
 
-    expect(component.actions).to.have.length(3);
-    component.actions.forEach(action => {
-      expect(action).to.be.an.instanceOf(Action);
+      expect(loadMoareActionsSpy).to.have.callCount(1);
+
+      expect(component.actions).to.have.length(3);
+      component.actions.forEach(action => {
+        expect(action).to.be.an.instanceOf(Action);
+      });
     });
+
   });
 
-  it('should load more actions when scrolled', function() {
-    resetStub(actionsServiceMock.fetchPaginatedActions).returns(observableOf(paginatedResponseMock()));
-    component.ionViewDidLoad();
+  describe('#loadMoreActions', () => {
 
-    component.loadMoreActions(infiniteScrollMock);
-    expect(loadMoareActionsSpy).to.have.callCount(2);
-    expect(infiniteScrollMock.complete).to.have.callCount(1);
+    it('should load more actions when scrolled', function() {
+      resetStub(actionsServiceMock.fetchPaginatedActions).returns(observableOf(paginatedResponseMock()));
+      component.ionViewDidLoad();
 
-    expect(component.actions).to.have.length(6);
-    component.actions.forEach(action => {
-      expect(action).to.be.an.instanceOf(Action);
+      component.loadMoreActions(infiniteScrollMock);
+      expect(loadMoareActionsSpy).to.have.callCount(2);
+      expect(infiniteScrollMock.complete).to.have.callCount(1);
+
+      expect(component.actions).to.have.length(6);
+      component.actions.forEach(action => {
+        expect(action).to.be.an.instanceOf(Action);
+      });
     });
-  });
 
-  it('should not disable the infinite scroll when some actions remains to be loaded', function() {
-    resetStub(actionsServiceMock.fetchPaginatedActions).returns(observableOf(paginatedResponseMock({
-      offset: 0,
-      limit: 3,
-      total: 6,
-      filteredTotal: 12
-    })));
+    it('should not disable the infinite scroll when some actions remains to be loaded', function() {
+      resetStub(actionsServiceMock.fetchPaginatedActions).returns(observableOf(paginatedResponseMock({
+        offset: 0,
+        limit: 3,
+        total: 6,
+        filteredTotal: 12
+      })));
 
-    component.loadMoreActions(infiniteScrollMock);
+      component.loadMoreActions(infiniteScrollMock);
 
-    expect(infiniteScrollMock.complete).to.have.callCount(1);
-    expect(infiniteScrollMock.enable).to.have.been.calledWith(true);
-  });
+      expect(infiniteScrollMock.complete).to.have.callCount(1);
+      expect(infiniteScrollMock.enable).to.have.been.calledWith(true);
+    });
 
-  it('should disable the infinite scroll when all actions have been loaded', function() {
-    resetStub(actionsServiceMock.fetchPaginatedActions).returns(observableOf(paginatedResponseMock()));
+    it('should disable the infinite scroll when all actions have been loaded', function() {
+      resetStub(actionsServiceMock.fetchPaginatedActions).returns(observableOf(paginatedResponseMock()));
 
-    component.loadMoreActions(infiniteScrollMock);
+      component.loadMoreActions(infiniteScrollMock);
 
-    expect(infiniteScrollMock.complete).to.have.callCount(1);
-    expect(infiniteScrollMock.enable).to.have.been.calledWith(false);
+      expect(infiniteScrollMock.complete).to.have.callCount(1);
+      expect(infiniteScrollMock.enable).to.have.been.calledWith(false);
+    });
+
   });
 
 });

@@ -76,7 +76,15 @@ export class AppComponent {
     return menuItem.pageRef === this.activeItem.pageRef;
   }
 
-  private initializeApp() {
+  menuOpen() {
+    this.statusBar.backgroundColorByHexString('#dcdcdc');
+  }
+
+  menuClose() {
+    this.statusBar.backgroundColorByHexString('#f8f8f8');
+  }
+
+  private async initializeApp() {
 
     moment.locale('fr');
 
@@ -84,11 +92,11 @@ export class AppComponent {
     this.translateService.setDefaultLang('fr');
     this.translateService.use('fr');
 
-    this.platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
-      this.statusBar.styleDefault();
-      this.splashScreen.hide();
-    });
+    await this.platform.ready();
+    // Okay, so the platform is ready and our plugins are available.
+    // Here you can do any higher level native things you might need.
+    this.statusBar.styleDefault();
+    this.statusBar.backgroundColorByHexString('#f8f8f8');
+    this.splashScreen.hide();
   }
 }

@@ -1,3 +1,59 @@
-page-action {
+action-page {
+  .img-wrapper {
+    margin-top: -#{$globalSpacing};
+    margin-left: -#{$globalSpacing};
+    margin-right: -#{$globalSpacing};
+    margin-bottom: $globalSpacing;
+    height: 168px;
+    overflow: hidden;
 
+    img {
+      object-fit: cover;
+      width: 100%;
+    }
+  }
+  .title-bar {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: $globalSpacing;
+    border-bottom: 0.5px solid rgba(177, 177, 177, 0.5);
+    margin-bottom: $globalSpacing;
+  }
+  .bip-button {
+    font-size: 1.3rem;
+    align-self: flex-start;
+    background-color: bipColor('secondary');
+    padding-left: $globalSpacing;
+    padding-right: $globalSpacing;
+  }
+  h1 {
+    color: bipColor('lagoon');
+  }
+  h2 {
+    margin-bottom: 0;
+    color: transparentize(black, 0.5);
+
+    ion-icon[name="arrow-forward"] {
+      margin-left: calc(#{$globalSpacing} / 2);
+      position: relative;
+      top: 0.1em;
+    }
+  }
+  h3 {
+    font-size: 1.3rem;
+  }
+  .description {
+    p {
+      margin-bottom: 0;
+    }
+  }
+  header {
+    margin-left: -#{$globalSpacing};
+    margin-right: -#{$globalSpacing};
+    margin-bottom: $globalSpacing;
+    padding-bottom: $globalSpacing;
+    padding-left: $globalSpacing;
+    padding-right: $globalSpacing;
+    box-shadow: 0 0 6px rgba(0, 0, 0, .11);
+  }
 }

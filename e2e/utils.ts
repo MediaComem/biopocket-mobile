@@ -83,7 +83,17 @@ export function presenceOf(finder: ElementFinder, timeout = AVERAGE_WAIT_TIME) {
 }
 
 /**
- * Expects that the given `finder` is displayed/visible (or instead hidden) on the DOM.
+ * Make the browser wait for the given `finder` to be visible on the page.
+ * This times out by default after 5 secondes, or the given `timeout` value.
+ * @param finder An element finder.
+ * @param {Number} [timeout=5000] The number of millisecondes after which the browser stops waiting. Defaults to `5000`.
+ */
+export function visibilityOf(finder: ElementFinder, timeout = AVERAGE_WAIT_TIME) {
+  return browser.wait(EC.visibilityOf(finder), timeout);
+}
+
+/**
+ * Expect that the given `finder` is displayed/visible (or instead hidden) on the DOM.
  * By default, expect the `finder` to be displayed. Pass `false` as second param to expect it to be hidden.
  * @param finder An element finder.
  * @param {String} [errorMessage] The message to display when the expectation fails.

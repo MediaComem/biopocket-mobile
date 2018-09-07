@@ -5,15 +5,18 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { Geolocation } from '@ionic-native/geolocation';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
+import { Toast } from '@ionic-native/toast';
 import { MomentModule } from 'angular2-moment';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import LocationDetails from '@app/popovers/location-details/location-details';
 import { ComponentsModule } from '@components/components.module';
+import { DirectivesModule } from '@directives/directives.module';
 import { ActionPage } from '@pages/action/action';
 import { ActionsListPage } from '@pages/actions-list/actions-list';
 import { HomePage } from '@pages/home/home';
 import { MapPage } from '@pages/map/map';
+import { ThemePage } from '@pages/theme/theme';
 import ActionsServiceProvider from '@providers/actions-service/actions-module';
 import { ApiInterceptor } from '@providers/api-interceptor/api-interceptor';
 import EnvService from '@providers/env-service/env-service';
@@ -28,7 +31,8 @@ import { AppComponent } from './app.component';
     HomePage,
     LocationDetails,
     MapPage,
-    ActionPage
+    ActionPage,
+    ThemePage
   ],
   imports: [
     BrowserModule,
@@ -38,7 +42,8 @@ import { AppComponent } from './app.component';
     LeafletModule.forRoot(),
     LocationsModule,
     ActionsServiceProvider,
-    ComponentsModule
+    ComponentsModule,
+    DirectivesModule
   ],
   bootstrap: [
     IonicApp
@@ -49,9 +54,11 @@ import { AppComponent } from './app.component';
     HomePage,
     LocationDetails,
     MapPage,
-    ActionPage
+    ActionPage,
+    ThemePage
   ],
   providers: [
+    Toast,
     Geolocation,
     StatusBar,
     SplashScreen,

@@ -61,7 +61,8 @@ describe('AppComponent', () => {
     };
 
     statusBarMock = {
-      styleDefault: spy()
+      styleDefault: spy(),
+      backgroundColorByHexString: spy()
     };
 
     await TestBed.configureTestingModule({
@@ -139,6 +140,7 @@ describe('AppComponent', () => {
     // Some initialization should not be done until platform is ready
     expect(splashScreenMock.hide.called, 'splashScreen.hide() called').to.equal(false);
     expect(statusBarMock.styleDefault.called, 'statusBar.styleDefault() called').to.equal(false);
+    expect(statusBarMock.backgroundColorByHexString.called, 'statusBar.backgroundColorByHexString() called').to.equal(false);
 
     expect(asSpy(moment.locale).args, 'moment.locale() called').to.eql([ [ 'fr' ] ]);
 
@@ -152,9 +154,24 @@ describe('AppComponent', () => {
     readyDeferred.resolve('READY');
     tick();
 
-    expect(splashScreenMock.hide.args, 'splashScreen.hide() called').to.eql([ [] ]);
-    expect(statusBarMock.styleDefault.args, 'statusBar.styleDefault() called').to.eql([ [] ]);
+    expect(splashScreenMock.hide, 'splashScreen.hide() called').to.have.callCount(1);
+    expect(statusBarMock.styleDefault, 'statusBar.styleDefault() called').to.have.callCount(1);
+    expect(statusBarMock.backgroundColorByHexString, 'statusBar.backgroundColorByHexString() called').to.have.been.calledWith('#f8f8f8');
   }));
+
+  describe('#menuOpen', () => {
+    it("should change the statusBar's background color", function() {
+      component.menuOpen();
+      expect(statusBarMock.backgroundColorByHexString).to.have.been.calledWith('#dcdcdc');
+    });
+  });
+
+  describe('#menuClose', () => {
+    it("should change back the statusBar's background color", function() {
+      component.menuClose();
+      expect(statusBarMock.backgroundColorByHexString).to.have.been.calledWith('#f8f8f8');
+    });
+  });
 
   describe('#openPage', () => {
     it('should navigate to the page\'s component', () => {

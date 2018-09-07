@@ -81,9 +81,14 @@ describe('LocationDetails', function () {
     expect(component.location.id).to.equal(navParamsMock.data.locationId);
   });
 
-  it('should close itself', function () {
-    component.close();
+  describe('#close', () => {
 
-    expect(viewControllerMock.dismiss).to.have.callCount(1);
+    it('should dismiss the popover', function () {
+      component.close();
+
+      expect(viewControllerMock.dismiss).to.have.callCount(1);
+    });
+
   });
+
 });
