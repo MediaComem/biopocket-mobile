@@ -1,13 +1,13 @@
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
-import MenuItemIcon from '@classes/menu-item-icon.class';
+import { MenuItemIcon } from '@classes/menu-item-icon.class';
 
 /**
  * This class decorates a Component with a `title` property that returns the properly translated page title.
  * It should be used when adding new items on the `AppComponent.pages` arrray.
  */
-export default class MenuItem {
+export class MenuItem {
 
   /**
    * @constructor

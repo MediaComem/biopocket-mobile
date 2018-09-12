@@ -103,3 +103,37 @@ ion-app.wp .multiline-fade {
   line-height: $textHeight;
   height: calc(3 * #{$textHeight});
 }
+
+.img-wrapper {
+  margin-left: -#{$globalSpacing};
+  margin-right: -#{$globalSpacing};
+  overflow: hidden;
+  &.cover {
+    margin-top: -#{$globalSpacing};
+    margin-bottom: $globalSpacing;
+  }
+  img {
+    object-fit: cover;
+    width: 100%;
+  }
+}
+
+.title-bar {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: $globalSpacing;
+  border-bottom: 0.5px solid rgba(177, 177, 177, 0.5);
+  margin-bottom: $globalSpacing;
+}
+
+@media only screen and (orientation: portrait) {
+  .img-wrapper.cover {
+    height: 40vw;
+  }
+}
+
+@media only screen and (orientation: landscape) {
+  .img-wrapper.cover {
+    height: 40vh;
+  }
+}

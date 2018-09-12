@@ -22,7 +22,7 @@ const RESOURCE_PATH = '/locations';
  * Handles request on the BioPocket API that are related to the management of Locations of interest.
  */
 @Injectable()
-export default class LocationsService {
+export class LocationsService {
 
   constructor(private readonly httpClient: HttpClient) { }
 

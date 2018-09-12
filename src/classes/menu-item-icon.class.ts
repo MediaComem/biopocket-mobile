@@ -1,7 +1,7 @@
 /**
  * This class encapsulate data relative to a menu item icon.
  */
-export default class MenuItemIcon {
+export class MenuItemIcon {
 
   /**
    * @constructor

@@ -21,8 +21,10 @@ npm-debug.log*
 .versions/
 config/e2e.config.ts
 coverage/
-resources/android
-resources/ios
+resources/android/*
+!resources/android/icon.png
+resources/ios/*
+!resources/ios/icon.png
 resources/splash.png.md5
 resources/icon.png.md5
 dist/

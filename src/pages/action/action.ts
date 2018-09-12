@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { assign } from 'lodash';
 
-import Action from '@models/action';
+import { Action } from '@models/action';
 import { ThemePage } from '@pages/theme/theme';
-import ActionsService from '@providers/actions-service/actions-service';
+import { ActionsService } from '@providers/actions-service/actions-service';
 
 // tslint:disable-next-line:no-unused no-unused-variable
 const LOG_REF = '[ActionPage]';

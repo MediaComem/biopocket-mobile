@@ -12,7 +12,7 @@ describe('BipProfilePicture', () => {
   let componentEl: HTMLElement;
 
   beforeEach(async () => {
-    TestBed.configureTestingModule({
+    await TestBed.configureTestingModule({
       declarations: [ BipProfilePictureComponent, BipIconComponent ]
     }).compileComponents();
   });

@@ -1,5 +1,4 @@
-import extend from 'lodash/extend';
-import pick from 'lodash/pick';
+import { extend, pick } from 'lodash';
 
 /**
  * Represents an Action's Theme.

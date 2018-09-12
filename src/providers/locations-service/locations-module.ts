@@ -1,7 +1,7 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 
-import LocationsService from './locations-service';
+import { LocationsService } from './locations-service';
 
 @NgModule({
   imports: [
@@ -11,4 +11,4 @@ import LocationsService from './locations-service';
     LocationsService
   ]
 })
-export default class LocationsModule { }
+export class LocationsModule { }

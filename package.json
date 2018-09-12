@@ -1,6 +1,6 @@
 {
   "name": "biopocket",
-  "version": "0.1.1",
+  "version": "0.1.0",
   "author": "Ionic Framework",
   "homepage": "http://ionicframework.com/",
   "private": true,
@@ -58,7 +58,8 @@
     "@ngx-translate/core": "^9.1.1",
     "@turf/turf": "^5.1.6",
     "angular2-moment": "^1.7.1",
-    "cordova-android": "6.3.0",
+    "cordova-android": "7.1.1",
+    "cordova-ios": "4.5.5",
     "cordova-plugin-device": "^2.0.1",
     "cordova-plugin-geolocation": "^4.0.1",
     "cordova-plugin-ionic-webview": "^1.1.16",
@@ -140,6 +141,9 @@
       "cordova-plugin-x-toast": {},
       "cordova-plugin-statusbar": {}
     },
-    "platforms": []
+    "platforms": [
+      "android",
+      "ios"
+    ]
   }
 }

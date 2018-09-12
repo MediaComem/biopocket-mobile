@@ -1,5 +1,4 @@
-import extend from 'lodash/extend';
-import pick from 'lodash/pick';
+import { extend, pick } from 'lodash';
 
 /**
  * Represents a Location of Interest in the mobile app
@@ -61,11 +60,11 @@ class Address {
 class Geometry {
 
   type: string;
-  coordinates: [number, number];
+  coordinates: [ number, number ];
 
   /**
    * Creates a new Geometry
-   * @param {Object} data - An object containing the values for a Location's Geomtry 
+   * @param {Object} data - An object containing the values for a Location's Geomtry
    */
   constructor(data: any) {
     this.type = data.type;

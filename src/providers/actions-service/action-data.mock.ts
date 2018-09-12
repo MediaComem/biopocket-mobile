@@ -1,7 +1,7 @@
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
 
-import Action from '@models/action';
-import PaginatedResponse, { PaginationData } from '@models/paginated-response';
+import { Action } from '@models/action';
+import { PaginatedResponse, PaginationData } from '@models/paginated-response';
 
 export const mockActions = [
   {
@@ -36,7 +36,7 @@ export const mockActions = [
  * You can pass an object to this function to change the value of the pagination values.
  * @param {PaginationData} [paginationOpt={ offset: 0, limit: 3, total: 3, filteredTotal: 3 }] PaginationData to override the value of the pagination headers.
  */
-export default function(paginationOpt: PaginationData = { offset: 0, limit: 3, total: 3, filteredTotal: 3 }) {
+export function paginatedResponseMock(paginationOpt: PaginationData = { offset: 0, limit: 3, total: 3, filteredTotal: 3 }) {
   const fakeHttpResponse = new HttpResponse<any[]>({
     body: mockActions,
     headers: new HttpHeaders({

@@ -10,12 +10,12 @@ import { spy, stub } from 'sinon';
 import { ENV as MockEnv } from '@app/environments/environment.test';
 import { fr } from '@app/locales';
 import { StubComponentsModule } from '@components/stub-components.module';
-import Action from '@models/action';
+import { Action } from '@models/action';
 import { ActionsListPage } from '@pages/actions-list/actions-list';
-import paginatedResponseMock from '@providers/actions-service/action-data.mock';
-import ActionsModule from '@providers/actions-service/actions-module';
-import ActionsService from '@providers/actions-service/actions-service';
-import EnvService from '@providers/env-service/env-service';
+import { paginatedResponseMock } from '@providers/actions-service/action-data.mock';
+import { ActionsModule } from '@providers/actions-service/actions-module';
+import { ActionsService } from '@providers/actions-service/actions-service';
+import { EnvService } from '@providers/env-service/env-service';
 import { expect } from '@spec/chai';
 import { resetStub } from '@spec/sinon';
 // import { Deferred } from '@spec/utils';
@@ -32,7 +32,7 @@ describe('ActionsListPage', function() {
   let infiniteScrollMock;
   let loadMoareActionsSpy;
 
-  beforeEach(function() {
+  beforeEach(() => {
 
     infiniteScrollMock = {
       complete: spy(),

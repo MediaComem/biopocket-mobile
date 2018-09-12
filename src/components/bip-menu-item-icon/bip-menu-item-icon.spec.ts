@@ -10,7 +10,7 @@ describe('BipMenuItemIconComponent', () => {
   let component: BipMenuItemIconComponent;
 
   beforeEach(async () => {
-    TestBed.configureTestingModule({
+    await TestBed.configureTestingModule({
       declarations: [ BipMenuItemIconComponent, BipIconComponent ]
     }).compileComponents();
   });

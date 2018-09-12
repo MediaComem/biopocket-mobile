@@ -12,14 +12,14 @@ import { spy, stub } from 'sinon';
 
 import { ENV as MockEnv } from '@app/environments/environment.test';
 import { fr } from '@app/locales';
-import LocationDetails from '@app/popovers/location-details/location-details';
+import { LocationDetails } from '@app/popovers/location-details/location-details';
 import { BipIconStub } from '@components/bip-icon/bip-icon.stub';
-import Marker from '@models/marker';
+import { Marker } from '@models/marker';
 import { MapPage } from '@pages/map/map';
-import EnvService from '@providers/env-service/env-service';
-import locationsDataMock from '@providers/locations-service/locations-data.mock';
-import LocationsModule from '@providers/locations-service/locations-module';
-import LocationsService from '@providers/locations-service/locations-service';
+import { EnvService } from '@providers/env-service/env-service';
+import { locationsDataMock } from '@providers/locations-service/locations-data.mock';
+import { LocationsModule } from '@providers/locations-service/locations-module';
+import { LocationsService } from '@providers/locations-service/locations-service';
 import { expect } from '@spec/chai';
 import { resetStub } from '@spec/sinon';
 import { Deferred } from '@spec/utils';
@@ -28,7 +28,7 @@ import { observableOf, observableThatThrows } from '@utils/observable';
 
 type LocationsServiceMock = Partial<LocationsService>;
 
-describe('MapPage', function () {
+describe('MapPage', function() {
   let component, fixture;
   let httpTestingCtrl: HttpTestingController;
   let geolocationMock, geolocationDeferred;
@@ -36,7 +36,7 @@ describe('MapPage', function () {
   let popoverCtrlMock, popoverMock;
   let locationsServiceMock: LocationsServiceMock;
 
-  beforeEach(function () {
+  beforeEach(() => {
 
     geolocationDeferred = new Deferred();
     geolocationMock = {
@@ -88,16 +88,16 @@ describe('MapPage', function () {
     httpTestingCtrl = TestBed.get(HttpTestingController);
   });
 
-  afterEach(function () {
+  afterEach(function() {
     // Make sure no HTTP requests were made during these tests (services should be mocked).
     httpTestingCtrl.verify();
   });
 
-  it('should be created', function () {
+  it('should be created', function() {
     expect(component).to.be.an.instanceOf(MapPage);
   });
 
-  it('should have a valid mapOptions property', function () {
+  it('should have a valid mapOptions property', function() {
     expect(component, 'MapPage has no mapOptions property').to.haveOwnProperty('mapOptions');
     expect(component.mapOptions, 'MapPage.mapOptions has no layers property').to.haveOwnProperty('layers');
     expect(component.mapOptions.layers, 'MapPage.mapOptions.layers is not an array').to.be.an('array');
@@ -106,8 +106,8 @@ describe('MapPage', function () {
     });
   });
 
-  describe('when the map is ready', function () {
-    it('should attach the map to the component and initialize it', async function () {
+  describe('when the map is ready', function() {
+    it('should attach the map to the component and initialize it', async function() {
 
       expect(component.map).to.equal(undefined);
 
@@ -123,7 +123,7 @@ describe('MapPage', function () {
       expect(center.lng).to.equal(6.100234);
     });
 
-    it('should load location points on the map', async function () {
+    it('should load location points on the map', async function() {
 
       resetStub(locationsServiceMock.fetchAll).returns(observableOf(locationsDataMock));
 
@@ -143,7 +143,7 @@ describe('MapPage', function () {
       });
     });
 
-    it('should reload locations after the map has been panned', async function () {
+    it('should reload locations after the map has been panned', async function() {
 
       resetStub(locationsServiceMock.fetchAll, fetchAll => {
         fetchAll.onCall(0).returns(observableOf(locationsDataMock.slice(0, 2)));
@@ -179,7 +179,7 @@ describe('MapPage', function () {
       expect(markerIds).to.have.members(expectedIds);
     });
 
-    it('should open a Popover when a location\'s marker is clicked', async function () {
+    it('should open a Popover when a location\'s marker is clicked', async function() {
 
       resetStub(locationsServiceMock.fetchAll, fetchAll => {
         fetchAll.returns(observableOf(locationsDataMock));
@@ -208,7 +208,7 @@ describe('MapPage', function () {
       expect(popoverMock.present).to.have.callCount(1);
     });
 
-    describe('and initialized', function () {
+    describe('and initialized', function() {
 
       let map, panToSpy, setViewSpy;
       function setUpMap(options = {}) {
@@ -234,7 +234,7 @@ describe('MapPage', function () {
         expect(component.mapMessage).to.equal(fr.pages.map.geolocation);
       }
 
-      it('should automatically center the map on the user if in Onex', fakeAsync(function () {
+      it('should automatically center the map on the user if in Onex', fakeAsync(function() {
         setUpMap();
 
         geolocationDeferred.resolve({ coords: { longitude: 6.09, latitude: 46.18 } });
@@ -250,7 +250,7 @@ describe('MapPage', function () {
         expect(setViewSpy).to.have.callCount(2);
       }));
 
-      it('should leave the map centered on Onex if the user is not there', fakeAsync(function () {
+      it('should leave the map centered on Onex if the user is not there', fakeAsync(function() {
         setUpMap();
 
         geolocationDeferred.resolve({ coords: { longitude: 8, latitude: 48 } });
@@ -261,7 +261,7 @@ describe('MapPage', function () {
         expect(setViewSpy).to.have.callCount(1);
       }));
 
-      it('should leave the map centered on Onex if the user cannot be located', fakeAsync(function () {
+      it('should leave the map centered on Onex if the user cannot be located', fakeAsync(function() {
         setUpMap();
 
         geolocationDeferred.reject(new Error('Dunno where you are'));
@@ -272,7 +272,7 @@ describe('MapPage', function () {
         expect(setViewSpy).to.have.callCount(1);
       }));
 
-      it('should center the map without changing the zoom level', fakeAsync(function () {
+      it('should center the map without changing the zoom level', fakeAsync(function() {
         setUpMap({ zoom: 10 });
 
         geolocationDeferred.resolve({ coords: { longitude: 6.09, latitude: 46.18 } });
@@ -288,7 +288,7 @@ describe('MapPage', function () {
         expect(setViewSpy).to.have.callCount(2);
       }));
 
-      it('should center the map on the user\'s current position when clicking on the center me button', fakeAsync(function () {
+      it('should center the map on the user\'s current position when clicking on the center me button', fakeAsync(function() {
         setUpMap();
 
         // Resolve the initial geolocation to somewhere not in Onex.
@@ -323,7 +323,7 @@ describe('MapPage', function () {
         expect(setViewSpy).to.have.callCount(2);
       }));
 
-      it('should display an error message if geolocation fails after clicking on the center me button', fakeAsync(function () {
+      it('should display an error message if geolocation fails after clicking on the center me button', fakeAsync(function() {
         setUpMap();
 
         geolocationDeferred.resolve({ coords: { longitude: 1, latitude: 0 } });
@@ -360,7 +360,7 @@ describe('MapPage', function () {
        * and the map is centered twice (once as a result of the initial geolocation,
        * and a second time as a result of the user's click).
        */
-      it('should center the map on the user\'s initial position when clicking on the center me button before the initial position has been determined', fakeAsync(function () {
+      it('should center the map on the user\'s initial position when clicking on the center me button before the initial position has been determined', fakeAsync(function() {
         setUpMap();
 
         // Mock for the initial geolocation

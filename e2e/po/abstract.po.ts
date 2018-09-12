@@ -18,6 +18,11 @@ export class AbstractPageObject {
     return browser.getTitle();
   }
 
+  /**
+   * Returns a promise that will be resolved when the browser windows has been resized according to the provided width and height.
+   * @param width The targeted width.
+   * @param height The targeted height.
+   */
   async setWindowSize(width: number, height: number): Promise<void> {
     await browser.driver.manage().window().setSize(width, height);
   }
@@ -34,6 +39,10 @@ export class AbstractPageObject {
    */
   getPageTitle(): ElementFinder {
     return this.getPage().element(by.css('ion-title'));
+  }
+
+  getBackButton(): ElementFinder {
+    return this.getPage().element(by.css('button.back-button'));
   }
 
   /**

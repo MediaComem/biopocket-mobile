@@ -12,6 +12,10 @@ export class ActionPageObject extends AbstractPageObject {
   }
 
   getActionDetails(): ElementFinder {
-    return element(by.css('header'));
+    return this.getPage().element(by.tagName('header'));
+  }
+
+  getThemeTitle(): ElementFinder {
+    return this.getActionDetails().element(by.css('h2.theme-title'));
   }
 }

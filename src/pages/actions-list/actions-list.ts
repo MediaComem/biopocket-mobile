@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { InfiniteScroll, NavController } from 'ionic-angular';
 import { Observable } from 'rxjs';
 
-import Action from '@models/action';
+import { Action } from '@models/action';
 import { ActionPage } from '@pages/action/action';
-import Print from '@print';
-import ActionsService from '@providers/actions-service/actions-service';
+import { Print } from '@print';
+import { ActionsService } from '@providers/actions-service/actions-service';
 
 // tslint:disable-next-line:no-unused no-unused-variable
 const LOG_REF = '[ActionsListPage]';

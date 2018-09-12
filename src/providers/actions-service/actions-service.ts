@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators/map';
 
-import Action from '@models/action';
-import PaginatedResponse from '@models/paginated-response';
+import { Action } from '@models/action';
+import { PaginatedResponse } from '@models/paginated-response';
 
 /**
  * Defines the structure of fetch actions parameters.
@@ -21,7 +21,7 @@ const LOG_REF = '[ActionsService]';
 const RESOURCE_PATH = '/actions';
 
 @Injectable()
-export default class ActionsService {
+export class ActionsService {
 
   constructor(private readonly http: HttpClient) { }
 
