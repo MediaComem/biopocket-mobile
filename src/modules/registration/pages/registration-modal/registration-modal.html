@@ -1,0 +1,17 @@
+<ion-header mode="md" class="gradient">
+
+  <ion-navbar>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+        <bip-icon name="cross" color="light"></bip-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>{{ 'registration.modal.title' | translate }}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+  <p class="introduction">{{ 'registration.modal.introduction' | translate }}</p>
+  <registration-form></registration-form>
+</ion-content>

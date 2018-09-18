@@ -1,0 +1,24 @@
+registration-modal {
+  border-radius: 12px;
+  text-align: center;
+
+  .content {
+    display: flex;
+  }
+
+  p.introduction {
+    padding-bottom: 1em;
+    margin-bottom: $globalSpacing;
+    border-bottom: $smoothBorder;
+  }
+}
+
+.registration-modal {
+  padding: 16px;
+
+  ion-backdrop {
+    visibility: visible;
+    z-index: unset;
+    background-color: transparentize(bipColor('concrete'), 0.1);
+  }
+}

@@ -1,0 +1,77 @@
+@mixin alert($color) {
+  width: 100%;
+  background-color: transparentize($color, 0.99);
+  border: solid .5px $color;
+  border-radius: 8px;
+  text-align: left;
+  padding: 8px;
+  margin-bottom: $globalSpacing;
+  color: $color;
+  p:first-of-type {
+    margin-top: 0;
+  }
+  p:last-of-type {
+    margin-bottom: 0;
+  }
+  p {
+    color: $color;
+  }
+}
+
+.registration-module {
+  .form-intro {
+    text-align: center;
+  }
+  .form-input,
+  .bip-button {
+    width: 100%;
+  }
+  .error-message {
+    color: bipColor('danger');
+    margin: calc(#{$globalSpacing}/2) auto;
+  }
+  .success {
+    margin: calc(#{2 * $globalSpacing}) 0;
+    padding-top: $globalSpacing;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    ion-icon {
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+  }
+  .disclaimer {
+    $color: bipColor('primary');
+    @include alert($color);
+    display: flex;
+    bip-icon {
+      color: $color;
+      margin-right: 8px;
+      position: relative;
+      top: 0.1em;
+    }
+    p {
+      margin: 0;
+      color: $color;
+    }
+  }
+  .error {
+    @include alert(bipColor('danger'));
+  }
+}
+
+ion-content[background] {
+  .content-card {
+    registration-form,
+    unregistration-form {
+      padding: 0;
+      p.form-intro {
+        margin-top: 0;
+      }
+      button.bip-button {
+        margin-bottom: 0;
+      }
+    }
+  }
+}

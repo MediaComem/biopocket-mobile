@@ -6,6 +6,7 @@ import { BipIconStub as BipIconComponent } from '@components/bip-icon/bip-icon.s
 import { BipMenuHeaderComponent } from '@components/bip-menu-header/bip-menu-header';
 import { BipProfilePictureStub as BipProfilePictureComponent } from '@components/bip-profile-picture/bip-profile-picture.stub';
 import { expect } from '@spec/chai';
+import { translateModuleForRoot } from '@utils/i18n';
 
 describe('BipMenuHeader', () => {
 
@@ -14,7 +15,8 @@ describe('BipMenuHeader', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BipMenuHeaderComponent, BipProfilePictureComponent, BipIconComponent ]
+      declarations: [ BipMenuHeaderComponent, BipProfilePictureComponent, BipIconComponent ],
+      imports: [translateModuleForRoot]
     }).compileComponents();
   });
 

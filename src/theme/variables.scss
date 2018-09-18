@@ -25,7 +25,14 @@ $app-direction: ltr;
 // To view all the possible Ionic variables, see:
 // http://ionicframework.com/docs/theming/overriding-ionic-variables/
 
-
+$button-round-border-radius: 12px;
+$button-round-padding-top: 12px;
+$button-round-padding-end: 32px;
+$button-md-text-transform: initial;
+$button-md-font-weight: initial;
+$button-md-font-size: 1.6rem;
+$button-md-outline-border-width: .5px;
+$button-md-outline-background-color: white;
 
 // Named Color Variables
 // --------------------------------------------------
@@ -62,12 +69,31 @@ $secondaryColors: (
   wood:       #7e6131
 );
 
-$lightGrey:   #f8f8f8;
+// $lightGrey:   #f8f8f8;
+$lightGrey: #f6f6f6;
+$textDefaultColor: rgba(0, 0, 0, .5);
+$textDefaultSize: 1.3rem;
+$smoothBorder: .5px solid rgba(177, 177, 177, 0.5);
+$globalSpacing: 16px;
+
+@mixin smoothShadow() {
+  box-shadow: 0 0 6px rgba(0, 0, 0, .16);
+}
 
 @mixin bipGradient($angle) {
   background: linear-gradient($angle, #00E3A7, bipColor('seabed'));
 }
 
+@mixin buttonType($name, $colorName) {
+  &.#{$name} {
+    background-color: bipColor($colorName);
+    &.outline {
+      background-color: white;
+      border: solid .5px bipColor($colorName);
+      color: bipColor($colorName);
+    }
+  }
+}
 
 // App iOS Variables
 // --------------------------------------------------
@@ -98,7 +124,6 @@ $lightGrey:   #f8f8f8;
 // default are overridden.
 
 @import "ionic.theme.default";
-@import "bip-theme";
 
 
 // Ionicons

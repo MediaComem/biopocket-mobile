@@ -1,4 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+
+import { RegistrationTabsPage } from 'modules/registration/pages/registration-tabs/registration-tabs';
 
 import { User } from '../../models/user.interface';
 
@@ -15,13 +17,24 @@ import { User } from '../../models/user.interface';
 })
 export class BipMenuHeaderComponent implements OnInit {
 
-  // TODO: replace `any` with a suitable User type when it will be created.
   @Input() user: User;
+  @Output() goToPage: EventEmitter<any>;
+
+  registrationPage: any;
+
+  constructor() {
+    this.registrationPage = RegistrationTabsPage;
+    this.goToPage = new EventEmitter<any>();
+  }
 
   ngOnInit(): void {
     if (!this.user) {
       throw new Error("A 'bip-menu-header' component requires a value for its 'user' attribute.");
     }
+  }
+
+  activate(page: any) {
+    this.goToPage.emit(page);
   }
 
 }

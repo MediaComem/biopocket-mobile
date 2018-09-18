@@ -1,4 +1,4 @@
-import { Directive, HostBinding, Input } from '@angular/core';
+import { Directive, Input } from '@angular/core';
 
 /**
  * Directive that handles broken <img> sources.
@@ -12,20 +12,19 @@ import { Directive, HostBinding, Input } from '@angular/core';
   selector: 'img[default]',
   host: {
     '(error)': 'updateUrl()',
-    '(load)': 'load()',
+    // '(load)': 'load()',
     '[src]': 'src'
   }
 })
 export class ImageHandlerDirective {
   @Input() src: string;
   @Input() default: string;
-  @HostBinding('class.image-loaded') isLoaded: boolean;
 
   updateUrl() {
     this.src = this.default;
   }
 
-  load() {
-    this.isLoaded = true;
-  }
+  // load() {
+  //   console.log('image loaded');
+  // }
 }

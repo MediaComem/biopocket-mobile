@@ -3,19 +3,20 @@
   <div class="profile-wrapper">
     <bip-profile-picture [src]="user.profilePictureUrl"></bip-profile-picture>
     <span class="username">{{ user.completeName }}</span>
-    <div class="action-buttons">
-      <button ion-fab color="light">
+    <button class="bip-button navigation outline" (click)="activate(registrationPage)">{{ 'registration.news' | translate }}</button>
+    <!-- <div class="action-buttons">
+      <button ion-fab color="light" (click)="activate('userPage')">
         <bip-icon name="user"></bip-icon>
       </button>
-      <button ion-fab color="light">
+      <button ion-fab color="light" (click)="activate('messagePage')">
         <bip-icon name="comments"></bip-icon>
       </button>
-      <button ion-fab color="light">
+      <button ion-fab color="light" (click)="activate('notificationsPage')">
         <bip-icon name="bell"></bip-icon>
       </button>
-      <button ion-fab color="light">
+      <button ion-fab color="light" (click)="activate('calendarPage')">
         <bip-icon name="calendar-check"></bip-icon>
       </button>
-    </div>
+    </div> -->
   </div>
 </div>

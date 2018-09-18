@@ -12,6 +12,73 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+// -------------
+// Global styles
+// -------------
+// Styles that are applied throughout the app
+// Mixin that defines global styles for the different types of buttons.
+// The mixin defines two classes, one for the normal button, the other for the outlined button.
+// The name will be used in the name of the CSS class which will be <name>-action.
+// The colorName will be used for both the normal and outline styles.
+.bip-button {
+  font-size: 1.6rem;
+  pointer-events: all;
+  padding: 12px ($globalSpacing * 2);
+  border-radius: 12px;
+  color: bipColor('light');
+  margin: $globalSpacing 0;
+  @include buttonType('navigation', 'primary');
+  @include buttonType('positive-action', 'secondary');
+  @include buttonType('negative-action', 'danger');
+  @include buttonType('specific-action', 'warning');
+  &.small {
+    font-size: 1.3rem;
+    padding: calc(#{$globalSpacing} / 2);
+    border-radius: 8px;
+  }
+}
+
+h1 {
+  font-size: 1.8rem;
+  color: bipColor('dark');
+  font-weight: initial;
+}
+
+.theme-title {
+  font-size: 1.4rem;
+  font-weight: initial;
+}
+
+h3 {
+  font-size: 1.4rem;
+  color: bipColor('dark');
+  font-weight: bold;
+}
+
+p {
+  color: $textDefaultColor;
+}
+
+ion-content[background] {
+  background-color: $lightGrey;
+  .content-card {
+    background-color: white;
+    padding: $globalSpacing;
+    border-radius: 8px;
+    box-shadow: 0 0 8px 1px rgba(0, 0, 0, 0.06);
+  }
+}
+
+ion-header.gradient {
+  @include bipGradient(-90deg);
+  * {
+    color: bipColor('light') !important;
+  }
+  .toolbar-background {
+    background-color: inherit;
+  }
+}
+
 .active {
   background-color: $lightGrey;
   bip-menu-item-icon {
@@ -126,6 +193,36 @@ ion-app.wp .multiline-fade {
   margin-bottom: $globalSpacing;
 }
 
+.form-input {
+  margin-bottom: $globalSpacing;
+  label,
+  input {
+    display: block;
+  }
+  label {
+    margin-bottom: calc(#{$globalSpacing}/2);
+  }
+  input {
+    height: 38px;
+    width: 100%;
+    padding: calc(#{$globalSpacing} /2);
+    border-radius: 12px;
+    border: 0.5px solid $textDefaultColor;
+    &::placeholder {
+      color: transparentize($textDefaultColor, 0.25);
+    }
+  }
+}
+
+.ng-valid:not(form) {
+  border-color: bipColor('secondary');
+}
+
+.ng-invalid:not(form):not(.ng-pristine),
+.ng-invalid.ng-touched:not(form) {
+  border-color: bipColor('danger');
+}
+
 @media only screen and (orientation: portrait) {
   .img-wrapper.cover {
     height: 40vw;
@@ -135,5 +232,66 @@ ion-app.wp .multiline-fade {
 @media only screen and (orientation: landscape) {
   .img-wrapper.cover {
     height: 40vh;
+  }
+}
+
+// Background color
+// ----------------
+// Generates classes that applies the $colors to the `background-color` property.
+// Main colors
+@each $colorName,
+$hexValue in $colors {
+  .#{$colorName}-bg-color {
+    background-color: $hexValue;
+  }
+}
+
+// Secondary colors
+@each $colorName,
+$hexValue in $secondaryColors {
+  .#{$colorName}-bg-color {
+    background-color: $hexValue;
+  }
+}
+
+// Foreground color
+// ----------------
+// Generates classes that applies the $colors to the `color` property.
+// Main colors
+@each $colorName,
+$hexValue in $colors {
+  .#{$colorName}-color {
+    color: $hexValue;
+  }
+}
+
+// Secondary colors
+@each $colorName,
+$hexValue in $secondaryColors {
+  .#{$colorName}-color {
+    color: $hexValue;
+  }
+}
+
+// Outline color
+// -------------
+// Generates classes that applies the $colors as a border.
+// Main colors
+@each $colorName,
+$hexValue in $colors {
+  .#{$colorName}-outline {
+    border: solid .5px $hexValue;
+    background-color: white;
+    color: bipColor('#{$colorName}');
+  }
+}
+
+// Secondary colors
+@each $colorName,
+$hexValue in $secondaryColors {
+  .#{$colorName}-outline {
+    border: solid .5px $hexValue;
+    background-color: white;
+    color: bipColor('#{$colorName}');
   }
 }
