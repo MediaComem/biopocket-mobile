@@ -178,7 +178,7 @@ export function normalizeHeadersOrParams(data: HttpHeaders | HttpParams | Header
   } else if (data) {
     for (const name in data) {
       const values = data[name];
-      result[name] = Array.isArray(values) ? values.map(String) : [ String(values) ];
+      result[name] = Array.isArray(values) ? values.map(String) : [String(values)];
     }
   }
 

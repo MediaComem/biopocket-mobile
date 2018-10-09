@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Clipboard } from '@ionic-native/clipboard';
@@ -5,7 +6,6 @@ import { Globalization } from '@ionic-native/globalization';
 import { Toast } from '@ionic-native/toast';
 import { TranslateService } from '@ngx-translate/core';
 
-import { HttpErrorResponse } from '@angular/common/http';
 import { Print } from '@print';
 import { Registration } from '../../classes/registration';
 import { RegistrationService } from '../../providers/registration/registration';

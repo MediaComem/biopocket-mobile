@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component } from '@angular/core';
 import { Geolocation, PositionError } from '@ionic-native/geolocation';
 import { TranslateService } from '@ngx-translate/core';
 import * as turf from '@turf/turf';
-import { NavController, PopoverController, PopoverOptions } from 'ionic-angular';
+import { PopoverController, PopoverOptions } from 'ionic-angular';
 import * as L from 'leaflet';
 import { differenceBy, intersectionBy } from 'lodash';
 
@@ -42,8 +42,7 @@ export class MapPage {
     private readonly locationsService: LocationsService,
     private readonly translateService: TranslateService,
     private readonly changeDetector: ChangeDetectorRef,
-    private readonly popoverCtrl: PopoverController,
-    private readonly navCtrl: NavController
+    private readonly popoverCtrl: PopoverController
   ) {
     this.ActionsListPage = ActionsListPage;
     this.layers = [];
@@ -236,4 +235,3 @@ export class MapPage {
   }
 
 }
-

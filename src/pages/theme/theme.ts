@@ -16,5 +16,4 @@ export class ThemePage {
   ) {
     this.theme = this.navParams.get('theme');
   }
-
 }

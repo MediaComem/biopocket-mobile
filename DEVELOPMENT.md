@@ -257,30 +257,30 @@ Following are two tables (one for the main colors, the other for the secondary c
 
 ### Main colors
 
-| Color                                  | Key           | HEX       | RGB           |
-|:---                                    |:---           |:---       |:---           |
-| <span style="color:#4a8ec8">▐█▌</span> | `'primary'`   | `#4a8ec8` | 74, 142, 200  |
-| <span style="color:#23808b">▐█▌</span> | `'ocean'`     | `#23808b` | 35, 128, 139  |
-| <span style="color:#5bb697">▐█▌</span> | `'boreal'`    | `#5bb697` | 91, 182, 151  |
-| <span style="color:#4eae67">▐█▌</span> | `'secondary'` | `#4eae67` | 78, 174, 103  |
-| <span style="color:#e78c48">▐█▌</span> | `'warning'`   | `#e78c48` | 231, 140, 72  |
-| <span style="color:#de5d6e">▐█▌</span> | `'danger'`    | `#de5d6e` | 222, 93, 110  |
-| <span style="color:#ffffff">▐█▌</span> | `'light'`     | `#ffffff` | 255, 255, 255 |
-| <span style="color:#999999">▐█▌</span> | `'concrete '` | `#999999` | 153, 153, 153 |
-| <span style="color:#222222">▐█▌</span> | `'dark'`      | `#222222` | 34, 34, 34    |
+| Color                                                    | Key           | HEX       | RGB           |
+|:---                                                      |:---           |:---       |:---           |
+| ![#4a8ec8](https://placehold.it/15/4a8ec8/000000?text=+) | `'primary'`   | `#4a8ec8` | 74, 142, 200  |
+| ![#23808b](https://placehold.it/15/23808b/000000?text=+) | `'ocean'`     | `#23808b` | 35, 128, 139  |
+| ![#5bb697](https://placehold.it/15/5bb697/000000?text=+) | `'boreal'`    | `#5bb697` | 91, 182, 151  |
+| ![#4eae67](https://placehold.it/15/4eae67/000000?text=+) | `'secondary'` | `#4eae67` | 78, 174, 103  |
+| ![#e78c48](https://placehold.it/15/e78c48/000000?text=+) | `'warning'`   | `#e78c48` | 231, 140, 72  |
+| ![#de5d6e](https://placehold.it/15/de5d6e/000000?text=+) | `'danger'`    | `#de5d6e` | 222, 93, 110  |
+| ![#ffffff](https://placehold.it/15/ffffff/000000?text=+) | `'light'`     | `#ffffff` | 255, 255, 255 |
+| ![#999999](https://placehold.it/15/999999/000000?text=+) | `'concrete '` | `#999999` | 153, 153, 153 |
+| ![#222222](https://placehold.it/15/222222/000000?text=+) | `'dark'`      | `#222222` | 34, 34, 34    |
 
 ### Secondary colors
 
-| Color                                  | Key           | HEX       | RGB           |
-|:---                                    |:---           |:---       |:---           |
-| <span style="color:#2c3681">▐█▌</span> | `'night'`     | `#2c3681` | 44, 54, 129   |
-| <span style="color:#2b6bb0">▐█▌</span> | `'sky'`       | `#2b6bb0` | 43, 107, 176  |
-| <span style="color:#55a7db">▐█▌</span> | `'clear'`     | `#55a7db` | 85, 167, 219  |
-| <span style="color:#4ab9ce">▐█▌</span> | `'lagoon'`    | `#4ab9ce` | 74, 185, 206  |
-| <span style="color:#4fb398">▐█▌</span> | `'river'`     | `#4fb398` | 79, 179, 152  |
-| <span style="color:#5eb157">▐█▌</span> | `'grass'`     | `#5eb157` | 94, 177, 87   |
-| <span style="color:#207f8c">▐█▌</span> | `'seabed'`    | `#207f8c` | 32, 127, 140  |
-| <span style="color:#7e6131">▐█▌</span> | `'wood'`      | `#7e6131` | 126, 97, 49   |
+| Color                                                    | Key           | HEX       | RGB           |
+|:---                                                      |:---           |:---       |:---           |
+| ![#2c3681](https://placehold.it/15/2c3681/000000?text=+) | `'night'`     | `#2c3681` | 44, 54, 129   |
+| ![#2b6bb0](https://placehold.it/15/2b6bb0/000000?text=+) | `'sky'`       | `#2b6bb0` | 43, 107, 176  |
+| ![#55a7db](https://placehold.it/15/55a7db/000000?text=+) | `'clear'`     | `#55a7db` | 85, 167, 219  |
+| ![#4ab9ce](https://placehold.it/15/4ab9ce/000000?text=+) | `'lagoon'`    | `#4ab9ce` | 74, 185, 206  |
+| ![#4fb398](https://placehold.it/15/4fb398/000000?text=+) | `'river'`     | `#4fb398` | 79, 179, 152  |
+| ![#5eb157](https://placehold.it/15/5eb157/000000?text=+) | `'grass'`     | `#5eb157` | 94, 177, 87   |
+| ![#207f8c](https://placehold.it/15/207f8c/000000?text=+) | `'seabed'`    | `#207f8c` | 32, 127, 140  |
+| ![#7e6131](https://placehold.it/15/7e6131/000000?text=+) | `'wood'`      | `#7e6131` | 126, 97, 49   |
 
 ## Icons
 

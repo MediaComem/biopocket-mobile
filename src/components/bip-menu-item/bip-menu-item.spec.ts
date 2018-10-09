@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { MenuItemIcon } from '@classes/menu-item-icon.class';
 import { BipMenuItemIconStub as BipMenuItemIconComponent } from '@components/bip-menu-item-icon/bip-menu-item-icon.stub';
 import { BipMenuItemComponent } from '@components/bip-menu-item/bip-menu-item';
+import { MenuItemIcon } from '@models/menu-item-icon';
 import { expect } from '@spec/chai';
 
 /**

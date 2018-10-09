@@ -5,12 +5,12 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { ConnectionBackend, Http } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
-// import { By } from '@angular/platform-browser';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { Geolocation } from '@ionic-native/geolocation';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
+import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
 import { TranslateService } from '@ngx-translate/core';
 import { MomentModule } from 'angular2-moment';
 import { IonicModule, Platform } from 'ionic-angular';
@@ -21,8 +21,8 @@ import { spy, stub } from 'sinon';
 import { AppComponent } from '@app/app/app.component';
 import { ENV as MockEnv } from '@app/environments/environment.test';
 import { fr } from '@app/locales';
-import { MenuItem } from '@classes/menu-item.class';
 import { StubComponentsModule as ComponentsModule } from '@components/stub-components.module';
+import { MenuItem } from '@models/menu-item';
 import { ActionsListPage } from '@pages/actions-list/actions-list';
 import { HomePage } from '@pages/home/home';
 import { MapPage } from '@pages/map/map';
@@ -83,19 +83,21 @@ describe('AppComponent', () => {
         ActionsModule
       ],
       providers: [
+        YoutubeVideoPlayer,
         Geolocation,
         { provide: Platform, useValue: platformMock },
         { provide: SplashScreen, useValue: splashScreenMock },
         { provide: StatusBar, useValue: statusBarMock },
         Http,
         { provide: ConnectionBackend, useClass: MockBackend },
-        { provide: EnvService, useValue: MockEnv }
+        { provide: EnvService, useValue: MockEnv },
+        { provide: YoutubeVideoPlayer, useValue: {} }
       ]
     }).overrideModule(BrowserDynamicTestingModule, {
       set: {
         entryComponents: [ HomePage, MapPage, ActionsListPage ]
       }
-    }).overrideComponent(MapPage, {
+    }).overrideComponent(HomePage, {
       set: {
         // Replacing the map page's template avoids an actual map being rendered. This avoids a lot
         // of things being triggered in the map page (such as fetching locations) so that we don't

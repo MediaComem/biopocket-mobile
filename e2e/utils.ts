@@ -16,6 +16,15 @@ export interface WithCoordinates {
 }
 
 /**
+ * Returns a promise that will be resolved when the browser windows has been resized according to the provided width and height.
+ * @param width The targeted width.
+ * @param height The targeted height.
+ */
+export async function setWindowSize(width: number, height: number): Promise<void> {
+  await browser.driver.manage().window().setSize(width, height);
+}
+
+/**
  * Compares GeoJSON-Point-like objects in order of ascending longitude and latitude (in that order).
  */
 export function compareCoordinates(a: WithCoordinates, b: WithCoordinates) {
@@ -83,7 +92,7 @@ export function isDebugEnabled() {
  * @param {Number} [timeout=5000] The number of millisecondes after which the browser stops waiting. Defaults to `5000`.
  */
 export function presenceOf(finder: ElementFinder, timeout = AVERAGE_WAIT_TIME) {
-  return browser.wait(EC.presenceOf(finder), timeout);
+  return browser.wait(EC.presenceOf(finder), timeout, `The requested element was not present in the DOM after ${timeout}ms`);
 }
 
 /**
@@ -103,7 +112,7 @@ export function absenceOf(finder: ElementFinder, timeout = AVERAGE_WAIT_TIME) {
  * @param {Number} [timeout=5000] The number of millisecondes after which the browser stops waiting. Defaults to `5000`.
  */
 export function visibilityOf(finder: ElementFinder, timeout = AVERAGE_WAIT_TIME) {
-  return browser.wait(EC.visibilityOf(finder), timeout);
+  return browser.wait(EC.visibilityOf(finder), timeout, `The element requested was not visible on the screen after ${timeout}`);
 }
 
 export function invisibilityOf(finder: ElementFinder, timeout = AVERAGE_WAIT_TIME) {
@@ -114,10 +123,9 @@ export function invisibilityOf(finder: ElementFinder, timeout = AVERAGE_WAIT_TIM
  * Expect that the given `finder` is displayed/visible (or instead hidden) on the DOM.
  * By default, expect the `finder` to be displayed. Pass `false` as second param to expect it to be hidden.
  * @param finder An element finder.
- * @param {String} [errorMessage] The message to display when the expectation fails.
- * @param {Boolean} [value=true] A boolean indicating if the element should be displayed or not. Default to `true`.
+ * @param
  */
-export async function expectDisplayed(finder: ElementFinder, options?: { elementName: string; shouldBeDisplayed?: boolean }) {
+export async function expectDisplayed(finder: ElementFinder, options: { elementName?: string; shouldBeDisplayed?: boolean } = { elementName: 'Element', shouldBeDisplayed: true }) {
   if (options.elementName === undefined) {
     options.elementName = 'Element';
   }

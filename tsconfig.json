@@ -35,9 +35,6 @@
       "@directives/*": [
         "directives/*"
       ],
-      "@classes/*": [
-        "classes/*"
-      ],
       "@providers/*": [
         "providers/*"
       ],

@@ -6,11 +6,8 @@ import { ThemePageObject } from './theme.po';
 
 export class ActionPageObject extends AbstractPageObject {
 
-  expectedTitle: string;
-
-  constructor(selector: string) {
-    super(selector);
-    this.expectedTitle = 'Action';
+  constructor() {
+    super('action-page', 'Action');
   }
 
   getActionDetails(): ElementFinder {
@@ -33,6 +30,10 @@ export class ActionPageObject extends AbstractPageObject {
     // Click on the theme title
     await actionPageThemeTitleFinder.click();
 
-    return new ThemePageObject('theme-page');
+    return new ThemePageObject();
+  }
+
+  getParticipateButton(): ElementFinder {
+    return this.getPage().element(by.css('#participate'));
   }
 }

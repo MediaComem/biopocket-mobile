@@ -1,4 +1,4 @@
-import { browser, by, element, ElementFinder } from 'protractor';
+import { by, element, ElementFinder } from 'protractor';
 
 import { expect } from '../../spec/chai';
 import { absenceOf, compareCoordinates } from '../utils';
@@ -10,15 +10,8 @@ import { ActionsListPageObject } from './actions-list.po';
  */
 export class MapPageObject extends AbstractPageObject {
 
-  constructor(selector: string) {
-    super(selector);
-  }
-
-  /**
-   * Navigates to the map page.
-   */
-  navigateTo() {
-    return browser.get('/');
+  constructor() {
+    super('map-page', 'Carte');
   }
 
   /**
@@ -110,6 +103,6 @@ export class MapPageObject extends AbstractPageObject {
 
     goToListActionFinder.click();
 
-    return new ActionsListPageObject('actions-list-page');
+    return new ActionsListPageObject();
   }
 }

@@ -9,7 +9,7 @@
 <ion-content padding>
   <header>
     <div class="img-wrapper cover">
-      <img [src]="theme.photoUrl" [alt]="theme.title" default="assets/img/default_theme.jpg" class="action-cover">
+      <img [src]="theme.photoUrl" [alt]="theme.title" default="assets/img/default_theme.jpg">
     </div>
   </header>
   <section class="title-bar">
@@ -19,6 +19,8 @@
     </div>
   </section>
   <section class="description">
-    <p>{{ theme.description }}</p>
+    <markdown>
+      {{ theme.description }}
+    </markdown>
   </section>
 </ion-content>

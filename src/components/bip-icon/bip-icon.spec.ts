@@ -10,7 +10,7 @@ describe('BipIconComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BipIconComponent ]
+      declarations: [BipIconComponent]
     }).compileComponents();
   });
 

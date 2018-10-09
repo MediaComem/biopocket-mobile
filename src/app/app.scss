@@ -1,25 +1,26 @@
-// http://ionicframework.com/docs/theming/
-// App Global Sass
-// --------------------------------------------------
-// Put style rules here that you want to apply globally. These
-// styles are for the entire app and not just one component.
-// Additionally, this file can be also used as an entry point
-// to import other Sass files to be included in the output CSS.
-//
-// Shared Sass variables, which can be used to adjust Ionic's
-// default Sass variables, belong in "theme/variables.scss".
-//
-// To declare rules for a specific mode, create a child rule
-// for the .md, .ios, or .wp mode classes. The mode class is
-// automatically applied to the <body> element in the app.
-// -------------
-// Global styles
-// -------------
-// Styles that are applied throughout the app
-// Mixin that defines global styles for the different types of buttons.
-// The mixin defines two classes, one for the normal button, the other for the outlined button.
-// The name will be used in the name of the CSS class which will be <name>-action.
-// The colorName will be used for both the normal and outline styles.
+/**
+ * http://ionicframework.com/docs/theming/
+ * App Global Sass
+ * --------------------------------------------------
+ * Put style rules here that you want to apply globally. These
+ * styles are for the entire app and not just one component.
+ * Additionally, this file can be also used as an entry point
+ * to import other Sass files to be included in the output CSS.
+ *
+ * Shared Sass variables, which can be used to adjust Ionic's
+ * default Sass variables, belong in "theme/variables.scss".
+ *
+ * To declare rules for a specific mode, create a child rule
+ * for the .md, .ios, or .wp mode classes. The mode class is
+ * automatically applied to the <body> element in the app.
+ */
+
+/**
+ * Global styles
+ * -------------
+ * Styles that are applied throughout the app
+ */
+
 .bip-button {
   font-size: 1.6rem;
   pointer-events: all;
@@ -182,6 +183,8 @@ ion-app.wp .multiline-fade {
   img {
     object-fit: cover;
     width: 100%;
+    height: 100%;
+    object-position: bottom;
   }
 }
 
@@ -225,7 +228,7 @@ ion-app.wp .multiline-fade {
 
 @media only screen and (orientation: portrait) {
   .img-wrapper.cover {
-    height: 40vw;
+    height: 45vw;
   }
 }
 
@@ -235,9 +238,22 @@ ion-app.wp .multiline-fade {
   }
 }
 
-// Background color
-// ----------------
-// Generates classes that applies the $colors to the `background-color` property.
+/**
+ * iOS Only Styles
+ * ---------------
+ * Styles that should only apply when the app is run on an iOS device.
+ */
+
+.ios ion-menu>.menu-inner>ion-content.statusbar-padding:first-child .fixed-content {
+  padding-top: 20px;
+}
+
+/**
+ * Background color
+ * ----------------
+ * Generates classes that applies the $colors to the `background-color` property.
+ */
+
 // Main colors
 @each $colorName,
 $hexValue in $colors {
@@ -254,9 +270,12 @@ $hexValue in $secondaryColors {
   }
 }
 
-// Foreground color
-// ----------------
-// Generates classes that applies the $colors to the `color` property.
+/**
+ * Foreground color
+ * ----------------
+ * Generates classes that applies the $colors to the `color` property.
+ */
+
 // Main colors
 @each $colorName,
 $hexValue in $colors {
@@ -273,9 +292,12 @@ $hexValue in $secondaryColors {
   }
 }
 
-// Outline color
-// -------------
-// Generates classes that applies the $colors as a border.
+/**
+ * Outline color
+ * ----------------
+ * Generates classes that applies the $colors as a border.
+ */
+
 // Main colors
 @each $colorName,
 $hexValue in $colors {
