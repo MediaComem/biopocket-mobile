@@ -4,7 +4,7 @@ This component displays an image inside a circle with two borders (one white and
 
 ![profile picture example][profilepicture]
 
-It should be use primarily to display a user's profile picture. It's used in the `bip-menu-header` component.
+It should be used primarily to display a user's profile picture. It's used in the `bip-menu-header` component.
 
 > This component should behave very much like an `img` tag.
 
