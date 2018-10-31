@@ -127,7 +127,7 @@ describe('App', function() {
     const actionsListPageTitleFinder = await actionsListPage.getPageTitle();
     await expect(actionsListPageTitleFinder.getText()).to.eventually.have.string(actionsListPage.expectedTitle);
 
-    // Ensure that there is as much actions on the page as there is on the database
+    // Ensure that there are as many actions on the page as there are in the database
     let actionListItemsFinder = await actionsListPage.getActionListItems();
     expect(actionListItemsFinder).to.have.lengthOf(5);
 
