@@ -33,6 +33,7 @@ export class ActionsListPage {
     const fetchParams = {
       offset: String(this.actions.length)
     };
+    // TODO: handle fetch paginated actions error
     this.actionsService.fetchPaginatedActions(fetchParams)
       .subscribe(response => {
         this.actions = this.actions.concat(response.data);

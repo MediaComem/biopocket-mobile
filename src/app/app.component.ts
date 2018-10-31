@@ -59,7 +59,7 @@ export class AppComponent {
   /**
    * If the given MenuItem is not already the active one on the menu, its `component` property is set as the app's rootPage
    * and the MenuItem is set as the active menu item.
-   * @param {MenuItem} menuItem
+   * @param {MenuItem} menuItem The menu item to display.
    */
   openPage(menuItem: MenuItem) {
     // Only reset the rootPage if the user clicked on a MenuItem that is not the currently active Item

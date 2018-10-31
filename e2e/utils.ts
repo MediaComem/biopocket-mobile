@@ -15,8 +15,8 @@ export interface WithCoordinates {
  * Compares GeoJSON-Point-like objects in order of ascending longitude and latitude (in that order).
  */
 export function compareCoordinates(a: WithCoordinates, b: WithCoordinates) {
-  const longitudeComparison = a.coordinates[ 0 ] - b.coordinates[ 0 ];
-  return longitudeComparison !== 0 ? longitudeComparison : a.coordinates[ 1 ] - b.coordinates[ 1 ];
+  const longitudeComparison = a.coordinates[0] - b.coordinates[0];
+  return longitudeComparison !== 0 ? longitudeComparison : a.coordinates[1] - b.coordinates[1];
 }
 
 /**
@@ -29,7 +29,7 @@ export function compareCoordinates(a: WithCoordinates, b: WithCoordinates) {
  * @param defaultValue The value returned if the environment variable is not set.
  */
 export function getEnvBoolean(name, defaultValue = false) {
-  return process.env[ name ] === undefined ? defaultValue : !!process.env[ name ].match(/^(?:1|y|yes|t|true)$/i);
+  return process.env[name] === undefined ? defaultValue : !!process.env[name].match(/^(?:1|y|yes|t|true)$/i);
 }
 
 /**
@@ -46,7 +46,7 @@ export function getEnvBoolean(name, defaultValue = false) {
  */
 export function getEnvInteger(name, defaultValue?, validate: (v: any) => boolean = () => true) {
 
-  const value = process.env[ name ];
+  const value = process.env[name];
   if (value === undefined) {
     return defaultValue;
   }
@@ -58,7 +58,7 @@ export function getEnvInteger(name, defaultValue?, validate: (v: any) => boolean
 
   const valid = validate(value);
   if (valid !== true) {
-    throw new Error(`Value of $${name} is invalid${typeof (valid) === 'string' ? `:${valid}` : ''}`);
+    throw new Error(`Value of $${name} is invalid${typeof (valid) === 'string' ? `: ${valid}` : ''}`);
   }
 
   return intValue;
@@ -73,7 +73,7 @@ export function isDebugEnabled() {
 }
 
 /**
- * Make the browser wait for the given `finder` to be present on the DOM.
+ * Makes the browser wait for the given `finder` to be present on the DOM.
  * This times out by default after 5 secondes, or the given `timeout` value.
  * @param finder An element finder.
  * @param {Number} [timeout=5000] The number of millisecondes after which the browser stops waiting. Defaults to `5000`.
@@ -83,7 +83,7 @@ export function presenceOf(finder: ElementFinder, timeout = AVERAGE_WAIT_TIME) {
 }
 
 /**
- * Expect that the given `finder` is displayed/visible (or instead hidden) on the DOM.
+ * Expects that the given `finder` is displayed/visible (or instead hidden) on the DOM.
  * By default, expect the `finder` to be displayed. Pass `false` as second param to expect it to be hidden.
  * @param finder An element finder.
  * @param {String} [errorMessage] The message to display when the expectation fails.

@@ -115,7 +115,7 @@ export class MapPage {
     popover.present()
       .then(() => {
         // Yeah... I don't like this way of getting the popover height...
-        const locationDetailsEle = document.getElementsByClassName('popover-content')[ 0 ] as HTMLElement;
+        const locationDetailsEle = document.getElementsByClassName('popover-content')[0] as HTMLElement;
         this.centerViewportOn(e.target._latlng, new L.Point(0, locationDetailsEle.offsetHeight));
       });
   }
@@ -155,7 +155,7 @@ export class MapPage {
    */
   private addLocationToMap(location: Location) {
     const coords = location.geometry.coordinates;
-    const marker = new Marker(location.id, [ coords[ 1 ], coords[ 0 ] ], { icon: defIcon });
+    const marker = new Marker(location.id, [ coords[1], coords[0] ], { icon: defIcon });
     marker.on('click', e => this.onLocationClicked(e as L.LeafletMouseEvent));
     this.layers.push(marker);
   }

@@ -58,13 +58,13 @@ describe('App', function() {
   /**
    * --- Main e2e scenario ---
    *
-   * This end-to-end scenario simulates a user going through the following steps :
+   * This end-to-end scenario simulates a user going through the following steps:
    * 1. Launching the BioPocket app
    * 2. Arriving on the root page, which should be the Map Page
    * 3. Clicking on a Location map marker, and thus displaying the popover with the correct information
    * 4. Dismissing the popover by clicking on its backdrop
    * 5. Navigating to the Actions List page by clicking on the adequate button on the Map page
-   * 6. Scrolling to the bottom of the actions list page and trigger a new load
+   * 6. Scrolling to the bottom of the actions list page and triggering a new load
    */
   it('should allow a user to execute the main scenario', async function() {
     this.timeout(15000);
@@ -127,7 +127,7 @@ describe('App', function() {
     const actionsListPageTitleFinder = await actionsListPage.getPageTitle();
     await expect(actionsListPageTitleFinder.getText()).to.eventually.have.string(actionsListPage.expectedTitle);
 
-    // Ensure that there is as much actions on the page as there is on the database
+    // Ensure that there are as many actions on the page as there are in the database
     let actionListItemsFinder = await actionsListPage.getActionListItems();
     expect(actionListItemsFinder).to.have.lengthOf(5);
 
