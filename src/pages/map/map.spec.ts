@@ -380,7 +380,7 @@ describe('MapPage', function () {
         tick();
 
         // The map is correctly centered on the initial position.
-        expect(panToSpy.args[ 0 ]).to.eql([ L.latLng(46.18, 6.09), { animate: true } ]);
+        expect(panToSpy.args[0]).to.eql([ L.latLng(46.18, 6.09), { animate: true } ]);
         expect(panToSpy).to.have.callCount(1);
 
         // panTo calls setView
