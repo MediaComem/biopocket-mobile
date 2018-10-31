@@ -57,7 +57,7 @@ export function getEnvInteger(name, defaultValue?, validate: (v: any) => boolean
 
   const valid = validate(value);
   if (valid !== true) {
-    throw new Error(`Value of $${name} is invalid${typeof (valid) === 'string' ? `:${valid}` : ''}`);
+    throw new Error(`Value of $${name} is invalid${typeof (valid) === 'string' ? `: ${valid}` : ''}`);
   }
 
   return intValue;
