@@ -4,7 +4,7 @@ import { Component, ElementRef, Input, OnInit, Renderer } from '@angular/core';
  * Component that displays an icon from the biopocket icon set.
  * * To select which icon the component should display, provide a
  *   value for the `name` attribute that matches one of the icon's name.
- * * To apply a color to the icon, you have to options:
+ * * To apply a color to the icon, you have two options:
  *   1. apply a CSS style to the `bip-icon` element manually
  *   2. provide a value for the `color` attribute, matching any of the color
  *      in the $colors SCSS map.
@@ -64,17 +64,16 @@ export class BipIconComponent implements OnInit {
   }
 
   /**
-   * Adds a CSS class to the `element` (by default, it's the component `nativeElement`).
+   * Adds a CSS class to the component's `nativeElement`.
    * The name of the class will be the concatenation of `color` and `sufix` param values.
    * @param className The class base name.
    * @param sufix A sufix to the class base name.
-   * @param element The element to which add the new CSS class. Defaults to `this.el.nativeElement`.
    */
-  protected addClassToElement(className: string, sufix?: string, element = this.el.nativeElement) {
+  protected addClassToElement(className: string, sufix?: string) {
     let fullClassName = className;
     if (sufix) {
       fullClassName = `${fullClassName}-${sufix}`;
     }
-    this.renderer.setElementClass(element, fullClassName, true);
+    this.renderer.setElementClass(this.el.nativeElement, fullClassName, true);
   }
 }

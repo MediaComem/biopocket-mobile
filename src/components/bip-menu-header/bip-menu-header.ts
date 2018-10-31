@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 
+import { User } from '../../models/user.interface';
+
 /**
  * Component that displays the content of the menu header.
  * That is :
@@ -14,7 +16,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class BipMenuHeaderComponent implements OnInit {
 
   // TODO: replace `any` with a suitable User type when it will be created.
-  @Input('user') user: any;
+  @Input() user: User;
 
   ngOnInit(): void {
     if (!this.user) {

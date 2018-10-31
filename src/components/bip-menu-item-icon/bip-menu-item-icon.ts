@@ -35,10 +35,7 @@ export class BipMenuItemIconComponent extends BipIconComponent {
     }
   }
 
-  constructor(
-    readonly el: ElementRef,
-    readonly renderer: Renderer
-  ) {
+  constructor(el: ElementRef, renderer: Renderer) {
     super(el, renderer);
     this.componentName = 'bip-menu-item-icon';
   }

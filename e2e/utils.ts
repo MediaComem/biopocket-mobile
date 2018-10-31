@@ -1,4 +1,5 @@
 import { browser, ElementFinder, ExpectedConditions as EC } from 'protractor';
+
 import { expect } from '../spec/chai';
 
 const AVERAGE_WAIT_TIME = 5000;

@@ -1,4 +1,5 @@
 import { by, ElementArrayFinder, ElementFinder } from 'protractor';
+
 import { AbstractPageObject } from './abstract.po';
 
 /**

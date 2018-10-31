@@ -92,6 +92,7 @@ describe('AppComponent', () => {
         // Replacing the map page's template avoids an actual map being rendered. This avoids a lot
         // of things being triggered in the map page (such as fetching locations) so that we don't
         // have to worry about mocking it here.
+        // TODO: might be interesting to try and stub the page component (as done for the custom components) instead of overriding the template here.
         template: '<p>Map</p>'
       }
     });
@@ -136,16 +137,6 @@ describe('AppComponent', () => {
     expect(translateService.setDefaultLang.args, 'translateService.setDefaultLang() called').to.eql([ [ 'fr' ] ]);
     expect(translateService.setTranslation.args, 'translateService.setTranslation() called').to.eql([ [ 'fr', fr ] ]);
     expect(translateService.use.args, 'translateService.use() called').to.eql([ [ 'fr' ] ]);
-
-    fixture.detectChanges();
-
-    // @Simon: that's very strange... with query(By.all()), I'd expect to get all elements of the page
-    // I kinda do, but I only get elements that are present in the `app.html` file,
-    // as if the page component's template was not included...
-    // const title = fixture.debugElement.query(By.all());
-    // tslint:disable-next-line:no-console
-    // console.log(title);
-    // expect(title.nativeElement.textContent).to.equal(fr.app);
   });
 
   it('should perform further initialization when the platform is ready', fakeAsync(() => {

@@ -1,11 +1,11 @@
 import { distance, point } from '@turf/turf';
+import { browser, ExpectedConditions as EC } from 'protractor';
 
 // DO NOT MOVE these lines.
 // Environment variables MUST be set BEFORE backend files are imported.
 import { setUp } from './setup';
 setUp();
 
-import { browser, ExpectedConditions as EC } from 'protractor';
 import * as actionFixtures from '../backend/server/spec/fixtures/actions';
 import * as locationFixtures from '../backend/server/spec/fixtures/location';
 import { create as createData } from '../backend/utils/data';

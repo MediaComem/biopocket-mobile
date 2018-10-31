@@ -8,6 +8,7 @@ import moment from 'moment';
 import { fr } from '@app/locales';
 import MenuItemIcon from '@classes/menu-item-icon.class';
 import MenuItem from '@classes/menu-item.class';
+import { User } from '@models/user.interface';
 import { ActionsListPage } from '@pages/actions-list/actions-list';
 import { HomePage } from '@pages/home/home';
 import { MapPage } from '@pages/map/map';
@@ -21,7 +22,7 @@ export class AppComponent {
   activeItem: MenuItem;
   rootPage: any;
   // This property will probably be removed when users are implemented
-  user: any;
+  user: User;
   readonly menuItems: MenuItem[];
 
   constructor(
