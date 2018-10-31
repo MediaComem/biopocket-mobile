@@ -139,7 +139,7 @@ describe('MapPage', function () {
 
         const latLng = marker.getLatLng();
         expect(latLng.lat).to.equal(locationsDataMock[pos].geometry.coordinates[1]);
-        expect(latLng.lng).to.equal(locationsDataMock[ pos ].geometry.coordinates[ 0 ]);
+        expect(latLng.lng).to.equal(locationsDataMock[pos].geometry.coordinates[0]);
       });
     });
 
