@@ -202,7 +202,7 @@ describe('MapPage', function () {
       expect(popoverCtrlMock.create).to.have.callCount(1);
       expect(popoverCtrlMock.create.args[0]).to.have.lengthOf(3);
       expect(popoverCtrlMock.create.args[0][0]).to.eql(LocationDetails);
-      expect(popoverCtrlMock.create.args[ 0 ][ 1 ]).to.eql({ locationId: eMock.target.id });
+      expect(popoverCtrlMock.create.args[0][1]).to.eql({ locationId: eMock.target.id });
       expect(popoverCtrlMock.create.args[ 0 ][ 2 ]).to.be.an('object');
 
       expect(popoverMock.present).to.have.callCount(1);
