@@ -56,7 +56,7 @@ export abstract class StandaloneProcess {
   async spawn(): Promise<void> {
 
     // Spawn the child process.
-    const command = this.command[ 0 ];
+    const command = this.command[0];
     const args = this.command.slice(1);
     const options = this.getSpawnOptions();
     this.process = spawn(command, args, options);
