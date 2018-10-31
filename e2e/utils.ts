@@ -15,7 +15,7 @@ export interface WithCoordinates {
  */
 export function compareCoordinates(a: WithCoordinates, b: WithCoordinates) {
   const longitudeComparison = a.coordinates[0] - b.coordinates[0];
-  return longitudeComparison !== 0 ? longitudeComparison : a.coordinates[ 1 ] - b.coordinates[ 1 ];
+  return longitudeComparison !== 0 ? longitudeComparison : a.coordinates[1] - b.coordinates[1];
 }
 
 /**
