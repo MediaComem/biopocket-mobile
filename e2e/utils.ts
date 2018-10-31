@@ -45,7 +45,7 @@ export function getEnvBoolean(name, defaultValue = false) {
  */
 export function getEnvInteger(name, defaultValue?, validate: (v: any) => boolean = () => true) {
 
-  const value = process.env[ name ];
+  const value = process.env[name];
   if (value === undefined) {
     return defaultValue;
   }
