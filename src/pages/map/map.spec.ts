@@ -138,7 +138,7 @@ describe('MapPage', function () {
         expect(marker).to.be.an.instanceOf(Marker);
 
         const latLng = marker.getLatLng();
-        expect(latLng.lat).to.equal(locationsDataMock[ pos ].geometry.coordinates[ 1 ]);
+        expect(latLng.lat).to.equal(locationsDataMock[pos].geometry.coordinates[1]);
         expect(latLng.lng).to.equal(locationsDataMock[ pos ].geometry.coordinates[ 0 ]);
       });
     });
