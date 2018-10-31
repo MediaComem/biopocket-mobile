@@ -4,7 +4,7 @@ import { BipIconComponent } from '@components/bip-icon/bip-icon';
 
 /**
  * Component that displays a menu item icon.
- * Should obviously been use alongside menu items.
+ * Should obviously be used alongside menu items.
  * * To select which icon the component should display, provide a
  *   value for the `name` attribute that matches one of the icon's name.
  *   Failure to do so will result in a runtime error.
