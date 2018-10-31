@@ -155,7 +155,7 @@ export class MapPage {
    */
   private addLocationToMap(location: Location) {
     const coords = location.geometry.coordinates;
-    const marker = new Marker(location.id, [ coords[ 1 ], coords[ 0 ] ], { icon: defIcon });
+    const marker = new Marker(location.id, [ coords[1], coords[0] ], { icon: defIcon });
     marker.on('click', e => this.onLocationClicked(e as L.LeafletMouseEvent));
     this.layers.push(marker);
   }
