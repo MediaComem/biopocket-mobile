@@ -319,7 +319,7 @@ describe('MapPage', function () {
         expect(panToSpy).to.have.callCount(1);
 
         // panTo calls setView
-        expect(setViewSpy.args[ 1 ]).to.eql([ L.latLng(42, 24), 15, { pan: { animate: true } } ]);
+        expect(setViewSpy.args[1]).to.eql([ L.latLng(42, 24), 15, { pan: { animate: true } } ]);
         expect(setViewSpy).to.have.callCount(2);
       }));
 
