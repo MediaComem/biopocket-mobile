@@ -58,7 +58,7 @@ describe('App', function() {
   /**
    * --- Main e2e scenario ---
    *
-   * This end-to-end scenario simulates a user going through the following steps :
+   * This end-to-end scenario simulates a user going through the following steps:
    * 1. Launching the BioPocket app
    * 2. Arriving on the root page, which should be the Map Page
    * 3. Clicking on a Location map marker, and thus displaying the popover with the correct information
