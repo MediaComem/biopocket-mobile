@@ -242,7 +242,7 @@ describe('MapPage', function () {
 
         expect(component.mapMessage).to.equal(undefined);
 
-        expect(panToSpy.args[ 0 ]).to.eql([ L.latLng(46.18, 6.09), { animate: true } ]);
+        expect(panToSpy.args[0]).to.eql([ L.latLng(46.18, 6.09), { animate: true } ]);
         expect(panToSpy).to.have.callCount(1);
 
         // panTo calls setView
