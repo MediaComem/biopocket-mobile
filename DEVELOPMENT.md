@@ -194,7 +194,7 @@ module.exports = {
 Several colors have been defined for the BioPocket project by the design team. They have been declared inside two color maps in the `src/theme/variables.scss` file.
 
 One map, `$colors`, contains the main color of the BioPocket color theme.
-The second map, `$secondaryColors`, contains what its name implies : the secondary colors of the color theme.
+The second map, `$secondaryColors`, contains what its name implies: the secondary colors of the color theme.
 Each color have been given a specific key in the map.
 
 Following are two tables (one for the main colors, the other for the secondary colors) that matches the color with their key and their HEX and RGB values.
