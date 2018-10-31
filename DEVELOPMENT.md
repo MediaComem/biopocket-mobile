@@ -202,7 +202,7 @@ Following are two tables (one for the main colors, the other for the secondary c
 > Use the SASS utility function `bipColor($key)` to retrieve the HEX code for the color.
 >
 > ```css
-> .exemple {
+> .example {
 >   color: bipColor('primary');
 >   background-color: bipColor('boreal');
 >   border-color: bipColor('lagoon');
