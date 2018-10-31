@@ -82,7 +82,7 @@ export function presenceOf(finder: ElementFinder, timeout = AVERAGE_WAIT_TIME) {
 }
 
 /**
- * Expect that the given `finder` is displayed/visible (or instead hidden) on the DOM.
+ * Expects that the given `finder` is displayed/visible (or instead hidden) on the DOM.
  * By default, expect the `finder` to be displayed. Pass `false` as second param to expect it to be hidden.
  * @param finder An element finder.
  * @param {String} [errorMessage] The message to display when the expectation fails.
