@@ -72,7 +72,7 @@ export function isDebugEnabled() {
 }
 
 /**
- * Make the browser wait for the given `finder` to be present on the DOM.
+ * Makes the browser wait for the given `finder` to be present on the DOM.
  * This times out by default after 5 secondes, or the given `timeout` value.
  * @param finder An element finder.
  * @param {Number} [timeout=5000] The number of millisecondes after which the browser stops waiting. Defaults to `5000`.
