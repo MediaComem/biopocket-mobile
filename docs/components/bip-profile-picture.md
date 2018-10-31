@@ -1,6 +1,6 @@
 # `bip-profile-picture` component
 
-This component display an image inside a circle with two borders (one white and one gradient), as defined in the mockups of the BioPocket app, like this:
+This component displays an image inside a circle with two borders (one white and one gradient), as defined in the mockups of the BioPocket app, like this:
 
 ![profile picture example][profilepicture]
 
