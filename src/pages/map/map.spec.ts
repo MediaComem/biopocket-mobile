@@ -384,7 +384,7 @@ describe('MapPage', function () {
         expect(panToSpy).to.have.callCount(1);
 
         // panTo calls setView
-        expect(setViewSpy.args[ 1 ]).to.eql([ L.latLng(46.18, 6.09), 15, { pan: { animate: true } } ]);
+        expect(setViewSpy.args[1]).to.eql([ L.latLng(46.18, 6.09), 15, { pan: { animate: true } } ]);
         expect(setViewSpy).to.have.callCount(2);
 
         expect(component.mapMessage).to.equal(undefined);
