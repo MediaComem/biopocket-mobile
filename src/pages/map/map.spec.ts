@@ -315,7 +315,7 @@ describe('MapPage', function () {
         expect(component.mapMessage).to.equal(undefined);
 
         // The map should have been centered on that position.
-        expect(panToSpy.args[ 0 ]).to.eql([ L.latLng(42, 24), { animate: true } ]);
+        expect(panToSpy.args[0]).to.eql([ L.latLng(42, 24), { animate: true } ]);
         expect(panToSpy).to.have.callCount(1);
 
         // panTo calls setView
