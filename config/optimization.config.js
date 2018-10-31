@@ -24,7 +24,9 @@ module.exports = function() {
   // So that webpack can resolve the aliases.
   // The length verification is there because, for an unknown reason, this function is executed several time,
   // each time pushing the path to the modules array.
-  if (config.resolve.modules.length < 2) config.resolve.modules.push(path.resolve(__dirname, '../src'));
+  if (config.resolve.modules.length < 2) {
+    config.resolve.modules.push(path.resolve(__dirname, '../src'));
+  }
 
   return config;
 };
