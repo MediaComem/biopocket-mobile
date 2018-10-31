@@ -2,7 +2,7 @@
 
 This component displays a menu item in the app's main menu, composed of a `bip-menu-item-icon` and a label.
 
-The label must be put inside the component's tags.
+The label must be put inside the component's tag.
 
 > Note that you can put any sort of HTML structure inside the component's tag, although it has not been designed to properly handle complex HTML structure.
 
