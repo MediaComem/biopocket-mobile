@@ -24,7 +24,7 @@ export default class Action {
     extend(this, pick(data, 'id', 'themeId', 'title', 'description', 'createdAt', 'updatedAt'));
     this.createdAt = new Date(data.createdAt);
     this.updatedAt = new Date(data.updatedAt);
-    if (Boolean(data.theme)) {
+    if (data.theme) {
       this.theme = new Theme(data.theme);
     }
   }
