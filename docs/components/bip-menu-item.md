@@ -10,7 +10,7 @@ The label must be put inside the component's tag.
 
 | Name   | Type           | Details                                                                                                                                                       |
 |:---    | :---           | :---                                                                                                                                                          |
-| `icon` | `MenuItemIcon` | An instance of `MenuItemIcon`. Each of its property, `name`, `color` and `bgColor` will be passsed to the underlying [`bip-menu-item-icon` component][bmiic]. |
+| `icon` | `MenuItemIcon` | An instance of `MenuItemIcon`. Its `name`, `color` and `bgColor` properties will be passsed to the underlying [`bip-menu-item-icon` component][bmiic]. |
 
 ## Usage
 
