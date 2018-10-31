@@ -5,7 +5,7 @@ const path = require('path');
 module.exports = function() {
 
   const ionicEnv = process.env.IONIC_ENV || 'dev';
-  let config = defaultConfig[ionicEnv];
+  const config = defaultConfig[ionicEnv];
   if (!config) {
     throw new Error(`No webpack config found for $IONIC_ENV "${ionicEnv}"`);
   }
