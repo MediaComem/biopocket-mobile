@@ -278,7 +278,7 @@ Here's a list of the custom Angular components that are available in the BioPock
 
 | Selector              | Purpose                                                       | Documentation   |
 |:---                   |:---                                                           |:---             |
-| `bip-icon`            | To diisplay [BioPocket icons](#Icons)                         | [API][bic-doc]  |
+| `bip-icon`            | To display [BioPocket icons](#Icons)                         | [API][bic-doc]  |
 | `bip-menu-item-icon`  | To display [BioPocket icons](#Icons) in menu items            | [API][bmiic-doc] |
 | `bip-menu-item`       | To display menu item in the app's main menu                   | [API][bmic-doc]  |
 | `bip-menu-header`     | To display the user profile in the app's main menu            | [API][bmhc-doc]  |
