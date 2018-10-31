@@ -64,7 +64,7 @@ describe('App', function() {
    * 3. Clicking on a Location map marker, and thus displaying the popover with the correct information
    * 4. Dismissing the popover by clicking on its backdrop
    * 5. Navigating to the Actions List page by clicking on the adequate button on the Map page
-   * 6. Scrolling to the bottom of the actions list page and trigger a new load
+   * 6. Scrolling to the bottom of the actions list page and triggering a new load
    */
   it('should allow a user to execute the main scenario', async function() {
     this.timeout(15000);
