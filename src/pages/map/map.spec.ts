@@ -187,7 +187,7 @@ describe('MapPage', function () {
 
       const eMock = {
         target: {
-          id: locationsDataMock[ 0 ].id,
+          id: locationsDataMock[0].id,
           _latlng: new L.LatLng(56, 9)
         }
       };
