@@ -28,7 +28,7 @@ export function compareCoordinates(a: WithCoordinates, b: WithCoordinates) {
  * @param defaultValue The value returned if the environment variable is not set.
  */
 export function getEnvBoolean(name, defaultValue = false) {
-  return process.env[ name ] === undefined ? defaultValue : !!process.env[ name ].match(/^(?:1|y|yes|t|true)$/i);
+  return process.env[name] === undefined ? defaultValue : !!process.env[name].match(/^(?:1|y|yes|t|true)$/i);
 }
 
 /**
