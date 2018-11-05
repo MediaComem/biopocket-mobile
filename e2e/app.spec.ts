@@ -135,6 +135,8 @@ describe('App', function() {
     await actionsListPage.scrollTo(actionsListPage.getInfiniteScroll());
 
     // Wait for the data to load
+    // TODO: see if this can be replaced by a browser.wait call with a custom
+    //       function that returns true when there are 6 items in the list
     await browser.sleep(1000);
 
     // Ensure that more actions have been loaded on the page.
