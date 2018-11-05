@@ -16,6 +16,72 @@
 // automatically applied to the <body> element in the app.
 
 .active {
-  background-color: map-get($colors, 'primary');
-  color: map-get($colors, 'light');
+  background-color: $lightGrey;
+
+  bip-menu-item-icon {
+    @include smoothShadow;
+  }
+}
+
+.toolbar {
+  &[class*="toolbar-"] {
+    & button {
+      color: bipColor('boreal');
+    }
+  }
+}
+
+.fab {
+  bip-icon {
+    font-size: 24px;
+  }
+}
+
+.fab-wp {
+  bip-icon {
+    svg {
+      top: 0.05em;
+    }
+  }
+}
+
+.fab[mini] {
+  bip-icon {
+    font-size: 18px;
+  }
+}
+
+ion-menu {
+  .close-menu-button {
+    z-index: 2;
+    position: absolute;
+    right: 0;
+    font-size: 18px;
+    background-color: transparent;
+    color: bipColor('dark');
+    box-shadow: none;
+    &.activated {
+      background-color: rgba(0, 0, 0, .05);
+      box-shadow: none;
+    }
+  }
+  [ion-fixed] {
+    width: 100%;
+  }
+  .scroll-content {
+    top: 278px;
+  }
+}
+
+.menu-item-list {
+  font-size: 16px;
+
+  bip-menu-item {
+    border-bottom: 1px solid $lightGrey;
+  }
+
+  bip-menu-item:last-child {
+    border-bottom: none;
+  }
+
 }

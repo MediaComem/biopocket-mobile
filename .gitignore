@@ -38,6 +38,7 @@ src/environments/environment.*
 !src/environments/environment.sample.ts
 !src/environments/environment.interface.ts
 src/locales/generated
+src/assets/icon/bip-icon-set.svg
 www/
 $RECYCLE.BIN/
 

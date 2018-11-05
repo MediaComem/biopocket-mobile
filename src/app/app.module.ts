@@ -8,21 +8,25 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { MomentModule } from 'angular2-moment';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
-import { HomePage } from '../pages/home/home';
-import { MapPage } from '../pages/map/map';
-import LocationDetails from '../popovers/location-details/location-details';
-import { ApiInterceptor } from '../providers/api-interceptor/api-interceptor';
-import EnvService from '../providers/env-service/env-service';
-import LocationsModule from '../providers/locations-service/locations-module';
-import { translateModuleForRoot } from '../utils/i18n';
+import LocationDetails from '@app/popovers/location-details/location-details';
+import { ComponentsModule } from '@components/components.module';
+import { ActionsListPage } from '@pages/actions-list/actions-list';
+import { HomePage } from '@pages/home/home';
+import { MapPage } from '@pages/map/map';
+import ActionsServiceProvider from '@providers/actions-service/actions-module';
+import { ApiInterceptor } from '@providers/api-interceptor/api-interceptor';
+import EnvService from '@providers/env-service/env-service';
+import LocationsModule from '@providers/locations-service/locations-module';
+import { translateModuleForRoot } from '@utils/i18n';
 import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    ActionsListPage,
     HomePage,
-    MapPage,
-    LocationDetails
+    LocationDetails,
+    MapPage
   ],
   imports: [
     BrowserModule,
@@ -30,16 +34,19 @@ import { AppComponent } from './app.component';
     MomentModule,
     translateModuleForRoot,
     LeafletModule.forRoot(),
-    LocationsModule
+    LocationsModule,
+    ActionsServiceProvider,
+    ComponentsModule
   ],
   bootstrap: [
     IonicApp
   ],
   entryComponents: [
     AppComponent,
+    ActionsListPage,
     HomePage,
-    MapPage,
-    LocationDetails
+    LocationDetails,
+    MapPage
   ],
   providers: [
     Geolocation,

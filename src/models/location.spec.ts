@@ -3,7 +3,7 @@
 
 import { expect } from 'chai';
 
-import { Location } from '../models';
+import { Location } from '@models/location';
 
 describe('Location Object', function () {
   let locationData;

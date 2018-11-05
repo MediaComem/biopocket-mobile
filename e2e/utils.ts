@@ -1,11 +1,8 @@
-import chalk from 'chalk';
-import { compact } from 'lodash';
+import { browser, ElementFinder, ExpectedConditions as EC } from 'protractor';
 
-import { cleanDatabase, setUp as setUpBackend } from '../backend/server/spec/utils';
-import { ENV } from '../src/environments/environment.test';
-import { StandaloneBackendProcess } from './standalone/backend';
-import { IONIC_URL, StandaloneIonicProcess } from './standalone/ionic';
-import { StandaloneProcess } from './standalone/utils';
+import { expect } from '../spec/chai';
+
+const AVERAGE_WAIT_TIME = 5000;
 
 /**
  * An object that has an array of coordinates (e.g. a GeoJSON point, or something that looks like it).
@@ -19,11 +16,7 @@ export interface WithCoordinates {
  */
 export function compareCoordinates(a: WithCoordinates, b: WithCoordinates) {
   const longitudeComparison = a.coordinates[0] - b.coordinates[0];
-  if (longitudeComparison !== 0) {
-    return longitudeComparison;
-  } else {
-    return a.coordinates[1] - b.coordinates[1];
-  }
+  return longitudeComparison !== 0 ? longitudeComparison : a.coordinates[1] - b.coordinates[1];
 }
 
 /**
@@ -51,21 +44,21 @@ export function getEnvBoolean(name, defaultValue = false) {
  * an error message string if it is invalid (it always returns true by default). There is no need to
  * check whether the value is an integer, as that is checked before invoking this function.
  */
-export function getEnvInteger(name, defaultValue = undefined, validate = v => true) {
+export function getEnvInteger(name, defaultValue?, validate: (v: any) => boolean = () => true) {
 
   const value = process.env[name];
   if (value === undefined) {
     return defaultValue;
   }
 
-  const intValue = parseInt(value);
+  const intValue = parseInt(value, 10);
   if (isNaN(intValue)) {
     throw new Error(`Value of $${name} is not a valid integer: "${value}"`);
   }
 
   const valid = validate(value);
   if (valid !== true) {
-    throw new Error(`Value of $${name} is invalid${typeof(valid) === 'string' ? ': ' + valid : ''}`);
+    throw new Error(`Value of $${name} is invalid${typeof (valid) === 'string' ? `: ${valid}` : ''}`);
   }
 
   return intValue;
@@ -77,4 +70,25 @@ export function getEnvInteger(name, defaultValue = undefined, validate = v => tr
  */
 export function isDebugEnabled() {
   return getEnvBoolean('IONIC_E2E_DEBUG', false);
+}
+
+/**
+ * Makes the browser wait for the given `finder` to be present on the DOM.
+ * This times out by default after 5 secondes, or the given `timeout` value.
+ * @param finder An element finder.
+ * @param {Number} [timeout=5000] The number of millisecondes after which the browser stops waiting. Defaults to `5000`.
+ */
+export function presenceOf(finder: ElementFinder, timeout = AVERAGE_WAIT_TIME) {
+  return browser.wait(EC.presenceOf(finder), timeout);
+}
+
+/**
+ * Expects that the given `finder` is displayed/visible (or instead hidden) on the DOM.
+ * By default, expect the `finder` to be displayed. Pass `false` as second param to expect it to be hidden.
+ * @param finder An element finder.
+ * @param {String} [errorMessage] The message to display when the expectation fails.
+ * @param {Boolean} [value=true] A boolean indicating if the element should be displayed or not. Default to `true`.
+ */
+export async function expectDisplayed(finder: ElementFinder, errorMessage?: string, value = true) {
+  await expect(finder.isDisplayed(), errorMessage).to.eventually.equal(value);
 }

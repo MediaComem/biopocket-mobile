@@ -16,6 +16,33 @@
     "paths": {
       "@app/env": [
         "environments/environment"
+      ],
+      "@print": [
+        "utils/print"
+      ],
+      "@utils/*": [
+        "utils/*"
+      ],
+      "@spec/*": [
+        "../spec/*"
+      ],
+      "@pages/*": [
+        "pages/*"
+      ],
+      "@components/*": [
+        "components/*"
+      ],
+      "@classes/*": [
+        "classes/*"
+      ],
+      "@providers/*": [
+        "providers/*"
+      ],
+      "@models/*": [
+        "models/*"
+      ],
+      "@app/*": [
+        "*"
       ]
     }
   },

@@ -8,6 +8,10 @@ import { AbstractPageObject } from './abstract.po';
  */
 export class MapPageObject extends AbstractPageObject {
 
+  constructor(selector: string) {
+    super(selector);
+  }
+
   /**
    * Navigates to the map page.
    */
@@ -35,7 +39,7 @@ export class MapPageObject extends AbstractPageObject {
       };
     }));
 
-    markerIconsWithCoordinates.sort((a, b) => compareCoordinates(a, b));
+    markerIconsWithCoordinates.sort(compareCoordinates);
 
     return markerIconsWithCoordinates.map(data => markerIconFinders[data.index]);
   }
@@ -45,6 +49,20 @@ export class MapPageObject extends AbstractPageObject {
    */
   getPopover(): ElementFinder {
     return element(by.css('ion-popover.location-details'));
+  }
+
+  /**
+   * Returns an element finder for the Ionic popover backdrop displayed when a popover is present in the page.
+   */
+  getPopoverBackdrop(): ElementFinder {
+    return this.getPopover().element(by.css('ion-backdrop'));
+  }
+
+  /**
+   * Returns an element finder for the button on the Map Page that should make the user navigate to the list of actions.
+   */
+  getGoToActionsListButton(): ElementFinder {
+    return element(by.css('button#go-to-list'));
   }
 
   /**

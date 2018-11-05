@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ENV } from '@app/env';
-import EnvInterface from '../../environments/environment.interface';
+import EnvInterface from '@app/environments/environment.interface';
 
 /**
  * Incorporates the ENV variable and provides an interface on this variable.

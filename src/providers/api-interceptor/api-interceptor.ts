@@ -2,7 +2,7 @@ import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/c
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
-import EnvService from '../env-service/env-service';
+import EnvService from '@providers/env-service/env-service';
 
 /**
  * HTTP interceptor that simplifies requests to the BioPocket API:

@@ -1,8 +1,8 @@
 {
   "name": "biopocket",
-  "app_id": "42536b3e",
-  "type": "ionic-angular",
   "integrations": {
     "cordova": {}
-  }
+  },
+  "type": "ionic-angular",
+  "pro_id": "42536b3e"
 }

@@ -4,11 +4,14 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { Nav, Platform } from 'ionic-angular';
 import moment from 'moment';
-import { Observable } from 'rxjs/Rx';
 
-import { fr } from '../locales';
-import { HomePage } from '../pages/home/home';
-import { MapPage } from '../pages/map/map';
+import { fr } from '@app/locales';
+import MenuItemIcon from '@classes/menu-item-icon.class';
+import MenuItem from '@classes/menu-item.class';
+import { User } from '@models/user.interface';
+import { ActionsListPage } from '@pages/actions-list/actions-list';
+import { HomePage } from '@pages/home/home';
+import { MapPage } from '@pages/map/map';
 
 @Component({
   templateUrl: 'app.html'
@@ -16,10 +19,10 @@ import { MapPage } from '../pages/map/map';
 export class AppComponent {
 
   @ViewChild(Nav) nav: Nav;
-
   activeItem: MenuItem;
-
   rootPage: any;
+  // This property will probably be removed when users are implemented
+  user: User;
   readonly menuItems: MenuItem[];
 
   constructor(
@@ -33,20 +36,30 @@ export class AppComponent {
 
     // used for an example of ngFor and navigation
     this.menuItems = [
-      new MenuItem('map', MapPage, translateService),
-      new MenuItem('home', HomePage, translateService)
+      new MenuItem('home', HomePage, new MenuItemIcon('hourglass', 'seabed'), translateService),
+      new MenuItem('actionsList', ActionsListPage, new MenuItemIcon('list', 'river'), translateService),
+      new MenuItem('map', MapPage, new MenuItemIcon('map', 'warning'), translateService)
     ];
 
-    // Set the rootPage in the constructor, so that it could be set dynamically later
-    this.rootPage = MapPage;
-    // Define the activeMenu, should be the MenuItem that matches the page set as rootPage
-    this.activeItem = this.menuItems[0];
+    // this.rootPage = MapPage;
+    // this.rootPage = ActionsListPage;
+    // Define the active menu item. Its page will be used as the rootPage of the app.
+    this.activeItem = this.menuItems[ 2 ];
+    // Set the rootPage based on the activeItem. This is only the case when instanciating the app.
+    this.rootPage = this.activeItem.component;
+
+    // Dummy user object so that the bip-menu-header can interpolate the data.
+    // Should be replace by a proper object containging the user's info.
+    this.user = {
+      profilePictureUrl: 'https://www.ienglishstatus.com/wp-content/uploads/2018/04/Anonymous-Whatsapp-profile-picture.jpg',
+      completeName: 'Guy Fawkes'
+    };
   }
 
   /**
    * If the given MenuItem is not already the active one on the menu, its `component` property is set as the app's rootPage
    * and the MenuItem is set as the active menu item.
-   * @param {MenuItem} menuItem 
+   * @param {MenuItem} menuItem The menu item to display.
    */
   openPage(menuItem: MenuItem) {
     // Only reset the rootPage if the user clicked on a MenuItem that is not the currently active Item
@@ -61,7 +74,7 @@ export class AppComponent {
    * @param {MenuItem} menuItem
    * @returns {Boolean}
    */
-  isActiveItem(menuItem: MenuItem) {
+  isActiveItem(menuItem: MenuItem): boolean {
     return menuItem.pageRef === this.activeItem.pageRef;
   }
 
@@ -79,28 +92,5 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
-  }
-}
-
-/**
- * This class decorates a Component with a `title` property that returns the properly translated page title.
- * It should be used when adding new items on the `AppComponent.pages` arrray.
- */
-export class MenuItem {
-
-  /**
-   * @constructor
-   * @param {String} pageRef A string that is referenced in the `src/locales/fr.yml` file as being a page name
-   * @param {any} component The page component to decorate
-   * @param {TranslateService} translateService A translate service used by the `title` property
-   */
-  constructor(readonly pageRef: string, readonly component: any, private readonly translateService: TranslateService) {
-  }
-
-  /**
-   * Returns the page title translated in the current locale, based on the `pageName` property of this `MenuItem`
-   */
-  get title(): Observable<string> {
-    return this.translateService.get(`pages.${this.pageRef}.title`);
   }
 }

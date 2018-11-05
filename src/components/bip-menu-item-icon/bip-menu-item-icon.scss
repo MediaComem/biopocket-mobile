@@ -1,0 +1,16 @@
+bip-menu-item-icon {
+  display: inline-block;
+  background-color: bipColor('primary');
+  color: bipColor('light');
+  height: 27px;
+  width: 27px;
+  border-radius: 5px;
+  font-size: 1.6rem;
+  .wrapper {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

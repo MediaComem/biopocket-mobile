@@ -10,20 +10,21 @@ import { IonicModule, NavController, PopoverController } from 'ionic-angular';
 import * as L from 'leaflet';
 import { spy, stub } from 'sinon';
 
-import { expect } from '../../../spec/chai';
-import { resetStub } from '../../../spec/sinon';
-import { Deferred } from '../../../spec/utils';
-import { ENV as MockEnv } from '../../environments/environment.test';
-import { fr } from '../../locales';
-import Marker from '../../models/marker';
-import LocationDetails from '../../popovers/location-details/location-details';
-import EnvService from '../../providers/env-service/env-service';
-import locationsDataMock from '../../providers/locations-service/locations-data.mock';
-import LocationsModule from '../../providers/locations-service/locations-module';
-import LocationsService from '../../providers/locations-service/locations-service';
-import { translateModuleForRoot } from '../../utils/i18n';
-import { observableOf, observableThatThrows } from '../../utils/observable';
-import { MapPage } from './map';
+import { ENV as MockEnv } from '@app/environments/environment.test';
+import { fr } from '@app/locales';
+import LocationDetails from '@app/popovers/location-details/location-details';
+import { BipIconStub } from '@components/bip-icon/bip-icon.stub';
+import Marker from '@models/marker';
+import { MapPage } from '@pages/map/map';
+import EnvService from '@providers/env-service/env-service';
+import locationsDataMock from '@providers/locations-service/locations-data.mock';
+import LocationsModule from '@providers/locations-service/locations-module';
+import LocationsService from '@providers/locations-service/locations-service';
+import { expect } from '@spec/chai';
+import { resetStub } from '@spec/sinon';
+import { Deferred } from '@spec/utils';
+import { translateModuleForRoot } from '@utils/i18n';
+import { observableOf, observableThatThrows } from '@utils/observable';
 
 type LocationsServiceMock = Partial<LocationsService>;
 
@@ -58,7 +59,8 @@ describe('MapPage', function () {
 
     TestBed.configureTestingModule({
       declarations: [
-        MapPage
+        MapPage,
+        BipIconStub
       ],
       imports: [
         HttpClientTestingModule,

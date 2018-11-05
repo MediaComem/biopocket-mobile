@@ -1,0 +1,11 @@
+bip-menu-item {
+  display: block;
+  padding-left: $globalSpacing;
+  padding-right: $globalSpacing;
+  padding-top: $globalSpacing / 2;
+  padding-bottom: $globalSpacing / 2;
+
+  bip-menu-item-icon {
+    margin-right: $globalSpacing;
+  }
+}

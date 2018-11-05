@@ -1,0 +1,14 @@
+bip-icon {
+  display: inline-block;
+  svg {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    stroke-width: 0;
+    stroke: currentColor;
+    fill: currentColor;
+    position: relative;
+    top: 0.1em;
+    margin: auto 5px;
+  }
+}

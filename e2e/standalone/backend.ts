@@ -26,9 +26,10 @@ export class StandaloneBackendProcess extends StandaloneProcess {
   async spawn(): Promise<void> {
 
     // Ensure the backend URL is local and that it has a port number.
-    if (this.backendUrl.hostname != 'localhost' && this.backendUrl.hostname != '127.0.0.1') {
+    if (this.backendUrl.hostname !== 'localhost' && this.backendUrl.hostname !== '127.0.0.1') {
       throw new Error(`Unsupported backend URL "${ENV.backendUrl}"; hostname must be localhost or 127.0.0.1`);
-    } else if (!this.backendUrl.port) {
+    }
+    if (!this.backendUrl.port) {
       throw new Error(`Unsupported backend URL "${ENV.backendUrl}"; must have a port number`);
     }
 
@@ -46,11 +47,12 @@ export class StandaloneBackendProcess extends StandaloneProcess {
     return `${this.name} at ${ENV.backendUrl}`;
   }
 
-  protected getEnvironment(): { [key: string]: string } {
+  protected getEnvironment(): { [ key: string ]: string } {
     return extend(super.getEnvironment(), {
       CORS: 'true',
       DATABASE_URL: config.backendDatabaseUrl,
       NODE_ENV: 'test',
+      DEFAULT_PAGINATION_LIMIT: '5',
       PORT: this.backendUrl.port,
       SESSION_SECRET: 'secret'
     });

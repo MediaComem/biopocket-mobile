@@ -1,0 +1,21 @@
+<div class="wrapper">
+  <div class="background"></div>
+  <div class="profile-wrapper">
+    <bip-profile-picture [src]="user.profilePictureUrl"></bip-profile-picture>
+    <span class="username">{{ user.completeName }}</span>
+    <div class="action-buttons">
+      <button ion-fab color="light">
+        <bip-icon name="user"></bip-icon>
+      </button>
+      <button ion-fab color="light">
+        <bip-icon name="comments"></bip-icon>
+      </button>
+      <button ion-fab color="light">
+        <bip-icon name="bell"></bip-icon>
+      </button>
+      <button ion-fab color="light">
+        <bip-icon name="calendar-check"></bip-icon>
+      </button>
+    </div>
+  </div>
+</div>
