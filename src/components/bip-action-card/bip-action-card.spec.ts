@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 
 import { BipActionCardComponent } from '@components/bip-action-card/bip-action-card';
 import Action from '@models/action';
@@ -26,8 +27,10 @@ describe('BipActionCardComponent', function() {
 
   describe("with an 'action' value", () => {
 
+    let action;
+
     beforeEach(() => {
-      component.action = new Action({
+      action = new Action({
         id: '5a6752c0-6d16-4dde-9b6c-df813a30a5e7',
         themeId: '19cf3b0a-7c4c-410d-8c5c-5c2697479014',
         theme: {
@@ -44,11 +47,14 @@ describe('BipActionCardComponent', function() {
         createdAt: '2018-08-28T10:54:14.088Z',
         updatedAt: '2018-08-28T10:54:14.088Z'
       });
+      component.action = action;
       fixture.detectChanges();
     });
 
-    it('should create', function() {
+    it('should create with proper values', function() {
       expect(component).to.be.an.instanceOf(BipActionCardComponent);
+      const cardTitle = fixture.debugElement.query(By.css('.action-title')).nativeElement;
+      expect(cardTitle.textContent).to.equal(action.title);
     });
   });
 });

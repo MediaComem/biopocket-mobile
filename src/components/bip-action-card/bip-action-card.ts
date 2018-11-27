@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 import Action from '@models/action';
-import { ActionPage } from '@pages/action/action';
 
 @Component({
   selector: 'bip-action-card',
@@ -9,12 +8,7 @@ import { ActionPage } from '@pages/action/action';
 })
 export class BipActionCardComponent implements OnInit {
 
-  actionPage: any;
   @Input() action: Action;
-
-  constructor() {
-    this.actionPage = ActionPage;
-  }
 
   ngOnInit(): void {
     if (!this.action) {
