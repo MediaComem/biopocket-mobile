@@ -41,7 +41,7 @@ export default class ActionsService {
    */
   fetchAction(actionId: string): Observable<Action> {
     return this.http
-      .get<Action>(`${RESOURCE_PATH}/${actionId}`)
+      .get(`${RESOURCE_PATH}/${actionId}`)
       .pipe(map(parseApiAction));
   }
 }
