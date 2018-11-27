@@ -1,6 +1,6 @@
 # `bip-profile-picture` component
 
-This component displays a card containing action's information. The result should (currently) look like the following:
+This component displays a card containing an action's information. The result should (currently) look like the following:
 
 ![action card example][actioncard]
 
