@@ -13,7 +13,7 @@ interface FetchActionsParams {
   offset?: string;
   limit?: string;
   include?: string | string[];
-  [ key: string ]: string | string[];
+  [key: string]: string | string[];
 }
 
 // tslint:disable-next-line:no-unused no-unused-variable
