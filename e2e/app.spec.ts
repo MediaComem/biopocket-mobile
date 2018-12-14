@@ -176,7 +176,7 @@ describe('App', function() {
 
     // Ensure that the content of the page matches the action data
     const actionDetailsText = await actionPage.getActionDetails().getText();
-    expect(actionDetailsText).to.have.string(actions[ 0 ].get('title'));
+    expect(actionDetailsText).to.have.string(actions[0].get('title'));
     expect(actionDetailsText).to.have.string(actions[ 0 ].get('description'));
 
     /**
