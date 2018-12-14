@@ -24,7 +24,7 @@ const ONEX_BBOX = {
 
 // Add a 10% padding to latitude & longitude (to make sure markers are displayed well within the screen area).
 ONEX_BBOX.padding.push((ONEX_BBOX.northEast[1] - ONEX_BBOX.southWest[1]) / 10);
-ONEX_BBOX.padding.push((ONEX_BBOX.northEast[ 0 ] - ONEX_BBOX.southWest[ 0 ]) / 10);
+ONEX_BBOX.padding.push((ONEX_BBOX.northEast[0] - ONEX_BBOX.southWest[0]) / 10);
 
 // Compute bounding box width & height in kilometers.
 const ONEX_BBOX_WIDTH = distance(point(ONEX_BBOX.southWest), point([ ONEX_BBOX.northEast[ 0 ], ONEX_BBOX.southWest[ 1 ] ]));
