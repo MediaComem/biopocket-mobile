@@ -25,7 +25,7 @@ export const Print = {
 
   debug(...values: any[]): void {
     if (isAllowed(ENV.environment)) {
-      console.debug(values[ 0 ], ...values.slice(1));
+      console.debug(values[0], ...values.slice(1));
     }
   },
 
