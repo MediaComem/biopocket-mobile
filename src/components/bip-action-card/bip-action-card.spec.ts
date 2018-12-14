@@ -53,7 +53,7 @@ describe('BipActionCardComponent', function() {
 
     it('should create with proper values', function() {
       expect(component).to.be.an.instanceOf(BipActionCardComponent);
-      const cardTitle = fixture.debugElement.query(By.css('.action-title')).nativeElement;
+      const cardTitle = fixture.debugElement.query(By.css('.title')).nativeElement;
       expect(cardTitle.textContent).to.equal(action.title);
     });
   });
