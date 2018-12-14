@@ -96,7 +96,7 @@ describe('App', function() {
      */
 
     // Click on the first marker (they are also sorted by ascending longitude and latitude).
-    markerIconFinders[ 0 ].click();
+    markerIconFinders[0].click();
 
     // Ensure that the popover is displayed.
     const popoverFinder = mapPage.getPopover();
