@@ -28,7 +28,7 @@ describe('ActionPage', () => {
   beforeEach(() => {
 
     navParams = { title: 'An action', id: 'an-id' };
-    mockAction = new Action(mockActionsData[ 0 ]);
+    mockAction = new Action(mockActionsData[0]);
 
     navControllerMock = {};
     navParamsMock = {
