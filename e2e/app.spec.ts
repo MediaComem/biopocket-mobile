@@ -106,7 +106,7 @@ describe('App', function() {
     // Ensure that the data of the correct location is displayed in the popover.
     // Since both the location fixtures and marker icons have been sorted by ascending longitude and
     // latitude, the first location should correspond to the first marker icon.
-    const location = locations[ 0 ];
+    const location = locations[0];
     const locationDetailsText = await mapPage.getLocationDetails().getText();
     expect(locationDetailsText).to.have.string(location.get('name'));
     expect(locationDetailsText).to.have.string(location.get('short_name'));
