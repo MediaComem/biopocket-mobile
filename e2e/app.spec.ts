@@ -43,7 +43,7 @@ describe('App', function() {
   beforeEach(async function() {
     mapPage = new MapPageObject('map-page');
     actionsListPage = new ActionsListPageObject('actions-list-page');
-    actionPage = new ActionPageObject('action-page');
+    // actionPage = new ActionPageObject('action-page');
 
     // Insert 3 random locations into the database and sort them by ascending longitude and latitude.
     locations = await createData(3, locationFixtures.location, { bbox: ONEX_BBOX });
@@ -148,13 +148,8 @@ describe('App', function() {
     actionListItemsFinder = await actionsListPage.getActionListItems();
     expect(actionListItemsFinder).to.have.lengthOf(6);
 
-    // Click on the first action item
-    actionListItemsFinder[0].click();
-
-    // Wait for the Action page to show up on the DOM
-    const actionPageFinder = actionPage.getPage();
-    await presenceOf(actionPageFinder);
-    await expectDisplayed(actionPageFinder, 'Action Page is not displayed while it should be.');
+    // Go to the first action page
+    actionPage = await actionsListPage.goToAction(0);
 
     // Ensure that the navbar title is indeed the expected title.
     const actionPageTitleFinder = await actionPage.getPageTitle();

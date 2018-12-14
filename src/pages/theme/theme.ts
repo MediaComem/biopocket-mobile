@@ -19,9 +19,4 @@ export class ThemePage {
     public navParams: NavParams
   ) { }
 
-  ionViewDidLoad() {
-    // tslint:disable-next-line:no-console
-    console.log('ionViewDidLoad ThemePage', this.navParams.get('theme'));
-  }
-
 }

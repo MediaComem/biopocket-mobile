@@ -16,7 +16,7 @@ const LOG_REF = '[ActionPage]';
 export class ActionPage {
 
   action: Action;
-  themePage: any;
+  ThemePage: any;
 
   constructor(
     public navCtrl: NavController,
@@ -24,7 +24,7 @@ export class ActionPage {
     private readonly actionService: ActionsService
   ) {
     this.action = new Action(this.navParams.get('action'));
-    this.themePage = ThemePage;
+    this.ThemePage = ThemePage;
   }
 
   ionViewDidEnter() {
