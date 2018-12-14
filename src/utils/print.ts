@@ -19,7 +19,7 @@ export const Print = {
 
   log(...values: any[]): void {
     if (isAllowed(ENV.environment)) {
-      console.log(values[ 0 ], ...values.slice(1));
+      console.log(values[0], ...values.slice(1));
     }
   },
 
