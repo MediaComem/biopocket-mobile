@@ -83,7 +83,7 @@ describe('ApiInterceptor', function() {
      */
     function makeTestRequest(pathOrUrl: string): Observable<any> {
       const args = compact([ pathOrUrl, testData.body, testData.options ]);
-      return httpClient[ testData.method.toLowerCase() ](...args);
+      return httpClient[testData.method.toLowerCase()](...args);
     }
 
     /**
