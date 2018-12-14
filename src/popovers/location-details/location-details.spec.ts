@@ -35,7 +35,7 @@ describe('LocationDetails', function() {
     };
 
     locationsServiceMock = {
-      fetchOne: stub().returns(observableOf(locationsDataMock[ 2 ]))
+      fetchOne: stub().returns(observableOf(locationsDataMock[2]))
     };
 
     TestBed.configureTestingModule({
