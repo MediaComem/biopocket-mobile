@@ -37,7 +37,7 @@ export const Print = {
 
   error(...values: any[]): void {
     if (isAllowed(ENV.environment)) {
-      console.error(values[ 0 ], ...values.slice(1));
+      console.error(values[0], ...values.slice(1));
     }
   }
 
