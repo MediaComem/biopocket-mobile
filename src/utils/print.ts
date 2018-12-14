@@ -31,7 +31,7 @@ export const Print = {
 
   warn(...values: any[]): void {
     if (isAllowed(ENV.environment)) {
-      console.warn(values[ 0 ], ...values.slice(1));
+      console.warn(values[0], ...values.slice(1));
     }
   },
 
