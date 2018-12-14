@@ -177,7 +177,7 @@ describe('App', function() {
     // Ensure that the content of the page matches the action data
     const actionDetailsText = await actionPage.getActionDetails().getText();
     expect(actionDetailsText).to.have.string(actions[0].get('title'));
-    expect(actionDetailsText).to.have.string(actions[ 0 ].get('description'));
+    expect(actionDetailsText).to.have.string(actions[0].get('description'));
 
     /**
      * 7. Clicking on the theme on the action page, and thus displaying the correct Theme page.
