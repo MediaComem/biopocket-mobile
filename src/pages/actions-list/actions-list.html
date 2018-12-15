@@ -10,11 +10,12 @@
 
 <ion-content>
 
-  <ion-list>
-    <ion-item *ngFor="let action of actions">{{action.title}}</ion-item>
+  <ion-list class="actions-list">
+    <bip-action-card *ngFor="let action of actions" [action]="action" [navPush]="actionPage" [navParams]="{ action: action }"></bip-action-card>
   </ion-list>
 
   <ion-infinite-scroll (ionInfinite)="loadMoreActions($event)">
     <ion-infinite-scroll-content></ion-infinite-scroll-content>
   </ion-infinite-scroll>
+
 </ion-content>

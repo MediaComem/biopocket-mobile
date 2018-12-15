@@ -1,6 +1,9 @@
 /* tslint:disable:no-console */
 import { ENV } from '@app/env';
 
+// TODO: Enhance this util by specifying a acceptable log level for each environnement.
+// @see: https://github.com/MediaComem/biopocket-mobile/pull/12#discussion_r236651369
+
 /**
  * An array of string, each of which is the name of an environment in which this service will log on the console
  */

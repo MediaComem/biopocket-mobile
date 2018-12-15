@@ -1,0 +1,83 @@
+bip-action-card {
+  display: block;
+  margin-bottom: 14px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, .05);
+  background-color: bipColor('light');
+  overflow: auto;
+  .wrapper {
+    margin: ($globalSpacing / 2) $globalSpacing $globalSpacing $globalSpacing;
+    display: flex;
+  }
+  .picture {
+    $dim: 100px;
+    $maxDim: 25vw;
+    width: $dim;
+    height: $dim;
+    max-width: $maxDim;
+    max-height: $maxDim;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    overflow: hidden;
+    @include smoothShadow;
+    flex: 0 0 auto;
+    margin-right: $globalSpacing;
+    img {
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  .content {
+    // Fix a problem with the content div expanding beyond parent limits.
+    min-width: 0;
+    width: 100%;
+    &>.title,
+    &>.theme {
+      margin-top: 0;
+      font-weight: initial;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+  .title {
+    padding-bottom: 3px;
+    margin-bottom: 0;
+    font-size: 1.9rem;
+  }
+  .theme {
+    font-size: 1.4rem;
+    color: transparentize(black, 0.5);
+    border-bottom: .5px solid rgba(177, 177, 177, 0.5);
+    padding-bottom: 6px;
+    margin-bottom: 6px;
+  }
+  .description {
+    color: #95989A; // Max-height of three lines.
+    overflow: hidden;
+    position: relative;
+  }
+  .description:after {
+    content: '';
+    height: 1.2em;
+    width: 100%;
+    background: linear-gradient(90deg, transparentize(bipColor('light'), 1) 0%, bipColor('light') 90%);
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }
+}
+
+ion-app.md .description,
+ion-app.ios .description {
+  $textHeight: 1.2em;
+  line-height: $textHeight;
+  height: calc(3 * #{$textHeight});
+}
+
+ion-app.wp .description {
+  $textHeight: 1.35em;
+  line-height: $textHeight;
+  height: calc(3 * #{$textHeight});
+}

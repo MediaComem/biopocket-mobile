@@ -45,7 +45,7 @@ $colors: (
   warning:    #e78c48,
   danger:     #de5d6e,
   light:      #fff,
-  grey:       #999,
+  concrete:   #999,
   dark:       #222
 );
 
@@ -65,7 +65,7 @@ $secondaryColors: (
 $lightGrey:   #f8f8f8;
 
 @mixin bipGradient($angle) {
-  background: linear-gradient($angle, #00E3A7, bipColor('seabed')); //
+  background: linear-gradient($angle, #00E3A7, bipColor('seabed'));
 }
 
 

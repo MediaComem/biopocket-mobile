@@ -9,7 +9,9 @@
 
 <ion-content>
 
-  <button ion-button round id="go-to-list" color="warning" (click)="goToActionsList()">{{ 'pages.map.goToListButton' | translate }}</button>
+  <div class="wrapper" ion-fixed>
+    <button id="go-to-list" (click)="goToActionsList()">{{ 'pages.map.goToListButton' | translate }}</button>
+  </div>
 
   <div id="map" leaflet [leafletOptions]="mapOptions" [leafletLayers]="layers" (leafletMapReady)="onMapReady($event)"></div>
 

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 
+import { BipActionCardStub as BipActionCardStub } from '@components/bip-action-card/bip-action-card.stub';
 import { BipIconStub as BipIconComponent } from '@components/bip-icon/bip-icon.stub';
 import { BipMenuHeaderStub as BipMenuHeaderComponent } from '@components/bip-menu-header/bip-menu-header.stub';
 import { BipMenuItemIconStub as BipMenuItemIconComponent } from '@components/bip-menu-item-icon/bip-menu-item-icon.stub';
@@ -20,14 +21,16 @@ import { BipProfilePictureStub as BipProfilePictureComponent } from '@components
     BipMenuHeaderComponent,
     BipMenuItemComponent,
     BipMenuItemIconComponent,
-    BipProfilePictureComponent
+    BipProfilePictureComponent,
+    BipActionCardStub
   ],
   exports: [
     BipIconComponent,
     BipMenuHeaderComponent,
     BipMenuItemComponent,
     BipMenuItemIconComponent,
-    BipProfilePictureComponent
+    BipProfilePictureComponent,
+    BipActionCardStub
   ]
 })
 

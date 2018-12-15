@@ -220,7 +220,7 @@ Following are two tables (one for the main colors, the other for the secondary c
 | <span style="color:#e78c48">▐█▌</span> | `'warning'`   | `#e78c48` | 231, 140, 72  |
 | <span style="color:#de5d6e">▐█▌</span> | `'danger'`    | `#de5d6e` | 222, 93, 110  |
 | <span style="color:#ffffff">▐█▌</span> | `'light'`     | `#ffffff` | 255, 255, 255 |
-| <span style="color:#999999">▐█▌</span> | `'grey '`     | `#999999` | 153, 153, 153 |
+| <span style="color:#999999">▐█▌</span> | `'concrete '` | `#999999` | 153, 153, 153 |
 | <span style="color:#222222">▐█▌</span> | `'dark'`      | `#222222` | 34, 34, 34    |
 
 ### Secondary colors
