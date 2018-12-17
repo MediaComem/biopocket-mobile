@@ -1,5 +1,5 @@
 import { distance, point } from '@turf/turf';
-import { browser, ExpectedConditions as EC } from 'protractor';
+import { browser } from 'protractor';
 
 // DO NOT MOVE these lines.
 // Environment variables MUST be set BEFORE backend files are imported.
@@ -14,7 +14,7 @@ import { ActionPageObject } from './po/action.po';
 import { ActionsListPageObject } from './po/actions-list.po';
 import { MapPageObject } from './po/map.po';
 import { ThemePageObject } from './po/theme.po';
-import { absenceOf, AVERAGE_WAIT_TIME, compareCoordinates, expectDisplayed, invisibilityOf, presenceOf, visibilityOf } from './utils';
+import { absenceOf, compareCoordinates, expectDisplayed, invisibilityOf, presenceOf, visibilityOf } from './utils';
 
 const ONEX_BBOX = {
   southWest: [ 6.086417, 46.173987 ],
@@ -40,8 +40,6 @@ describe('App', function() {
 
   beforeEach(async function() {
     mapPage = new MapPageObject('map-page');
-    actionsListPage = new ActionsListPageObject('actions-list-page');
-    // actionPage = new ActionPageObject('action-page');
 
     // Insert 3 random locations into the database and sort them by ascending longitude and latitude.
     locations = await createData(3, locationFixtures.location, { bbox: ONEX_BBOX });
@@ -95,11 +93,10 @@ describe('App', function() {
      * Clicking on a Location map marker, and thus displaying the popover with the correct information.
      */
 
-    // Click on the first marker (they are also sorted by ascending longitude and latitude).
-    markerIconFinders[0].click();
+    // Show the popover for the first location.
+    const popoverFinder = await mapPage.showFirstLocation();
 
     // Ensure that the popover is displayed.
-    const popoverFinder = mapPage.getPopover();
     await visibilityOf(popoverFinder);
     await expectDisplayed(popoverFinder, { elementName: 'Popover' });
 
@@ -115,28 +112,17 @@ describe('App', function() {
      * 3. Dismissing the popover by clicking on its backdrop.
      */
 
-    // To dismiss the popover, get its backdrop element.
-    const popoverBackdropFinder = await mapPage.getPopoverBackdrop();
-    await expect(popoverBackdropFinder.isPresent(), 'Popover backdrop is not present while it should be.').to.eventually.equal(true);
-
-    popoverBackdropFinder.click();
-
-    // Wait for the popover element to be detached from the DOM.
-    await absenceOf(popoverFinder);
-    await expect(popoverFinder.isPresent(), 'Popover is present while it shouldn\'t be.').to.eventually.equal(false);
+    await mapPage.closePopover();
 
     /**
      * 4. Navigating to the Actions List page by clicking on the adequate button on the Map page.
      */
 
-    // Get the "go to actions list" button
-    const goToListActionFinder = await mapPage.getGoToActionsListButton();
-    await expect(goToListActionFinder.isPresent()).to.eventually.equal(true);
-
     // Resize the window size small enough to force a scroll in the Actions List Page
-    await actionsListPage.setWindowSize(600, 400);
+    await mapPage.setWindowSize(600, 400);
 
-    goToListActionFinder.click();
+    // Go to the actions list page.
+    actionsListPage = await mapPage.goToActionList();
 
     // Wait for the actions list page to show up on the DOM
     const actionsListPageFinder = actionsListPage.getPage();
@@ -184,24 +170,14 @@ describe('App', function() {
      */
 
     // Click on the theme
-    const actionPageThemeTitleFinder = await actionPage.getThemeTitle();
-    await expect(actionPageThemeTitleFinder.isPresent()).to.eventually.equal(true);
-    await browser.wait(EC.elementToBeClickable(actionPageThemeTitleFinder), 5000);
+    themePage = await actionPage.goToTheme();
 
-    // Click on the theme title
-    actionPageThemeTitleFinder.click();
-    // OK... for an unknown reason, without this 1ms of sleep, the click does not perform the transition to the Theme page...
-    // It justs stalls on the Action page without doing nothing.
-    await browser.sleep(1);
-
-    // Wait for the Theme page to show up ono the DOM
+    // Wait for the Theme page to show up onto the DOM
     const themePageFinder = await themePage.getPage();
     await presenceOf(themePageFinder);
     await expectDisplayed(themePageFinder, { elementName: 'Theme Page' });
     await invisibilityOf(actionPageFinder);
     await expectDisplayed(actionPageFinder, { elementName: 'Action Page', shouldBeDisplayed: false });
-
-    // expect(true, "Don't forget to check that the content of the Theme Page is as expected.").to.equal(false);
 
     // Ensure that the navbar title is indeed the expected title.
     const themePageTitleFinder = await themePage.getPageTitle();
@@ -227,9 +203,7 @@ describe('App', function() {
      */
 
     // Click on the back button from the Theme Page
-    const themePageBackButton = await themePage.getBackButton();
-    await browser.wait(EC.elementToBeClickable(themePageBackButton), AVERAGE_WAIT_TIME);
-    themePageBackButton.click();
+    await themePage.goBack();
 
     // Ensure that the Action Page shows up in lieu of the Theme Page.
     await absenceOf(themePageFinder);

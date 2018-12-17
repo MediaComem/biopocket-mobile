@@ -8,6 +8,7 @@
 - [Environment](#environment)
   - [Implementation](#implementation)
 - [Module aliases](#module-aliases)
+- [`export default`](#export-default)
 - [Logging things](#logging-things)
 - [Including CSS files from external modules](#including-css-files-from-external-modules)
   - [Example : adding the `node_modules/leaflet/dist/leaflet.css` file in the `www/build/leaflet` folder:](#example--adding-the-node_modulesleafletdistleafletcss-file-in-the-wwwbuildleaflet-folder)

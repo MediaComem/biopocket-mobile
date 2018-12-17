@@ -1,4 +1,7 @@
-import { browser, by, element, ElementFinder, promise } from 'protractor';
+import { browser, by, element, ElementFinder, ExpectedConditions as EC, promise } from 'protractor';
+
+import { expect } from '../../spec/chai';
+import { AVERAGE_WAIT_TIME } from '../utils';
 
 /**
  * Abstract page object with common functionality.
@@ -43,6 +46,17 @@ export class AbstractPageObject {
 
   getBackButton(): ElementFinder {
     return this.getPage().element(by.css('button.back-button'));
+  }
+
+  /**
+   * Clicks on the "Go Back" button that should be available on the page.
+   * An assertion ensure that the test will fail if the back button is not present.
+   */
+  async goBack() {
+    const backButtonFinder = this.getBackButton();
+    await expect(backButtonFinder.isPresent()).to.eventually.equal(true);
+    await browser.wait(EC.elementToBeClickable(backButtonFinder), AVERAGE_WAIT_TIME);
+    await backButtonFinder.click();
   }
 
   /**

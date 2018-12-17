@@ -24,7 +24,7 @@ export class ActionsListPageObject extends AbstractPageObject {
   }
 
   /**
-   * Returns an array of ElementFinder for all `<ion-item>` tag inside the `getActionsList` result.
+   * Returns an array of ElementFinder for all `<bip-action-card>` tag inside the `getActionsList` result.
    * Each of these item should display information about a particular action.
    */
   getActionListItems(): ElementArrayFinder {
