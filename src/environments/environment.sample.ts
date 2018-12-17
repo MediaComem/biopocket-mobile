@@ -1,4 +1,4 @@
-import EnvInterface from './environment.interface';
+import { EnvInterface } from './environment.interface';
 
 export const ENV: EnvInterface = {
   environment: 'development',
