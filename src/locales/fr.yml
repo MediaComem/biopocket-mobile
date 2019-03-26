@@ -1,5 +1,9 @@
 app: "BioPocket"
 pages:
+  action:
+    title: "Action"
+    participate: "Participer"
+    summary: "Résumé"
   actionsList:
     title: "Liste des actions"
   home:
@@ -13,6 +17,8 @@ pages:
     geolocation: "Localisation en cours..."
     geolocationError: "Échec de la localisation"
     goToListButton: "Voir les actions disponibles"
+  theme:
+    title: "Thème"
 popovers:
   locationDetails:
     website: "site internet"

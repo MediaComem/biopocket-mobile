@@ -10,7 +10,7 @@
 <ion-content>
 
   <div class="wrapper" ion-fixed>
-    <button id="go-to-list" (click)="goToActionsList()">{{ 'pages.map.goToListButton' | translate }}</button>
+    <button class="bip-button" id="go-to-list" [navPush]="ActionsListPage">{{ 'pages.map.goToListButton' | translate }}</button>
   </div>
 
   <div id="map" leaflet [leafletOptions]="mapOptions" [leafletLayers]="layers" (leafletMapReady)="onMapReady($event)"></div>

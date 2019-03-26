@@ -23,8 +23,7 @@ const RESOURCE_PATH = '/actions';
 @Injectable()
 export default class ActionsService {
 
-  constructor(private readonly http: HttpClient) {
-  }
+  constructor(private readonly http: HttpClient) { }
 
   /**
    * Fetchs some paginated actions from the BioPocket API.
@@ -33,9 +32,17 @@ export default class ActionsService {
   fetchPaginatedActions(params: FetchActionsParams = {}): Observable<PaginatedResponse<Action>> {
     return this.http
       .get<any[]>(RESOURCE_PATH, { params, observe: 'response' })
-      .pipe(map(response => {
-        return new PaginatedResponse<Action>(response, parseApiAction);
-      }));
+      .pipe(map(response => new PaginatedResponse<Action>(response, parseApiAction)));
+  }
+
+  /**
+   * Fetchs one action, through its ID, from the BioPocket API.
+   * @param actionId The id of the action to fetch.
+   */
+  fetchAction(actionId: string): Observable<Action> {
+    return this.http
+      .get(`${RESOURCE_PATH}/${actionId}`)
+      .pipe(map(parseApiAction));
   }
 }
 

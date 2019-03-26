@@ -32,52 +32,28 @@ bip-action-card {
     // Fix a problem with the content div expanding beyond parent limits.
     min-width: 0;
     width: 100%;
-    &>.title,
-    &>.theme {
+    &>.action-title,
+    &>.theme-title {
       margin-top: 0;
-      font-weight: initial;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
     }
   }
-  .title {
+  .action-title {
+    color: bipColor('lagoon');
     padding-bottom: 3px;
     margin-bottom: 0;
-    font-size: 1.9rem;
   }
-  .theme {
-    font-size: 1.4rem;
+  .theme-title {
     color: transparentize(black, 0.5);
     border-bottom: .5px solid rgba(177, 177, 177, 0.5);
     padding-bottom: 6px;
     margin-bottom: 6px;
   }
   .description {
-    color: #95989A; // Max-height of three lines.
+    color: transparentize(black, 0.5);
     overflow: hidden;
     position: relative;
   }
-  .description:after {
-    content: '';
-    height: 1.2em;
-    width: 100%;
-    background: linear-gradient(90deg, transparentize(bipColor('light'), 1) 0%, bipColor('light') 90%);
-    position: absolute;
-    bottom: 0;
-    right: 0;
-  }
-}
-
-ion-app.md .description,
-ion-app.ios .description {
-  $textHeight: 1.2em;
-  line-height: $textHeight;
-  height: calc(3 * #{$textHeight});
-}
-
-ion-app.wp .description {
-  $textHeight: 1.35em;
-  line-height: $textHeight;
-  height: calc(3 * #{$textHeight});
 }

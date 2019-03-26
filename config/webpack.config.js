@@ -11,12 +11,14 @@ module.exports = function() {
   }
 
   const environmentFileEnv = process.env.NODE_ENV || ionicEnv;
+  console.log(`[${new Date().toLocaleTimeString()}] WebPack building for environment '${environmentFileEnv}'`);
   config.resolve.alias = {
     "@app/env": path.resolve(`./src/environments/environment${environmentFileEnv == 'prod' ? '' : '.' + environmentFileEnv}.ts`),
     "@print": path.resolve('./src/utils/print.ts'),
     "@utils": path.resolve('./src/utils'),
     "@pages": path.resolve('./src/pages'),
     "@components": path.resolve('./src/components'),
+    "@directives": path.resolve('./src/directives'),
     "@classes": path.resolve('./src/classes'),
     "@providers": path.resolve('./src/providers'),
     "@models": path.resolve('./src/models'),

@@ -78,3 +78,28 @@ ion-menu {
     border-bottom: none;
   }
 }
+
+.multiline-fade {
+  &::after {
+    content: '';
+    height: 1.2em;
+    width: 100%;
+    background: linear-gradient(90deg, transparentize(bipColor('light'), 1) 0%, bipColor('light') 90%);
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }
+}
+
+ion-app.md .multiline-fade,
+ion-app.ios .multiline-fade {
+  $textHeight: 1.2em;
+  line-height: $textHeight;
+  height: calc(3 * #{$textHeight});
+}
+
+ion-app.wp .multiline-fade {
+  $textHeight: 1.35em;
+  line-height: $textHeight;
+  height: calc(3 * #{$textHeight});
+}

@@ -8,6 +8,32 @@ $globalSpacing: 16px;
   box-shadow: 0 0 6px rgba(0, 0, 0, .16);
 }
 
+// Global styles
+// -------------
+// Styles that could be applied anywhere throughout the app
+
+.bip-button {
+  font-size: 1.6rem;
+  pointer-events: all;
+  padding: 12px ($globalSpacing * 2);
+  border-radius: 12px;
+  color: bipColor('light');
+}
+
+.action-title {
+  font-size: 1.8rem;
+  font-weight: initial;
+}
+
+.theme-title {
+  font-size: 1.4rem;
+  font-weight: initial;
+}
+
+p {
+  color: rgba(0, 0, 0, 0.5);
+}
+
 // Background color
 // ----------------
 // Generates classes that applies the $colors to the `background-color` property.

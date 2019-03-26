@@ -1,6 +1,8 @@
 import { by, ElementArrayFinder, ElementFinder } from 'protractor';
 
+import { expectDisplayed, presenceOf } from '../utils';
 import { AbstractPageObject } from './abstract.po';
+import { ActionPageObject } from './action.po';
 
 /**
  * Page object representing the actions list screen.
@@ -34,6 +36,23 @@ export class ActionsListPageObject extends AbstractPageObject {
    */
   getInfiniteScroll(): ElementFinder {
     return this.getPage().element(by.css('ion-infinite-scroll'));
+  }
+
+  /**
+   * Go to the n-th action's page, wait for the page to load and check that it is displayed.
+   * @param n The index of the action to go to.
+   * @returns A action page obejct.
+   */
+  async goToAction(n: number): Promise<ActionPageObject> {
+    const actions = await this.getActionListItems();
+    actions[n].click();
+
+    const actionPage = new ActionPageObject('action-page');
+    const actionPageFinder = actionPage.getPage();
+    await presenceOf(actionPageFinder);
+    await expectDisplayed(actionPageFinder, 'Action Page is not displayed while it should be.');
+
+    return actionPage;
   }
 
 }

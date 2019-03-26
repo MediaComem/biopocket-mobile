@@ -1,12 +1,35 @@
 <ion-header mode="md">
 
   <ion-navbar color="light">
-    <ion-title>{{ params.title }}</ion-title>
+    <ion-title>{{ 'pages.action.title' | translate }}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-
+  <header>
+    <div class="img-wrapper">
+      <img [src]="action.photoUrl" [alt]="action.title" default="assets/img/default_action.jpg" class="action-cover">
+    </div>
+    <section class="title-bar">
+      <div>
+        <h1 class="action-title">{{ action.title }}</h1>
+        <h2 class="theme-title" [navPush]="ThemePage" [navParams]="{ theme: action.theme }">{{ action.theme.title }}
+          <ion-icon name="arrow-forward"></ion-icon>
+        </h2>
+      </div>
+      <button class="bip-button">{{ 'pages.action.participate' | translate }}</button>
+    </section>
+    <section class="description">
+      <h3>{{ 'pages.action.summary' | translate }}</h3>
+      <p>{{ action.description }}</p>
+    </section>
+  </header>
+  <section class="tasklist">
+    <!-- Put the task list here when it's implemented -->
+  </section>
+  <section class="action-impact">
+    <!-- Put the impact's description when it's implemented -->
+  </section>
 </ion-content>

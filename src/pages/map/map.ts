@@ -33,6 +33,7 @@ export class MapPage {
   mapMessage: string;
   mapOptions: L.MapOptions;
   layers: Marker[];
+  ActionsListPage: any;
 
   private geolocationInProgress: boolean;
 
@@ -44,6 +45,7 @@ export class MapPage {
     private readonly popoverCtrl: PopoverController,
     private readonly navCtrl: NavController
   ) {
+    this.ActionsListPage = ActionsListPage;
     this.layers = [];
     this.mapOptions = {
       layers: [
@@ -55,10 +57,6 @@ export class MapPage {
       zoomControl: false,
       attributionControl: false
     };
-  }
-
-  goToActionsList() {
-    this.navCtrl.push(ActionsListPage);
   }
 
   /**

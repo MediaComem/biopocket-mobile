@@ -10,9 +10,10 @@ import * as actionFixtures from '../backend/server/spec/fixtures/actions';
 import * as locationFixtures from '../backend/server/spec/fixtures/location';
 import { create as createData } from '../backend/utils/data';
 import { expect } from '../spec/chai';
+import { ActionPageObject } from './po/action.po';
 import { ActionsListPageObject } from './po/actions-list.po';
 import { MapPageObject } from './po/map.po';
-import { compareCoordinates, expectDisplayed, presenceOf } from './utils';
+import { compareCoordinates, expectDisplayed, presenceOf, visibilityOf } from './utils';
 
 const ONEX_BBOX = {
   southWest: [ 6.086417, 46.173987 ],
@@ -34,20 +35,23 @@ const ONEX_BBOX_HEIGHT = distance(point(ONEX_BBOX.southWest), point([ ONEX_BBOX.
 
 describe('App', function() {
 
-  let locations;
+  let locations, actions;
   let mapPage: MapPageObject;
   let actionsListPage: ActionsListPageObject;
+  let actionPage: ActionPageObject;
 
   beforeEach(async function() {
     mapPage = new MapPageObject('map-page');
     actionsListPage = new ActionsListPageObject('actions-list-page');
+    // actionPage = new ActionPageObject('action-page');
 
     // Insert 3 random locations into the database and sort them by ascending longitude and latitude.
     locations = await createData(3, locationFixtures.location, { bbox: ONEX_BBOX });
     locations.sort((a, b) => compareCoordinates(a.get('geometry'), b.get('geometry')));
 
     // Insert 3 random actions into the database.
-    await createData(6, actionFixtures.action, {});
+    actions = await createData(6, actionFixtures.action, {});
+    actions.sort((a, b) => a.get('title').toLowerCase().localeCompare(b.get('title').toLowerCase()));
 
     // Set a window size with the same width/height ratio as the Onex bounding box.
     const windowWidth = 1440;
@@ -64,7 +68,8 @@ describe('App', function() {
    * 3. Clicking on a Location map marker, and thus displaying the popover with the correct information
    * 4. Dismissing the popover by clicking on its backdrop
    * 5. Navigating to the Actions List page by clicking on the adequate button on the Map page
-   * 6. Scrolling to the bottom of the actions list page and triggering a new load
+   * 6. Scrolling to the bottom of the actions list page and trigger a new load
+   * 7. Click on the first action on the actions list page, and this displaying the correct Action page
    */
   it('should allow a user to execute the main scenario', async function() {
     this.timeout(15000);
@@ -88,7 +93,7 @@ describe('App', function() {
 
     // Ensure that the popover is displayed.
     const popoverFinder = mapPage.getPopover();
-    await presenceOf(popoverFinder);
+    await visibilityOf(popoverFinder);
     await expectDisplayed(popoverFinder, 'Popover is not displayed while it should be');
 
     // Ensure that the data of the correct location is displayed in the popover.
@@ -142,5 +147,17 @@ describe('App', function() {
     // Ensure that more actions have been loaded on the page.
     actionListItemsFinder = await actionsListPage.getActionListItems();
     expect(actionListItemsFinder).to.have.lengthOf(6);
+
+    // Go to the first action page
+    actionPage = await actionsListPage.goToAction(0);
+
+    // Ensure that the navbar title is indeed the expected title.
+    const actionPageTitleFinder = await actionPage.getPageTitle();
+    await expect(actionPageTitleFinder.getText()).to.eventually.have.string(actionPage.expectedTitle);
+
+    // Ensure that the content of the page matches the action data
+    const actionDetailsText = await actionPage.getActionDetails().getText();
+    expect(actionDetailsText).to.have.string(actions[0].get('title'));
+    expect(actionDetailsText).to.have.string(actions[0].get('description'));
   });
 });
