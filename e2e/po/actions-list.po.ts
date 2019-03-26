@@ -50,7 +50,7 @@ export class ActionsListPageObject extends AbstractPageObject {
     const actionPage = new ActionPageObject('action-page');
     const actionPageFinder = actionPage.getPage();
     await presenceOf(actionPageFinder);
-    await expectDisplayed(actionPageFinder, 'Action Page is not displayed while it should be.');
+    await expectDisplayed(actionPageFinder, { elementName: 'Action Page' });
 
     return actionPage;
   }

@@ -156,6 +156,8 @@ describe('App', function() {
     // Go to the first action page
     actionPage = await actionsListPage.goToAction(0);
 
+    const actionPageFinder = actionPage.getPage();
+
     // Ensure that the navbar title is indeed the expected title.
     const actionPageTitleFinder = await actionPage.getPageTitle();
     await expect(actionPageTitleFinder.getText()).to.eventually.have.string(actionPage.expectedTitle);

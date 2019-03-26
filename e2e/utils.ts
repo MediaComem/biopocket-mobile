@@ -125,7 +125,7 @@ export async function expectDisplayed(finder: ElementFinder, options?: { element
     options.shouldBeDisplayed = true;
   }
 
-  const message = options.shouldBeDisplayed ? `${options.elementName} is displayed while it shouldn\'t be` : `${options.elementName} is not displayed while it should be`;
+  const message = options.shouldBeDisplayed ? `${options.elementName} is not displayed while it should be` : `${options.elementName} is displayed while it shouldn\'t be`;
   const isDisplayed = await finder.isDisplayed();
   // console.log(`${options.elementName} displayed ?`, isDisplayed);
   // console.log(`${options.elementName} should be displayed ?`, options.shouldBeDisplayed);
