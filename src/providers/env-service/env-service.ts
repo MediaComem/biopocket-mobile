@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { ENV } from '@app/env';
-import EnvInterface from '@app/environments/environment.interface';
+import { EnvInterface } from '@app/environments/environment.interface';
 
 /**
  * Incorporates the ENV variable and provides an interface on this variable.
  * This pattern allows easily mocking the ENV variable inside Unit Test.
  */
 @Injectable()
-export default class EnvService implements EnvInterface {
+export class EnvService implements EnvInterface {
 
   private readonly envData: EnvInterface;
 

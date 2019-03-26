@@ -15,7 +15,7 @@ const whitelist = [
  * This Object provides all the methods of the javascript console Class,
  * but each is decorated so that it only actually log anything if the app's environment is allowed to do so.
  */
-const Print = {
+export const Print = {
 
   log(...values: any[]): void {
     if (isAllowed(ENV.environment)) {
@@ -45,11 +45,9 @@ const Print = {
 
 /**
  * Indicates wether or not the given `env` string matches any of the whitelisted environments
- * @param {string} env The environment name 
+ * @param {string} env The environment name
  * @returns {boolean}
  */
 function isAllowed(env: string): boolean {
   return whitelist.indexOf(env) !== -1;
 }
-
-export default Print;

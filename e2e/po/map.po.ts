@@ -1,7 +1,9 @@
 import { browser, by, element, ElementFinder } from 'protractor';
 
-import { compareCoordinates } from '../utils';
+import { expect } from '../../spec/chai';
+import { absenceOf, compareCoordinates } from '../utils';
 import { AbstractPageObject } from './abstract.po';
+import { ActionsListPageObject } from './actions-list.po';
 
 /**
  * Page object representing the main map screen.
@@ -59,6 +61,22 @@ export class MapPageObject extends AbstractPageObject {
   }
 
   /**
+   * Closes the currently visible popover by clicking on its backdrop.
+   */
+  async closePopover() {
+    const popoverFinder = await this.getPopover();
+
+    const popoverBackdropFinder = await this.getPopoverBackdrop();
+    await expect(popoverBackdropFinder.isPresent(), 'Popover backdrop is not present while it should be.').to.eventually.equal(true);
+
+    await popoverBackdropFinder.click();
+
+    // Wait for the popover element to be detached from the DOM.
+    await absenceOf(popoverFinder);
+    await expect(popoverFinder.isPresent(), 'Popover is present while it shouldn\'t be.').to.eventually.equal(false);
+  }
+
+  /**
    * Returns an element finder for the button on the Map Page that should make the user navigate to the list of actions.
    */
   getGoToActionsListButton(): ElementFinder {
@@ -72,5 +90,26 @@ export class MapPageObject extends AbstractPageObject {
    */
   getLocationDetails(): ElementFinder {
     return this.getPopover().element(by.css('ion-list'));
+  }
+
+  /**
+   * Clicks on the first location marker on the map and returns an ElementFinder for the resulting popover.
+   */
+  async showFirstLocation(): Promise<ElementFinder> {
+    const markerIconFinders = await this.getMarkerIcons();
+    await markerIconFinders[0].click();
+    return this.getPopover();
+  }
+
+  /**
+   * Clicks on the button to go to the action list page.
+   */
+  async goToActionList(): Promise<ActionsListPageObject> {
+    const goToListActionFinder = await this.getGoToActionsListButton();
+    await expect(goToListActionFinder.isPresent()).to.eventually.equal(true);
+
+    goToListActionFinder.click();
+
+    return new ActionsListPageObject('actions-list-page');
   }
 }

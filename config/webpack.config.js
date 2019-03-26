@@ -11,7 +11,7 @@ module.exports = function() {
   }
 
   const environmentFileEnv = process.env.NODE_ENV || ionicEnv;
-  console.log(`[${new Date().toLocaleTimeString()}] WebPack building for environment '${environmentFileEnv}'`);
+  console.log(`[${new Date().toLocaleTimeString()}]  WebPack building for environment '${environmentFileEnv}'`);
   config.resolve.alias = {
     "@app/env": path.resolve(`./src/environments/environment${environmentFileEnv == 'prod' ? '' : '.' + environmentFileEnv}.ts`),
     "@print": path.resolve('./src/utils/print.ts'),

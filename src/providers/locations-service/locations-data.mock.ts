@@ -1,6 +1,6 @@
 import { Location } from '../../models/location';
 
-export default [
+export const locationsDataMock = [
   {
     id: 'c821bc0f-85b4-44d5-9bbe-a30cf197c30a',
     name: 'Somewhere over the rainbow',

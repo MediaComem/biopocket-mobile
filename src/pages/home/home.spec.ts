@@ -1,7 +1,7 @@
 // Mocha global variables (for Windows)
 /// <reference path="../../../node_modules/@types/mocha/index.d.ts" />
 
-import { async, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { MomentModule } from 'angular2-moment';
 import { expect } from 'chai';
 import { IonicModule, NavController } from 'ionic-angular';
@@ -14,7 +14,7 @@ describe('HomePage', () => {
   let component;
   let navControllerMock;
 
-  beforeEach(async(() => {
+  beforeEach(() => {
 
     navControllerMock = {};
 
@@ -31,7 +31,7 @@ describe('HomePage', () => {
         { provide: NavController, useValue: navControllerMock }
       ]
     });
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(HomePage);

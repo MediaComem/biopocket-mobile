@@ -17,7 +17,7 @@ The label must be put inside the component's tag.
 ```ts
 // example.js
 import { Component } from '@angular/core';
-import MenuItemIcon from '@classes/menu-item-icon.class';
+import { MenuItemIcon } from '@classes/menu-item-icon.class';
 
 @Component({
   selector: 'example',

@@ -13,7 +13,7 @@ describe('BipMenuHeader', () => {
   let component: BipMenuHeaderComponent;
 
   beforeEach(async () => {
-    TestBed.configureTestingModule({
+    await TestBed.configureTestingModule({
       declarations: [ BipMenuHeaderComponent, BipProfilePictureComponent, BipIconComponent ]
     }).compileComponents();
   });

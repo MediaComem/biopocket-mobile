@@ -8,12 +8,15 @@
 - [Environment](#environment)
   - [Implementation](#implementation)
 - [Module aliases](#module-aliases)
+- [`export default`](#export-default)
 - [Logging things](#logging-things)
 - [Including CSS files from external modules](#including-css-files-from-external-modules)
   - [Example : adding the `node_modules/leaflet/dist/leaflet.css` file in the `www/build/leaflet` folder:](#example--adding-the-node_modulesleafletdistleafletcss-file-in-the-wwwbuildleaflet-folder)
 - [Colors](#colors)
   - [Main colors](#main-colors)
   - [Secondary colors](#secondary-colors)
+- [Icons](#icons)
+- [Components](#components)
 - [Internationalization](#internationalization)
   - [Message format interpolation](#message-format-interpolation)
 - [End-to-end tests](#end-to-end-tests)
@@ -118,6 +121,49 @@ Here is a list of those aliases and the path (relative to the root folder) for t
 >
 > (3): Access something that is not accessible using the other aliases.
 
+## `export default`
+
+The Ionic script that builds the application for production does not seem to accept classes exported using the `default` keyword, like this:
+
+```ts
+export default class SomeClass {
+  // ...
+}
+```
+When such classes are imported and used in a Page constructor, for example, building the app for production fails with an error indicating that the parameter could not be resolved:
+
+```ts
+import SomeClass from '../path/to/some/class';
+
+@Component({
+  // ...
+})
+export class SomePage {
+  constructor(
+    private someClass: SomeClass
+  ) { }
+}
+```
+
+```
+[XX:XX:XX]  typescript error
+  Can't resolve all parameters for SomePage in
+  /path/to/some/page/some-page.ts: (?).
+```
+As a result, one should not use the `default` keyword when exporting a class that will be used in a constructor.
+
+To keep consistency throughout the codebase, **the `default` keyword should not be used in any export**.
+
+**The correct way to `export`/`import` should then be:**
+
+```ts
+export class SomeClass {}
+```
+
+```ts
+import { SomeClass } from '../path/to/some/class';
+```
+
 ## Logging things
 
 When in need of logging things in the application, refrain from using the javascript `console` utility.
@@ -136,7 +182,7 @@ const whitelist: string[] = [
 To use the `Print` utility, import it in your file, and call one of its methods :
 
 ```ts
-import Print from '@print';
+import { Print } from '@print';
 
 Print.log('Hello World');
 Print.debug('Foo');

@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { BipActionCardComponent } from '@components/bip-action-card/bip-action-card';
-import Action from '@models/action';
+import { Action } from '@models/action';
 import { expect } from '@spec/chai';
 
 describe('BipActionCardComponent', function() {
@@ -11,7 +11,7 @@ describe('BipActionCardComponent', function() {
   let component: BipActionCardComponent;
 
   beforeEach(async () => {
-    TestBed.configureTestingModule({
+    await TestBed.configureTestingModule({
       declarations: [ BipActionCardComponent ]
     }).compileComponents();
   });

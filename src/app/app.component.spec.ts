@@ -21,14 +21,14 @@ import { spy, stub } from 'sinon';
 import { AppComponent } from '@app/app/app.component';
 import { ENV as MockEnv } from '@app/environments/environment.test';
 import { fr } from '@app/locales';
-import MenuItem from '@classes/menu-item.class';
+import { MenuItem } from '@classes/menu-item.class';
 import { StubComponentsModule as ComponentsModule } from '@components/stub-components.module';
 import { ActionsListPage } from '@pages/actions-list/actions-list';
 import { HomePage } from '@pages/home/home';
 import { MapPage } from '@pages/map/map';
-import ActionsModule from '@providers/actions-service/actions-module';
-import EnvService from '@providers/env-service/env-service';
-import LocationsModule from '@providers/locations-service/locations-module';
+import { ActionsModule } from '@providers/actions-service/actions-module';
+import { EnvService } from '@providers/env-service/env-service';
+import { LocationsModule } from '@providers/locations-service/locations-module';
 import { expect } from '@spec/chai';
 import { createPlatformMock } from '@spec/mocks';
 import { asSpy, restoreSpy } from '@spec/sinon';
@@ -48,7 +48,7 @@ describe('AppComponent', () => {
 
   let readyDeferred;
 
-  beforeEach(async () => {
+  beforeEach(() => {
 
     readyDeferred = new Deferred();
 
@@ -65,7 +65,7 @@ describe('AppComponent', () => {
       backgroundColorByHexString: spy()
     };
 
-    await TestBed.configureTestingModule({
+    TestBed.configureTestingModule({
       declarations: [
         AppComponent,
         HomePage,

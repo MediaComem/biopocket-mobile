@@ -19,13 +19,13 @@ import { Directive, HostBinding, Input } from '@angular/core';
 export class ImageHandlerDirective {
   @Input() src: string;
   @Input() default: string;
-  @HostBinding('class') className;
+  @HostBinding('class.image-loaded') isLoaded: boolean;
 
   updateUrl() {
     this.src = this.default;
   }
 
   load() {
-    this.className = 'image-loaded';
+    this.isLoaded = true;
   }
 }

@@ -1,7 +1,7 @@
 // Mocha global variables (for Windows)
 /// <reference path="../../../node_modules/@types/mocha/index.d.ts" />
 
-import { async, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { ConnectionBackend } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
 import { TranslateService } from '@ngx-translate/core';
@@ -11,20 +11,20 @@ import { stub } from 'sinon';
 import { ENV as MockEnv } from '@app/environments/environment.test';
 import { fr } from '@app/locales';
 import { Location } from '@models/location';
-import EnvService from '@providers/env-service/env-service';
-import locationsDataMock from '@providers/locations-service/locations-data.mock';
-import LocationsModule from '@providers/locations-service/locations-module';
-import LocationsService from '@providers/locations-service/locations-service';
+import { EnvService } from '@providers/env-service/env-service';
+import { locationsDataMock } from '@providers/locations-service/locations-data.mock';
+import { LocationsModule } from '@providers/locations-service/locations-module';
+import { LocationsService } from '@providers/locations-service/locations-service';
 import { expect } from '@spec/chai';
 import { translateModuleForRoot } from '@utils/i18n';
 import { observableOf } from '@utils/observable';
-import LocationDetails from './location-details';
+import { LocationDetails } from './location-details';
 
-describe('LocationDetails', function () {
+describe('LocationDetails', function() {
   let component: LocationDetails, fixture;
   let viewControllerMock, navParamsMock, locationsServiceMock;
 
-  beforeEach(async(function () {
+  beforeEach(() => {
     viewControllerMock = {
       dismiss: stub()
     };
@@ -59,15 +59,15 @@ describe('LocationDetails', function () {
     const translateService = TestBed.get(TranslateService);
     translateService.setTranslation('fr', fr);
     translateService.use('fr');
-  }));
+  });
 
 
-  beforeEach(function () {
+  beforeEach(() => {
     fixture = TestBed.createComponent(LocationDetails);
     component = fixture.componentInstance;
   });
 
-  it('should initialize with the requested Location', async function () {
+  it('should initialize with the requested Location', async function() {
     expect(component).to.be.an.instanceof(LocationDetails);
     expect(component.location).to.equal(undefined);
 
@@ -83,7 +83,7 @@ describe('LocationDetails', function () {
 
   describe('#close', () => {
 
-    it('should dismiss the popover', function () {
+    it('should dismiss the popover', function() {
       component.close();
 
       expect(viewControllerMock.dismiss).to.have.callCount(1);

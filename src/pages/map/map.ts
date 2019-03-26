@@ -1,18 +1,18 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
-import { Geolocation } from '@ionic-native/geolocation';
+import { Geolocation, PositionError } from '@ionic-native/geolocation';
 import { TranslateService } from '@ngx-translate/core';
 import * as turf from '@turf/turf';
 import { NavController, PopoverController, PopoverOptions } from 'ionic-angular';
 import * as L from 'leaflet';
 import { differenceBy, intersectionBy } from 'lodash';
 
-import LocationDetails from '@app/popovers/location-details/location-details';
+import { LocationDetails } from '@app/popovers/location-details/location-details';
 import { Location } from '@models/location';
-import Marker from '@models/marker';
+import { Marker } from '@models/marker';
 import { ActionsListPage } from '@pages/actions-list/actions-list';
-import Print from '@print';
-import LocationsService from '@providers/locations-service/locations-service';
-import { turfPointToLeafletLatLng } from '@utils/geo';
+import { Print } from '@print';
+import { LocationsService } from '@providers/locations-service/locations-service';
+import { PositionErrorCodes, turfPointToLeafletLatLng } from '@utils/geo';
 import { defIcon } from '@utils/leafletIcons';
 
 const LOG_REF = '[MapPage]';
@@ -182,12 +182,16 @@ export class MapPage {
     this.mapMessage = this.translateService.instant('pages.map.geolocation');
 
     return this.geolocation
-      .getCurrentPosition()
+      .getCurrentPosition({ timeout: 5000 })
       .then(result => {
         this.setGeolocationDone();
         return turf.point([ result.coords.longitude, result.coords.latitude ]);
-      }).catch(err => {
-        this.setGeolocationDone(this.translateService.instant('pages.map.geolocationError'));
+      }).catch((err: PositionError) => {
+        if (err.code === PositionErrorCodes.TIMEOUT) {
+          this.setGeolocationDone(this.translateService.instant('pages.map.geolocationTimeout'));
+        } else {
+          this.setGeolocationDone(this.translateService.instant('pages.map.geolocationError'));
+        }
         Print.warn('Could not get user position', err);
         return Promise.reject(err);
       });

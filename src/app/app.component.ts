@@ -6,8 +6,9 @@ import { Nav, Platform } from 'ionic-angular';
 import moment from 'moment';
 
 import { fr } from '@app/locales';
-import MenuItemIcon from '@classes/menu-item-icon.class';
-import MenuItem from '@classes/menu-item.class';
+
+import { MenuItemIcon } from '@classes/menu-item-icon.class';
+import { MenuItem } from '@classes/menu-item.class';
 import { User } from '@models/user.interface';
 import { ActionsListPage } from '@pages/actions-list/actions-list';
 import { HomePage } from '@pages/home/home';

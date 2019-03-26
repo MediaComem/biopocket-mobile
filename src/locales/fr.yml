@@ -16,9 +16,11 @@ pages:
     title: "Carte"
     geolocation: "Localisation en cours..."
     geolocationError: "Échec de la localisation"
+    geolocationTimeout: "La localisation prend trop de temps... Merci de réessayer"
     goToListButton: "Voir les actions disponibles"
   theme:
     title: "Thème"
+    surtitle: "En savoir plus sur..."
 popovers:
   locationDetails:
     website: "site internet"

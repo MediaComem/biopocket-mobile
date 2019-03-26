@@ -2,12 +2,12 @@ import { Component } from '@angular/core';
 import { NavParams, ViewController } from 'ionic-angular';
 
 import { Location } from '@models/location';
-import LocationsService from '@providers/locations-service/locations-service';
+import { LocationsService } from '@providers/locations-service/locations-service';
 
 @Component({
   templateUrl: 'location-details.html'
 })
-export default class LocationDetails {
+export class LocationDetails {
 
   location: Location;
 

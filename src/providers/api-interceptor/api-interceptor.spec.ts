@@ -8,18 +8,18 @@ import { expect } from 'chai';
 import { compact } from 'lodash';
 import { Observable } from 'rxjs/Rx';
 
-import EnvService from '@providers/env-service/env-service';
+import { EnvService } from '@providers/env-service/env-service';
 import { HeadersOrParams, httpRequestMatcher } from '@spec/http';
 import { ApiInterceptor } from './api-interceptor';
 
 type EnvServiceMock = Partial<EnvService>;
 
-describe('ApiInterceptor', function () {
+describe('ApiInterceptor', function() {
   let envServiceMock: EnvServiceMock;
   let httpClient: HttpClient;
   let httpTestingCtrl: HttpTestingController;
 
-  beforeEach(function () {
+  beforeEach(function() {
     envServiceMock = {
       environment: 'development',
       backendUrl: 'https://example.com/api'

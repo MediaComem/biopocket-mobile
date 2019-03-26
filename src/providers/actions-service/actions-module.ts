@@ -1,7 +1,7 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 
-import ActionsService from './actions-service';
+import { ActionsService } from './actions-service';
 
 @NgModule({
   imports: [
@@ -11,4 +11,4 @@ import ActionsService from './actions-service';
     ActionsService
   ]
 })
-export default class ActionsModule { }
+export class ActionsModule { }

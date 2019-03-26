@@ -7,7 +7,7 @@ import { HttpResponse } from '@angular/common/http';
  * * `pagination` which is an object containing the pagination data.
  * * `data` which is an object of T type containing the actual data from the HTTP response.
  */
-export default class PaginatedResponse<T> {
+export class PaginatedResponse<T> {
 
   pagination: PaginationData;
   data: T[];

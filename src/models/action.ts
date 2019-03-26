@@ -1,12 +1,11 @@
-import extend from 'lodash/extend';
-import pick from 'lodash/pick';
+import { extend, pick } from 'lodash';
 
 import { Theme } from '@models/theme';
 
 /**
  * Represents a BioPocket Action
  */
-export default class Action {
+export class Action {
 
   id: string;
   themeId: string;

@@ -6,7 +6,19 @@
 
 </ion-header>
 
-
 <ion-content padding>
-
+  <header>
+    <div class="img-wrapper cover">
+      <img [src]="theme.photoUrl" [alt]="theme.title" default="assets/img/default_theme.jpg" class="action-cover">
+    </div>
+  </header>
+  <section class="title-bar">
+    <div>
+      <p class="surtitle">{{ 'pages.theme.surtitle' | translate }}</p>
+      <h1 class="theme-title">{{ theme.title }}</h1>
+    </div>
+  </section>
+  <section class="description">
+    <p>{{ theme.description }}</p>
+  </section>
 </ion-content>

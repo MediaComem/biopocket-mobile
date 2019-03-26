@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import Action from '@models/action';
+import { Action } from '@models/action';
+import { ActionPage } from '@pages/action/action';
 
 @Component({
   selector: 'bip-action-card',

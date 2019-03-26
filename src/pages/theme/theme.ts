@@ -1,22 +1,20 @@
 import { Component } from '@angular/core';
+import { Theme } from '@models/theme';
 import { NavController, NavParams } from 'ionic-angular';
 
-/**
- * Generated class for the ThemePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @Component({
-  selector: 'page-theme',
+  selector: 'theme-page',
   templateUrl: 'theme.html'
 })
 export class ThemePage {
 
+  theme: Theme;
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams
-  ) { }
+  ) {
+    this.theme = this.navParams.get('theme');
+  }
 
 }

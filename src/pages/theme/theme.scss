@@ -1,3 +1,27 @@
-page-theme {
-
+theme-page {
+  .surtitle {
+    margin: -0.3rem 0 1rem 0;
+  }
+  .theme-title {
+    font-size: 1.8rem;
+    font-weight: initial;
+    margin: 0;
+  }
+  .left {
+    float: left;
+    margin-right: $globalSpacing;
+  }
+  .right {
+    float: right;
+    margin-left: $globalSpacing;
+  }
+  .left,
+  .right {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: $globalSpacing;
+    shape-outside: circle();
+  }
 }

@@ -1,4 +1,7 @@
-import { browser, by, element, ElementFinder, promise } from 'protractor';
+import { browser, by, element, ElementFinder, ExpectedConditions as EC, promise } from 'protractor';
+
+import { expect } from '../../spec/chai';
+import { AVERAGE_WAIT_TIME } from '../utils';
 
 /**
  * Abstract page object with common functionality.
@@ -18,6 +21,11 @@ export class AbstractPageObject {
     return browser.getTitle();
   }
 
+  /**
+   * Returns a promise that will be resolved when the browser windows has been resized according to the provided width and height.
+   * @param width The targeted width.
+   * @param height The targeted height.
+   */
   async setWindowSize(width: number, height: number): Promise<void> {
     await browser.driver.manage().window().setSize(width, height);
   }
@@ -34,6 +42,21 @@ export class AbstractPageObject {
    */
   getPageTitle(): ElementFinder {
     return this.getPage().element(by.css('ion-title'));
+  }
+
+  getBackButton(): ElementFinder {
+    return this.getPage().element(by.css('button.back-button'));
+  }
+
+  /**
+   * Clicks on the "Go Back" button that should be available on the page.
+   * An assertion ensure that the test will fail if the back button is not present.
+   */
+  async goBack() {
+    const backButtonFinder = this.getBackButton();
+    await expect(backButtonFinder.isPresent()).to.eventually.equal(true);
+    await browser.wait(EC.elementToBeClickable(backButtonFinder), AVERAGE_WAIT_TIME);
+    await backButtonFinder.click();
   }
 
   /**

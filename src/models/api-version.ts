@@ -1,5 +1,4 @@
-import extend from 'lodash/extend';
-import pick from 'lodash/pick';
+import { extend, pick } from 'lodash';
 
 /**
  * Model for the information about the current API version used by the BioPocket API backend

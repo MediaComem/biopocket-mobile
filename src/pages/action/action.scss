@@ -1,17 +1,4 @@
 action-page {
-  .img-wrapper {
-    margin-top: -#{$globalSpacing};
-    margin-left: -#{$globalSpacing};
-    margin-right: -#{$globalSpacing};
-    margin-bottom: $globalSpacing;
-    height: 168px;
-    overflow: hidden;
-
-    img {
-      object-fit: cover;
-      width: 100%;
-    }
-  }
   .title-bar {
     display: flex;
     justify-content: space-between;

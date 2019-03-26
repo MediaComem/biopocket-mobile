@@ -5,10 +5,10 @@ import { IonicModule, NavController, NavParams } from 'ionic-angular';
 import { stub } from 'sinon';
 
 import { fr } from '@app/locales';
-import Action from '@models/action';
+import { Action } from '@models/action';
 import { ActionPage } from '@pages/action/action';
 import { mockActions as mockActionsData } from '@providers/actions-service/action-data.mock';
-import ActionsService from '@providers/actions-service/actions-service';
+import { ActionsService } from '@providers/actions-service/actions-service';
 import { expect } from '@spec/chai';
 import { translateModuleForRoot } from '@utils/i18n';
 import { observableOf } from '@utils/observable';

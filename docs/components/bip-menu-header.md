@@ -19,7 +19,7 @@ The displayed result should look like the following:
 ```ts
 // example.js
 import { Component } from '@angular/core';
-import MenuItemIcon from '@classes/menu-item-icon.class';
+import { MenuItemIcon } from '@classes/menu-item-icon.class';
 
 @Component({
   selector: 'example',
