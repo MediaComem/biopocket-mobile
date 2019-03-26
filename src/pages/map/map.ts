@@ -12,9 +12,8 @@ import { Marker } from '@models/marker';
 import { ActionsListPage } from '@pages/actions-list/actions-list';
 import { Print } from '@print';
 import { LocationsService } from '@providers/locations-service/locations-service';
-import { turfPointToLeafletLatLng } from '@utils/geo';
+import { PositionErrorCodes, turfPointToLeafletLatLng } from '@utils/geo';
 import { defIcon } from '@utils/leafletIcons';
-import { PositionErrorValues } from '@utils/position-errors';
 
 const LOG_REF = '[MapPage]';
 
@@ -188,7 +187,7 @@ export class MapPage {
         this.setGeolocationDone();
         return turf.point([ result.coords.longitude, result.coords.latitude ]);
       }).catch((err: PositionError) => {
-        if (err.code === PositionErrorValues.TIMEOUT.code) {
+        if (err.code === PositionErrorCodes.TIMEOUT) {
           this.setGeolocationDone(this.translateService.instant('pages.map.geolocationTimeout'));
         } else {
           this.setGeolocationDone(this.translateService.instant('pages.map.geolocationError'));
