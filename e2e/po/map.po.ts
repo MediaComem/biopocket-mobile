@@ -101,6 +101,9 @@ export class MapPageObject extends AbstractPageObject {
     return this.getPopover();
   }
 
+  /**
+   * Clicks on the button to go to the action list page.
+   */
   async goToActionList(): Promise<ActionsListPageObject> {
     const goToListActionFinder = await this.getGoToActionsListButton();
     await expect(goToListActionFinder.isPresent()).to.eventually.equal(true);
