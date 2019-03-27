@@ -8,7 +8,7 @@
       <bip-menu-header [user]="user" (goToPage)="openPage($event)"></bip-menu-header>
     </div>
     <ion-list class="menu-item-list">
-      <bip-menu-item menuClose [class.active]="isActiveItem(menuItem)" *ngFor="let menuItem of menuItems" (click)="openMenuItemPage(menuItem)" [icon]="menuItem.icon">
+      <bip-menu-item menuClose [class.active]="isActiveItem(menuItem)" *ngFor="let menuItem of menuItems" (click)="openPage(menuItem)" [icon]="menuItem.icon">
         {{ menuItem.title | async }}
       </bip-menu-item>
     </ion-list>

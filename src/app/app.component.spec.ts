@@ -143,11 +143,11 @@ describe('AppComponent', () => {
     expect(statusBarMock.styleDefault.called, 'statusBar.styleDefault() called').to.equal(false);
     expect(statusBarMock.backgroundColorByHexString.called, 'statusBar.backgroundColorByHexString() called').to.equal(false);
 
-    expect(asSpy(moment.locale).args, 'moment.locale() called').to.eql([ [ 'fr' ] ]);
+    expect(asSpy(moment.locale).args, 'moment.locale() called').to.eql([['fr']]);
 
-    expect(translateService.setDefaultLang.args, 'translateService.setDefaultLang() called').to.eql([ [ 'fr' ] ]);
-    expect(translateService.setTranslation.args, 'translateService.setTranslation() called').to.eql([ [ 'fr', fr ] ]);
-    expect(translateService.use.args, 'translateService.use() called').to.eql([ [ 'fr' ] ]);
+    expect(translateService.setDefaultLang.args, 'translateService.setDefaultLang() called').to.eql([['fr']]);
+    expect(translateService.setTranslation.args, 'translateService.setTranslation() called').to.eql([[ 'fr', fr ]]);
+    expect(translateService.use.args, 'translateService.use() called').to.eql([['fr']]);
   });
 
   it('should perform further initialization when the platform is ready', fakeAsync(() => {
@@ -174,21 +174,23 @@ describe('AppComponent', () => {
     });
   });
 
-  describe('#openMenuItemPage', () => {
+  describe('#openPage', () => {
     it('should navigate to the page\'s component', function() {
 
       const pageComponentMock = noop;
-
-      component.openMenuItemPage({
+      const menuItemMock = {
         title: 'Foo',
         component: pageComponentMock
-      });
+      };
+      // Force menuItemMock to be an instance of MenuItem. This method is NOT safe,
+      // as the constructor of MenuItem is NOT called.
+      Object.setPrototypeOf(menuItemMock, MenuItem.prototype);
+
+      component.openPage(menuItemMock);
 
       expect(component.nav.setRoot, 'nav.setRoot() called once with the page\'s component').to.have.been.calledWith(pageComponentMock);
     });
-  });
 
-  describe('#openPage', () => {
     it('should navigate to the given page', function() {
       const pageFake = noop;
 

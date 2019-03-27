@@ -56,26 +56,23 @@ export class AppComponent {
   }
 
   /**
+   * Sets the given page component or MenuItem page as the app's root page.
    * If the given MenuItem is not already the active one on the menu, its `component` property is set as the app's root page.
    * and the MenuItem is set as the active menu item.
-   * @param menuItem One of the MenuItem.
+   * If you pass it a page, the page itself is set as the app's root page and as the active item.
+   * @param pageOrMenuItem A page component or one of the MenuItem.
    */
-  openMenuItemPage(menuItem: MenuItem) {
-    // Only reset the rootPage if the user clicked on a MenuItem that is not the currently active Item
-    if (!this.isActiveItem(menuItem)) {
-      this.nav.setRoot(menuItem.component);
-      this.activeItem = menuItem;
+  openPage(pageOrMenuItem: any | MenuItem) {
+    if (pageOrMenuItem instanceof MenuItem) {
+      if (!this.isActiveItem(pageOrMenuItem)) {
+        this.nav.setRoot(pageOrMenuItem.component);
+        this.activeItem = pageOrMenuItem;
+      }
+    } else {
+      this.nav.setRoot(pageOrMenuItem);
+      this.activeItem = pageOrMenuItem;
+      this.menuCtrl.close();
     }
-  }
-
-  /**
-   * Sets the given page component as the app's root page.
-   * @param page A page component.
-   */
-  openPage(page: any) {
-    this.nav.setRoot(page);
-    this.activeItem = page;
-    this.menuCtrl.close();
   }
 
   /**
