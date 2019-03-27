@@ -51,6 +51,7 @@ export class StandaloneBackendProcess extends StandaloneProcess {
     return extend(super.getEnvironment(), {
       CORS: 'true',
       DATABASE_URL: config.backendDatabaseUrl,
+      IMAGES_BASE_URL: 'http://example.com',
       NODE_ENV: 'test',
       DEFAULT_PAGINATION_LIMIT: '5',
       PORT: this.backendUrl.port,

@@ -14,7 +14,7 @@ services:
   - postgresql
 
 env:
-  - IONIC_E2E_DEBUG=1 IONIC_E2E_STANDALONE_TIMEOUT=60000 IONIC_ENV=test NODE_ENV=test SESSION_SECRET=secret
+  - IMAGES_BASE_URL=http://example.com IONIC_E2E_DEBUG=1 IONIC_E2E_STANDALONE_TIMEOUT=60000 IONIC_ENV=test NODE_ENV=test SESSION_SECRET=secret
 
 before_install:
   - sudo apt-get -qq update
