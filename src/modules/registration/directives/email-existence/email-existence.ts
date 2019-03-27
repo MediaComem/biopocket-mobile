@@ -27,12 +27,7 @@ import { RegistrationService } from '../../providers/registration/registration';
 })
 export class EmailExistenceValidator implements AsyncValidator {
 
-  shouldExist: boolean;
-
-  @Input('exists')
-  set shouldExists(value: string) {
-    this.shouldExist = value !== 'false';
-  }
+  @Input('exists') shouldExist: boolean;
 
   constructor(private readonly registrationService: RegistrationService) { }
 
@@ -49,4 +44,3 @@ export class EmailExistenceValidator implements AsyncValidator {
   }
 
 }
-

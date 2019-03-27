@@ -18,7 +18,7 @@
           <input-state-indicator [input]="email"></input-state-indicator>
           {{ 'registration.forms.email' | translate }}
         </label>
-        <input email exists type="email" name="email" id="unregistration-email" [(ngModel)]="userEmail" required #email="ngModel"
+        <input email [exists]="true" type="email" name="email" id="unregistration-email" [(ngModel)]="userEmail" required #email="ngModel"
           placeholder="{{ 'registration.forms.emailPlaceholder' | translate }}" [ngModelOptions]="{ updateOn: 'blur' }">
         <p class="error-message" [hidden]="!(email.invalid && (!email.pristine || email.touched))">
           <span *ngIf="email.errors && !email.errors.required && email.errors.email">

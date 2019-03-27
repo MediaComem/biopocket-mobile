@@ -8,6 +8,7 @@ import { StubComponentsModule } from '@components/stub-components.module';
 import { expect } from '@spec/chai';
 import { translateModuleForRoot } from '@utils/i18n';
 
+import { EmailExistenceValidator } from '../../directives/email-existence/email-existence';
 import { RegistrationService } from '../../providers/registration/registration';
 import { InputStateIndicatorStub } from '../input-state-indicator/input-state-indicator.stub';
 import { UnregistrationFormComponent } from './unregistration-form';
@@ -31,7 +32,8 @@ export function unregistrationFormComponentTests() {
       await TestBed.configureTestingModule({
         declarations: [
           UnregistrationFormComponent,
-          InputStateIndicatorStub
+          InputStateIndicatorStub,
+          EmailExistenceValidator
         ],
         imports: [
           HttpClientTestingModule,

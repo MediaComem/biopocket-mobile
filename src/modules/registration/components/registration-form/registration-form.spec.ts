@@ -14,6 +14,7 @@ import { expect } from '@spec/chai';
 import { translateModuleForRoot } from '@utils/i18n';
 import { observableOf } from '@utils/observable';
 
+import { EmailExistenceValidator } from '../../directives/email-existence/email-existence';
 import { RegistrationService } from '../../providers/registration/registration';
 import { InputStateIndicatorStub } from '../input-state-indicator/input-state-indicator.stub';
 import { RegistrationFormComponent } from './registration-form';
@@ -64,7 +65,8 @@ export function registrationFormComponentTests() {
       await TestBed.configureTestingModule({
         declarations: [
           RegistrationFormComponent,
-          InputStateIndicatorStub
+          InputStateIndicatorStub,
+          EmailExistenceValidator
         ],
         imports: [
           HttpClientTestingModule,
