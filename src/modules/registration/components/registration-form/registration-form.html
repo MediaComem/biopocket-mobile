@@ -6,14 +6,22 @@
       <p>{{ 'registration.forms.register.disclaimer' | translate }}</p>
     </div>
     <div class="error" *ngIf="error">
-      <p *ngIf="error.errors.length > 1">Plusieurs erreurs sont survenues:</p>
-      <p *ngIf="error.errors.length <= 1">Une erreur est survenue:</p>
-      <ul>
-        <li *ngFor="let error of error.errors">{{ error.message }}</li>
-      </ul>
-      <p *ngIf="error.errors.length > 1"><a href="mailto:biopocket18@gmail.com">Signalez ces erreurs</a></p>
-      <p *ngIf="error.errors.length <= 1"><a href="mailto:biopocket18@gmail.com">Signalez cette erreur</a></p>
+      <div *ngIf="error.errors; then errorsWithMessages; else unknownError"></div>
+
+      <ng-template #errorsWithMessages>
+        <p>{{ 'registration.forms.register.error' | translate: { COUNT: error.errors.length } }}</p>
+        <ul>
+          <li *ngFor="let error of error.errors">{{ error.message }}</li>
+        </ul>
+        <p><a href="mailto:biopocket18@gmail.com">{{ 'registration.forms.register.signalError' | translate: { COUNT: error.errors.length } }}</a></p>
+      </ng-template>
+
+      <ng-template #unknownError>
+        <p>{{ 'registration.forms.register.unknownError' | translate }}</p>
+      </ng-template>
+
     </div>
+
     <form #registrationForm="ngForm" (ngSubmit)="onSubmit(registrationForm)" class="registration">
 
       <!-- Email input -->

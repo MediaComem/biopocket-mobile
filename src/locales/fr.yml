@@ -44,6 +44,11 @@ registration:
     email: "Adresse e-mail"
     emailPlaceholder: "Indiquez votre adresse email"
     register:
+      error: >
+        {COUNT, plural, one{Une erreur est survenue} other{Plusieurs erreurs sont survenues}}:
+      signalError: >
+        Signalez {COUNT, plural, one{cette erreur} other{ces erreurs}}
+      unknownError: "Une erreur inconnue est survenue. Merci de vérifier que vous avez accès à Internet et réessayez."
       introduction: "Inscrivez-vous ci-dessous pour recevoir des informations sur les nouveautés de BioPocket."
       disclaimer: "Les informations récoltées ne seront utilisées que dans le but de vous communiquer des informations sur l'application BioPocket. Elles ne seront pas transmises à d'autres organismes ou personnes."
       emailExists: "Cette adresse e-mail est déjà enregistrée"
