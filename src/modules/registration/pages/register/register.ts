@@ -12,7 +12,7 @@ export class RegisterPage {
   constructor(public navCtrl: NavController, public navParams: NavParams) { }
 
   ionViewWillEnter() {
-    this.registrationForm.ngOnInit();
+    this.registrationForm.initialize();
   }
 
 }
