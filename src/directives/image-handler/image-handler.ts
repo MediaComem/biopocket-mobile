@@ -12,7 +12,6 @@ import { Directive, Input } from '@angular/core';
   selector: 'img[default]',
   host: {
     '(error)': 'updateUrl()',
-    // '(load)': 'load()',
     '[src]': 'src'
   }
 })
@@ -23,8 +22,4 @@ export class ImageHandlerDirective {
   updateUrl() {
     this.src = this.default;
   }
-
-  // load() {
-  //   console.log('image loaded');
-  // }
 }
