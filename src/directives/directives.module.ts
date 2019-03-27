@@ -3,8 +3,8 @@ import { NgModule } from '@angular/core';
 import { ImageHandlerDirective } from '@directives/image-handler/image-handler';
 
 @NgModule({
-  declarations: [ImageHandlerDirective],
+  declarations: [ ImageHandlerDirective ],
   imports: [],
-  exports: [ImageHandlerDirective]
+  exports: [ ImageHandlerDirective ]
 })
 export class DirectivesModule { }

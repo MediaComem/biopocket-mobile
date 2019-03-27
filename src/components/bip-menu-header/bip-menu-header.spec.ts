@@ -16,7 +16,7 @@ describe('BipMenuHeader', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ BipMenuHeaderComponent, BipProfilePictureComponent, BipIconComponent ],
-      imports: [translateModuleForRoot]
+      imports: [ translateModuleForRoot ]
     }).compileComponents();
   });
 

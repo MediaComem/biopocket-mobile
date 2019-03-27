@@ -4,7 +4,8 @@
     <bip-profile-picture [src]="user.profilePictureUrl"></bip-profile-picture>
     <span class="username">{{ user.completeName }}</span>
     <button class="bip-button navigation outline" (click)="activate(registrationPage)">{{ 'registration.news' | translate }}</button>
-    <!-- <div class="action-buttons">
+    <!-- TODO: put this code back into place when user accounts are available and temporary registrations are removed
+    <div class="action-buttons">
       <button ion-fab color="light" (click)="activate('userPage')">
         <bip-icon name="user"></bip-icon>
       </button>

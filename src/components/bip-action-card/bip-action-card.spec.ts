@@ -12,7 +12,7 @@ describe('BipActionCardComponent', function() {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [BipActionCardComponent]
+      declarations: [ BipActionCardComponent ]
     }).compileComponents();
   });
 

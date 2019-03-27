@@ -143,11 +143,11 @@ describe('AppComponent', () => {
     expect(statusBarMock.styleDefault.called, 'statusBar.styleDefault() called').to.equal(false);
     expect(statusBarMock.backgroundColorByHexString.called, 'statusBar.backgroundColorByHexString() called').to.equal(false);
 
-    expect(asSpy(moment.locale).args, 'moment.locale() called').to.eql([['fr']]);
+    expect(asSpy(moment.locale).args, 'moment.locale() called').to.eql([ [ 'fr' ] ]);
 
-    expect(translateService.setDefaultLang.args, 'translateService.setDefaultLang() called').to.eql([['fr']]);
-    expect(translateService.setTranslation.args, 'translateService.setTranslation() called').to.eql([[ 'fr', fr ]]);
-    expect(translateService.use.args, 'translateService.use() called').to.eql([['fr']]);
+    expect(translateService.setDefaultLang.args, 'translateService.setDefaultLang() called').to.eql([ [ 'fr' ] ]);
+    expect(translateService.setTranslation.args, 'translateService.setTranslation() called').to.eql([ [ 'fr', fr ] ]);
+    expect(translateService.use.args, 'translateService.use() called').to.eql([ [ 'fr' ] ]);
   });
 
   it('should perform further initialization when the platform is ready', fakeAsync(() => {

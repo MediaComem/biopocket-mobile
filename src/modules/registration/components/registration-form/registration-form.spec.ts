@@ -101,7 +101,7 @@ export function registrationFormComponentTests() {
     });
 
     describe('#ngOnInit()', () => {
-      it("should initialized the component's properties with the correct value", function() {
+      it("should initialize the component's properties with the correct value", function() {
         component.ngOnInit();
         expect(component.registration).to.eqls({});
         expect(component.submitted).to.equals(false);
@@ -109,7 +109,7 @@ export function registrationFormComponentTests() {
     });
 
     describe('#onSubmit()', () => {
-      it('should set an error when saving the registraiton fails', function() {
+      it('should set an error when saving the registration fails', function() {
         const errorBody = {
           errors: [
             {

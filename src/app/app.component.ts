@@ -89,15 +89,15 @@ export class AppComponent {
 
   /**
    * Is called each time the side-menu is open.
-   * Currently only change the status bar background color.
+   * Currently only changes the status bar background color.
    */
   menuOpen() {
     this.statusBar.backgroundColorByHexString('#dcdcdc');
   }
 
   /**
-   * Is called each time the side-menu is close.
-   * Currently only change the status bar background color.
+   * Is called each time the side-menu is closed.
+   * Currently only changes the status bar background color.
    */
   menuClose() {
     this.statusBar.backgroundColorByHexString('#f8f8f8');
@@ -106,7 +106,7 @@ export class AppComponent {
   /**
    * Proceed to app initialization:
    * * Configure the locale for moment and the translation service.
-   * * Configure the status bar behavior
+   * * Configure the status bar behavior.
    */
   private async initializeApp() {
 

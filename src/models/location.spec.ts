@@ -11,10 +11,10 @@ describe('Location Object', function () {
   const locationRequiredKeys = [
     'id', 'name', 'description', 'phone', 'photoUrl', 'siteUrl', 'geometry', 'address', 'properties', 'createdAt', 'updatedAt'
   ];
-  const locationOptionalKeys = ['shortName'];
+  const locationOptionalKeys = [ 'shortName' ];
   const geometryRequiredKeys = [ 'type', 'coordinates' ];
   const addressRequiredKeys = [ 'street', 'city', 'zipCode', 'state' ];
-  const addressOptionalKeys = ['number'];
+  const addressOptionalKeys = [ 'number' ];
 
   beforeEach(function () {
     locationData = {

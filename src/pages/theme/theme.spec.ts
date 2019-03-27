@@ -33,7 +33,7 @@ describe('ThemePage', () => {
     };
 
     TestBed.configureTestingModule({
-      declarations: [ThemePage],
+      declarations: [ ThemePage ],
       imports: [
         translateModuleForRoot,
         IonicModule.forRoot(ThemePage)
