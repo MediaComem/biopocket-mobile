@@ -5,29 +5,22 @@ action-page {
     padding-bottom: $globalSpacing;
     border-bottom: 0.5px solid rgba(177, 177, 177, 0.5);
     margin-bottom: $globalSpacing;
-  }
-  .bip-button {
-    font-size: 1.3rem;
-    align-self: flex-start;
-    background-color: bipColor('secondary');
-    padding-left: $globalSpacing;
-    padding-right: $globalSpacing;
-  }
-  h1 {
-    color: bipColor('lagoon');
+    .bip-button {
+      // font-size: 1.3rem;
+      align-self: flex-start;
+      padding-left: $globalSpacing;
+      padding-right: $globalSpacing;
+      margin: 0;
+    }
   }
   h2 {
     margin-bottom: 0;
     color: transparentize(black, 0.5);
-
     ion-icon[name="arrow-forward"] {
       margin-left: calc(#{$globalSpacing} / 2);
       position: relative;
       top: 0.1em;
     }
-  }
-  h3 {
-    font-size: 1.3rem;
   }
   .description {
     p {

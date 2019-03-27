@@ -47,7 +47,7 @@ bip-action-card {
   }
   .theme-title {
     color: transparentize(black, 0.5);
-    border-bottom: .5px solid rgba(177, 177, 177, 0.5);
+    border-bottom: $smoothBorder;
     padding-bottom: 6px;
     margin-bottom: 6px;
   }

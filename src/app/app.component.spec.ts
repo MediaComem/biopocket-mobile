@@ -121,6 +121,7 @@ describe('AppComponent', () => {
     httpTestingCtrl = TestBed.get(HttpTestingController);
 
     stub(component.nav, 'setRoot');
+    stub(component.menuCtrl, 'close');
   });
 
   afterEach(() => {
@@ -142,11 +143,11 @@ describe('AppComponent', () => {
     expect(statusBarMock.styleDefault.called, 'statusBar.styleDefault() called').to.equal(false);
     expect(statusBarMock.backgroundColorByHexString.called, 'statusBar.backgroundColorByHexString() called').to.equal(false);
 
-    expect(asSpy(moment.locale).args, 'moment.locale() called').to.eql([ [ 'fr' ] ]);
+    expect(asSpy(moment.locale).args, 'moment.locale() called').to.eql([['fr']]);
 
-    expect(translateService.setDefaultLang.args, 'translateService.setDefaultLang() called').to.eql([ [ 'fr' ] ]);
-    expect(translateService.setTranslation.args, 'translateService.setTranslation() called').to.eql([ [ 'fr', fr ] ]);
-    expect(translateService.use.args, 'translateService.use() called').to.eql([ [ 'fr' ] ]);
+    expect(translateService.setDefaultLang.args, 'translateService.setDefaultLang() called').to.eql([['fr']]);
+    expect(translateService.setTranslation.args, 'translateService.setTranslation() called').to.eql([[ 'fr', fr ]]);
+    expect(translateService.use.args, 'translateService.use() called').to.eql([['fr']]);
   });
 
   it('should perform further initialization when the platform is ready', fakeAsync(() => {
@@ -174,16 +175,30 @@ describe('AppComponent', () => {
   });
 
   describe('#openPage', () => {
-    it('should navigate to the page\'s component', () => {
+    it('should navigate to the page\'s component', function() {
 
       const pageComponentMock = noop;
-
-      component.openPage({
+      const menuItemMock = {
         title: 'Foo',
         component: pageComponentMock
-      });
+      };
+      // Force menuItemMock to be an instance of MenuItem. This method is NOT safe,
+      // as the constructor of MenuItem is NOT called.
+      Object.setPrototypeOf(menuItemMock, MenuItem.prototype);
 
-      expect(component.nav.setRoot.args, 'nav.setRoot() called once with the page\'s component').to.eql([ [ pageComponentMock ] ]);
+      component.openPage(menuItemMock);
+
+      expect(component.nav.setRoot, 'nav.setRoot() called once with the page\'s component').to.have.been.calledWith(pageComponentMock);
+    });
+
+    it('should navigate to the given page', function() {
+      const pageFake = noop;
+
+      component.openPage(pageFake);
+
+      expect(component.nav.setRoot).to.have.been.calledWith(pageFake);
+      expect(component.activeItem).to.eqls(pageFake);
+      expect(component.menuCtrl.close).to.have.callCount(1);
     });
   });
 });

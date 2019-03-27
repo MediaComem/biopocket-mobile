@@ -1,0 +1,3 @@
+<ion-icon *ngIf="inputModel.valid" name="checkmark-circle" color="secondary"></ion-icon>
+<!-- <ion-icon *ngIf="inputModel.pristine && inputModel.untouched" name="arrow-down"></ion-icon> -->
+<ion-icon *ngIf="inputModel.invalid && (inputModel.dirty || inputModel.touched)" name="close-circle" color="danger"></ion-icon>

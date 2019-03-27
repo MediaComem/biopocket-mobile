@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { TranslateService } from '@ngx-translate/core';
-import { Nav, Platform } from 'ionic-angular';
+import { MenuController, Nav, Platform } from 'ionic-angular';
 import moment from 'moment';
 
 import { fr } from '@app/locales';
@@ -30,12 +30,12 @@ export class AppComponent {
     private readonly platform: Platform,
     private readonly statusBar: StatusBar,
     private readonly splashScreen: SplashScreen,
-    private readonly translateService: TranslateService
+    private readonly translateService: TranslateService,
+    private readonly menuCtrl: MenuController
   ) {
 
     this.initializeApp();
 
-    // used for an example of ngFor and navigation
     this.menuItems = [
       new MenuItem('home', HomePage, new MenuItemIcon('hourglass', 'seabed'), translateService),
       new MenuItem('actionsList', ActionsListPage, new MenuItemIcon('list', 'river'), translateService),
@@ -50,21 +50,28 @@ export class AppComponent {
     // Dummy user object so that the bip-menu-header can interpolate the data.
     // Should be replace by a proper object containging the user's info.
     this.user = {
-      profilePictureUrl: 'https://www.ienglishstatus.com/wp-content/uploads/2018/04/Anonymous-Whatsapp-profile-picture.jpg',
-      completeName: 'Guy Fawkes'
+      profilePictureUrl: 'assets/img/default_profile.jpg',
+      completeName: 'BioPocket'
     };
   }
 
   /**
-   * If the given MenuItem is not already the active one on the menu, its `component` property is set as the app's rootPage
+   * Sets the given page component or MenuItem page as the app's root page.
+   * If the given MenuItem is not already the active one on the menu, its `component` property is set as the app's root page.
    * and the MenuItem is set as the active menu item.
-   * @param {MenuItem} menuItem The menu item to display.
+   * If you pass it a page, the page itself is set as the app's root page and as the active item.
+   * @param pageOrMenuItem A page component or one of the MenuItem.
    */
-  openPage(menuItem: MenuItem) {
-    // Only reset the rootPage if the user clicked on a MenuItem that is not the currently active Item
-    if (!this.isActiveItem(menuItem)) {
-      this.nav.setRoot(menuItem.component);
-      this.activeItem = menuItem;
+  openPage(pageOrMenuItem: any | MenuItem) {
+    if (pageOrMenuItem instanceof MenuItem) {
+      if (!this.isActiveItem(pageOrMenuItem)) {
+        this.nav.setRoot(pageOrMenuItem.component);
+        this.activeItem = pageOrMenuItem;
+      }
+    } else {
+      this.nav.setRoot(pageOrMenuItem);
+      this.activeItem = pageOrMenuItem;
+      this.menuCtrl.close();
     }
   }
 
@@ -77,18 +84,32 @@ export class AppComponent {
     return menuItem.pageRef === this.activeItem.pageRef;
   }
 
+  /**
+   * Is called each time the side-menu is open.
+   * Currently only changes the status bar background color.
+   */
   menuOpen() {
     this.statusBar.backgroundColorByHexString('#dcdcdc');
   }
 
+  /**
+   * Is called each time the side-menu is closed.
+   * Currently only changes the status bar background color.
+   */
   menuClose() {
     this.statusBar.backgroundColorByHexString('#f8f8f8');
   }
 
+  /**
+   * Proceed to app initialization:
+   * * Configure the locale for moment and the translation service.
+   * * Configure the status bar behavior.
+   */
   private async initializeApp() {
 
     moment.locale('fr');
 
+    // TODO: replace with code that fetch the locale from the device.
     this.translateService.setTranslation('fr', fr);
     this.translateService.setDefaultLang('fr');
     this.translateService.use('fr');

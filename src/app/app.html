@@ -5,7 +5,7 @@
       <button ion-fab mini menuClose class="close-menu-button">
         <bip-icon name="cross"></bip-icon>
       </button>
-      <bip-menu-header [user]="user"></bip-menu-header>
+      <bip-menu-header [user]="user" (goToPage)="openPage($event)"></bip-menu-header>
     </div>
     <ion-list class="menu-item-list">
       <bip-menu-item menuClose [class.active]="isActiveItem(menuItem)" *ngFor="let menuItem of menuItems" (click)="openPage(menuItem)" [icon]="menuItem.icon">

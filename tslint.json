@@ -7,7 +7,7 @@
   ],
   "rules": {
     "align": [ true, "parameters", "arguments", "statements", "members", "elements" ],
-    "array-bracket-spacing": [ true, "always" ],
+    "array-bracket-spacing": [ true, "always", { "singleValue": false } ],
     "arrow-parens": [ true, "ban-single-arg-parens" ],
     "ban-comma-operator": true,
     "binary-expression-operand-order": true,

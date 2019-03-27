@@ -1,0 +1,56 @@
+<div class="registration-module">
+  <div [hidden]="unregistered">
+    <p class="form-intro">{{ 'registration.forms.unregister.introduction' | translate }}</p>
+    <div class="error" *ngIf="error">
+      <p *ngIf="error.errors.length > 1">Plusieurs erreurs sont survenues:</p>
+      <p *ngIf="error.errors.length <= 1">Une erreur est survenue:</p>
+      <ul>
+        <li *ngFor="let error of error.errors">{{ error.message }}</li>
+      </ul>
+      <p *ngIf="error.errors.length > 1"><a href="mailto:biopocket18@gmail.com">Signalez ces erreurs</a></p>
+      <p *ngIf="error.errors.length <= 1"><a href="mailto:biopocket18@gmail.com">Signalez cette erreur</a></p>
+    </div>
+    <form #unregistrationForm="ngForm" (ngSubmit)="onSubmit(unregistrationForm)" class="unregistration">
+
+      <!-- Email input -->
+      <div class="form-input">
+        <label for="unregistration-email">
+          <input-state-indicator [input]="email"></input-state-indicator>
+          {{ 'registration.forms.email' | translate }}
+        </label>
+        <input email [exists]="true" type="email" name="email" id="unregistration-email" [(ngModel)]="userEmail" required #email="ngModel"
+          placeholder="{{ 'registration.forms.emailPlaceholder' | translate }}" [ngModelOptions]="{ updateOn: 'blur' }">
+        <p class="error-message" [hidden]="!(email.invalid && (!email.pristine || email.touched))">
+          <span *ngIf="email.errors && !email.errors.required && email.errors.email">
+            {{ 'general.invalid' | translate: { NAME: ('registration.forms.email' | translate) } }}
+          </span>
+          <span *ngIf="email.errors && email.errors.required">
+            {{ 'general.required' | translate: { NAME: ('registration.forms.email' | translate) } }}
+          </span>
+          <span *ngIf="email.errors && email.errors.existence">
+            {{ 'registration.forms.unregister.emailUnknown' | translate }}
+          </span>
+        </p>
+      </div>
+
+      <!-- Submission button -->
+      <button type="submit" class="bip-button negative-action" [disabled]="!unregistrationForm.form.valid">
+        {{ 'registration.forms.unregister.submit' | translate }}
+      </button>
+    </form>
+  </div>
+  <div [hidden]="!unregistered" class="unregistered">
+    <div class="success">
+      <ion-icon name="checkmark-circle-outline" color="secondary"></ion-icon>
+      <h1 class="secondary-color">{{ 'registration.forms.unregister.success' | translate }}</h1>
+    </div>
+    <div class="disclaimer">
+      <bip-icon name="info"></bip-icon>
+      <div class="content">
+        <p>{{ 'registration.forms.unregister.information.p1' | translate }}</p>
+        <p>{{ 'registration.forms.unregister.information.p2' | translate }}</p>
+      </div>
+    </div>
+    <button class="bip-button positive-action outline" (click)="showForm()">OK</button>
+  </div>
+</div>

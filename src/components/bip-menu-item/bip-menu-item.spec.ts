@@ -83,7 +83,8 @@ describe('BipMenuItem', () => {
     it("should display the transcluded content in a 'span' element", function() {
       const spanEl = bipMenuItemEl.querySelector('span');
       expect(spanEl).to.be.an.instanceOf(HTMLElement);
-      expect(spanEl.innerText).to.equal(component.label);
+      // trim() added to remove unwanted space around the text.
+      expect(spanEl.innerText.trim()).to.equal(component.label.trim());
     });
   });
 });

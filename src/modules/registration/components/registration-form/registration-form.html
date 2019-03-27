@@ -1,0 +1,108 @@
+<div class="registration-module">
+  <div [hidden]="submitted">
+    <p class="form-intro">{{ 'registration.forms.register.introduction' | translate }}</p>
+    <div class="disclaimer">
+      <bip-icon name="info"></bip-icon>
+      <p>{{ 'registration.forms.register.disclaimer' | translate }}</p>
+    </div>
+    <div class="error" *ngIf="error">
+      <div *ngIf="error.errors; then errorsWithMessages; else unknownError"></div>
+
+      <ng-template #errorsWithMessages>
+        <p>{{ 'registration.forms.register.error' | translate: { COUNT: error.errors.length } }}</p>
+        <ul>
+          <li *ngFor="let error of error.errors">{{ error.message }}</li>
+        </ul>
+        <p><a href="mailto:biopocket18@gmail.com">{{ 'registration.forms.register.signalError' | translate: { COUNT: error.errors.length } }}</a></p>
+      </ng-template>
+
+      <ng-template #unknownError>
+        <p>{{ 'registration.forms.register.unknownError' | translate }}</p>
+      </ng-template>
+
+    </div>
+
+    <form #registrationForm="ngForm" (ngSubmit)="onSubmit(registrationForm)" class="registration">
+
+      <!-- Email input -->
+      <div class="form-input">
+        <label for="registration-email">
+          <input-state-indicator [input]="email"></input-state-indicator>
+          {{ 'registration.forms.email' | translate }}
+        </label>
+        <input email [exists]="false" type="email" name="email" id="registration-email" [(ngModel)]="registration.email"
+          required #email="ngModel" placeholder="{{ 'registration.forms.emailPlaceholder' | translate }}"
+          [ngModelOptions]="{ updateOn: 'blur' }" autocomplete="email">
+        <p class="error-message" [hidden]="!(email.invalid && (!email.pristine || email.touched))">
+          <span *ngIf="email.errors && !email.errors.required && email.errors.email">
+            {{ 'general.invalid' | translate: { NAME: ('registration.forms.email' | translate) } }}
+          </span>
+          <span *ngIf="email.errors && email.errors.required">
+            {{ 'general.required' | translate: { NAME: ('registration.forms.email' | translate) } }}
+          </span>
+          <span *ngIf="email.errors && email.errors.existence">
+            {{ 'registration.forms.register.emailExists' | translate }}
+          </span>
+        </p>
+      </div>
+
+      <!-- First name input -->
+      <div class="form-input">
+        <label for="registration-firstname">
+          <input-state-indicator [input]="firstname"></input-state-indicator>
+          {{ 'registration.forms.firstname' | translate}}
+        </label>
+        <input type="text" name="firstname" id="registration-firstname" [(ngModel)]="registration.firstname" required
+          #firstname="ngModel" placeholder="{{ 'registration.forms.firstnamePlaceholder' | translate }}" autocomplete="given-name">
+        <p class="error-message" [hidden]="!(firstname.invalid && (!firstname.pristine || firstname.touched))">
+          {{ 'general.required' | translate: { NAME: ('registration.forms.firstname' | translate) } }}
+        </p>
+      </div>
+
+      <!-- Last name input -->
+      <div class="form-input">
+        <label for="registration-lastname">
+          <input-state-indicator [input]="lastname"></input-state-indicator>
+          {{ 'registration.forms.lastname' | translate }}
+        </label>
+        <input type="text" name="lastname" id="registration-lastname" [(ngModel)]="registration.lastname" required
+          #lastname="ngModel" placeholder="{{ 'registration.forms.lastnamePlaceholder' | translate }}" autocomplete="family-name">
+        <p class="error-message" [hidden]="!(lastname.invalid && (!lastname.pristine || lastname.touched))">
+          {{ 'general.required' | translate: { NAME: ('registration.forms.lastname' | translate) } }}
+        </p>
+      </div>
+
+      <!-- Submission button -->
+      <button type="submit" class="bip-button positive-action" [disabled]="!registrationForm.form.valid">
+        {{ 'registration.forms.register.submit' | translate }}
+      </button>
+    </form>
+  </div>
+  <div [hidden]="!submitted" class="registered">
+    <!-- <div class="registered"> -->
+    <div class="success">
+      <ion-icon name="checkmark-circle-outline" color="secondary"></ion-icon>
+      <h1 class="secondary-color">{{ 'registration.forms.register.success' | translate }}</h1>
+    </div>
+    <div class="summary">
+      <div class="registration-data">
+        <p>{{ 'registration.forms.register.number' | translate }}</p>
+        <p>{{ registration.id }}</p>
+      </div>
+      <h3>{{ 'registration.forms.register.summary' | translate }}</h3>
+      <div class="registration-data">
+        <p>{{ 'registration.forms.email' | translate }}</p>
+        <p>{{ registration.email }}</p>
+      </div>
+      <div class="registration-data">
+        <p>{{ 'registration.forms.firstname' | translate }}</p>
+        <p>{{ registration.firstname }}</p>
+      </div>
+      <div class="registration-data">
+        <p>{{ 'registration.forms.lastname' | translate }}</p>
+        <p>{{ registration.lastname }}</p>
+      </div>
+    </div>
+    <button class="bip-button specific-action outline" (click)="copyRegistrationToClipboard()">{{ 'general.copy' | translate }}</button>
+  </div>
+</div>

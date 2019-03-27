@@ -41,12 +41,6 @@ map-page {
     margin-top: $globalSpacing;
   }
   #go-to-list {
-    font-size: 1.6rem;
-    pointer-events: all;
     box-shadow: 0 3px 6px rgba(0, 0, 0, .16);
-    padding: 12px ($globalSpacing * 2);
-    border-radius: 12px;
-    background-color: bipColor('warning');
-    color: bipColor('light');
   }
 }

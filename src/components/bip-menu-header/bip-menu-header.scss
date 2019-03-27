@@ -34,7 +34,7 @@ bip-menu-header {
     margin-top: 30px;
     display: flex;
     justify-content: space-between;
-    & button {
+    & button[ion-fab] {
       $profile-button-max-size: 54px;
       $profile-button-size: 14vw;
       @include smoothShadow;

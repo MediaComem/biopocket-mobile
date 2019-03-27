@@ -1,14 +1,18 @@
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ErrorHandler, NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+import { Clipboard } from '@ionic-native/clipboard';
 import { Geolocation } from '@ionic-native/geolocation';
+import { Globalization } from '@ionic-native/globalization';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { Toast } from '@ionic-native/toast';
 import { MomentModule } from 'angular2-moment';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
+import { RegistrationModule } from '@app/modules/registration/registration.module';
 import { LocationDetails } from '@app/popovers/location-details/location-details';
 import { ComponentsModule } from '@components/components.module';
 import { DirectivesModule } from '@directives/directives.module';
@@ -43,7 +47,9 @@ import { AppComponent } from './app.component';
     LocationsModule,
     ActionsModule,
     ComponentsModule,
-    DirectivesModule
+    DirectivesModule,
+    FormsModule,
+    RegistrationModule
   ],
   bootstrap: [
     IonicApp
@@ -59,7 +65,9 @@ import { AppComponent } from './app.component';
   ],
   providers: [
     Toast,
+    Clipboard,
     Geolocation,
+    Globalization,
     StatusBar,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },

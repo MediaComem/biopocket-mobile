@@ -1,4 +1,9 @@
 app: "BioPocket"
+general:
+  close: "Fermer"
+  copy: "Copier"
+  required: "\"{NAME}\" est obligatoire"
+  invalid: "\"{NAME}\" est invalide"
 pages:
   action:
     title: "Action"
@@ -24,3 +29,41 @@ pages:
 popovers:
   locationDetails:
     website: "site internet"
+registration:
+  news: "Garder contact"
+  register: "S'inscrire"
+  unregister: "Se désinscrire"
+  modal:
+    title: "Bientôt disponible"
+    introduction: "Avec BioPocket, participez prochainement à un grand nombre d'actions en faveur de la biodiversité!"
+  forms:
+    firstname: "Prénom"
+    firstnamePlaceholder: "Indiquez votre prénom"
+    lastname: "Nom"
+    lastnamePlaceholder: "Indiquez votre nom de famille"
+    email: "Adresse e-mail"
+    emailPlaceholder: "Indiquez votre adresse email"
+    register:
+      error: >
+        {COUNT, plural, one{Une erreur est survenue} other{Plusieurs erreurs sont survenues}}:
+      signalError: >
+        Signalez {COUNT, plural, one{cette erreur} other{ces erreurs}}
+      unknownError: "Une erreur inconnue est survenue. Merci de vérifier que vous avez accès à Internet et réessayez."
+      introduction: "Inscrivez-vous ci-dessous pour recevoir des informations sur les nouveautés de BioPocket."
+      disclaimer: "Les informations récoltées ne seront utilisées que dans le but de vous communiquer des informations sur l'application BioPocket. Elles ne seront pas transmises à d'autres organismes ou personnes."
+      emailExists: "Cette adresse e-mail est déjà enregistrée"
+      submit: "S'inscrire"
+      number: "Inscription n°"
+      createdAt: "Date d'inscription"
+      success: "Inscription effectuée !"
+      summary: "Informations transmises"
+      unregister: "Pour supprimer votre inscription..."
+      dataCopied: "Informations copiées dans le presse-papier"
+    unregister:
+      introduction: "Si vous ne souhaitez plus recevoir d'informations sur les nouveautés de BioPocket ou que vous voulez supprimer les informations que vous nous avez fourni, vous pouvez vous désinscrire ci-dessous."
+      submit: "Se désinscrire"
+      success: "Désinscription effectuée"
+      emailUnknown: "Cette adresse e-mail n'est pas enregistrée"
+      information:
+        p1: "Toutes les informations personnelles précédemment transmises ont été effacées de notre base de données."
+        p2: "Vous ne recevrez plus d'informations sur les nouveautés de BioPocket."
