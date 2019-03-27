@@ -1,7 +1,7 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
 import { Print } from '@print';
 import { Registration } from '../../classes/registration';
@@ -32,9 +32,15 @@ export class RegistrationService {
   sendRegistration(registration: Registration): Observable<Registration> {
     return this.http.post<Registration>(RESOURCE_PATH, registration)
       .pipe(map(savedRegistration => {
+        this.userRegistered = true;
         this.registration = savedRegistration;
         return savedRegistration;
-      }));
+      }))
+      .catch(error => {
+        Print.error(LOG_REF, error);
+        this.userRegistered = false;
+        return Observable.throw(error);
+      });
   }
 
   /**
@@ -43,6 +49,10 @@ export class RegistrationService {
    */
   deleteRegistration(email: string): Observable<HttpResponse<void>> {
     return this.http.delete(`${RESOURCE_PATH}/${email}`, { observe: 'response' })
+      .pipe(tap(() => {
+        this.userRegistered = false;
+        this.registration = {};
+      }))
       .catch(error => {
         Print.error(LOG_REF, error);
         return Observable.throw(error);
@@ -64,4 +74,3 @@ export class RegistrationService {
   }
 
 }
-

@@ -33,8 +33,6 @@ export class UnregistrationFormComponent {
         () => {
           unregistrationForm.reset();
           this.unregistered = true;
-          this.registrationService.userRegistered = false;
-          this.registrationService.registration = {};
         },
         (httpError: HttpErrorResponse) => {
           this.unregistered = false;

@@ -43,12 +43,12 @@ export class RegistrationFormComponent implements OnInit {
         (registration: Registration) => {
           registrationForm.reset();
           this.registration = registration;
-          this.submitted = this.registrationService.userRegistered = true;
+          this.submitted = true;
         },
         (httpError: HttpErrorResponse) => {
           Print.debug('Error', httpError);
           this.error = httpError.error;
-          this.submitted = this.registrationService.userRegistered = false;
+          this.submitted = false;
         });
   }
 
