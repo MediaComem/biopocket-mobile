@@ -1,5 +1,5 @@
 import { distance, point } from '@turf/turf';
-import { browser, ExpectedConditions as EC, protractor } from 'protractor';
+import { browser, protractor } from 'protractor';
 
 // DO NOT MOVE these lines.
 // Environment variables MUST be set BEFORE backend files are imported.
@@ -19,7 +19,7 @@ import { RegisterPageObject } from './po/register.po';
 import { RegistrationTabsPageObject } from './po/registration-tab.po';
 import { ThemePageObject } from './po/theme.po';
 import { UnregisterPageObject } from './po/unregister.po';
-import { absenceOf, AVERAGE_WAIT_TIME, compareCoordinates, elementIsClickable, expectDisplayed, invisibilityOf, presenceOf, setWindowSize, visibilityOf } from './utils';
+import { absenceOf, compareCoordinates, elementIsClickable, expectDisplayed, invisibilityOf, presenceOf, setWindowSize, visibilityOf } from './utils';
 
 const ONEX_BBOX = {
   southWest: [ 6.086417, 46.173987 ],
@@ -52,10 +52,7 @@ describe('App', function() {
     mapPage = new MapPageObject();
     menuPage = new MenuPageObject();
     homePage = new HomePageObject();
-    mapPage = new MapPageObject();
     actionsListPage = new ActionsListPageObject();
-    actionPage = new ActionPageObject();
-    themePage = new ThemePageObject();
     registrationTabsPage = new RegistrationTabsPageObject();
     registerPage = new RegisterPageObject();
     unregisterPage = new UnregisterPageObject();
