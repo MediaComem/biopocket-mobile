@@ -135,7 +135,7 @@ describe('App', function() {
 
     // Ensure that all markers are displayed.
     const markerIconFinders = await mapPage.getMarkerIcons();
-    expect(markerIconFinders, 'There is more than 3 markers on the map').to.have.lengthOf(3);
+    expect(markerIconFinders, 'There are more than 3 markers on the map').to.have.lengthOf(3);
 
     /**
      * Clicking on a Location map marker, and thus displaying the popover with the correct information.
@@ -238,10 +238,10 @@ describe('App', function() {
     // Plus, calling `load` before `related` would log a request done on the db to `SELECT` the theme from the table.
     // This log is not there when `load` is not called. Does this mean that `related` does not execute any query?
     // If so, how the hell does it load a theme at all?
-    await actions[ 0 ].load('theme');
-    const theme = await actions[ 0 ].related('theme');
+    await actions[0].load('theme');
+    const theme = await actions[0].related('theme');
     // This is to detect the above mentioned strange behavior.
-    expect(actions[ 0 ].get('theme_id')).to.equal(theme.get('id'));
+    expect(actions[0].get('theme_id')).to.equal(theme.get('id'));
     expect(themeDetailsText).to.have.string(theme.get('title'));
     expect(themeDetailsText).to.have.string(theme.get('description'));
 
