@@ -416,7 +416,17 @@ translateService.get({ RES: 2, CAT: 2 })
 
 See the [format guide][messageformat-guide] for more information.
 
+## YouTube Player
 
+There currently is a YouTube video that can be played from the Home page of the app.
+
+This is possible thanks to [the Ionic Native's YouTube Video Player plugin][inyvp].
+
+As stated in the documentation above, we need an API key for the plugin to work on Android 5.0+. This API key has been added in the `config.xml` file.
+
+The value and management of this key are available through [the Google Developer Console dashboard][gdcd], in the **Credentials** section.
+
+> To connect to this page, you'll need the Media Comem gmail account credentials, which can be found in the MEI KeePass.
 
 ## End-to-end tests
 
@@ -684,6 +694,7 @@ Do not forget to:
 [ionic]: https://ionicframework.com
 [ionic-doc]: https://ionicframework.com/docs/
 [ionic-env-vars]: https://github.com/gshigeto/ionic-environment-variables
+[inyvp]: https://ionicframework.com/docs/v3/native/youtube-video-player/
 [leaflet-doc]: http://leafletjs.com/reference-1.3.0.html
 [messageformat]: https://messageformat.github.io
 [messageformat-guide]: https://messageformat.github.io/guide/
@@ -700,6 +711,7 @@ Do not forget to:
 [turf-doc]: http://turfjs.org/docs/
 [webpack-resolve]: https://webpack.js.org/configuration/resolve/
 [yaml]: http://yaml.org
+[gdcd]: https://console.developers.google.com/apis/api/youtube.googleapis.com/credentials?project=biopocketapp
 
 [ibell]: ./docs/icon-set/bell.png
 [icalendarcheck]: ./docs/icon-set/calendar-check.png
