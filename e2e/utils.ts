@@ -112,7 +112,7 @@ export function absenceOf(finder: ElementFinder, timeout = AVERAGE_WAIT_TIME) {
  * @param {Number} [timeout=5000] The number of millisecondes after which the browser stops waiting. Defaults to `5000`.
  */
 export function visibilityOf(finder: ElementFinder, timeout = AVERAGE_WAIT_TIME) {
-  return browser.wait(EC.visibilityOf(finder), timeout, `The element requested was not visible on the screen after ${timeout}`);
+  return browser.wait(EC.visibilityOf(finder), timeout, `The requested element was not visible on the screen after ${timeout}ms`);
 }
 
 export function invisibilityOf(finder: ElementFinder, timeout = AVERAGE_WAIT_TIME) {
@@ -125,7 +125,7 @@ export function invisibilityOf(finder: ElementFinder, timeout = AVERAGE_WAIT_TIM
  * @param finder An element finder.
  * @param
  */
-export async function expectDisplayed(finder: ElementFinder, options: { elementName?: string; shouldBeDisplayed?: boolean } = { elementName: 'Element', shouldBeDisplayed: true }) {
+export async function expectDisplayed(finder: ElementFinder, options: { elementName?: string; shouldBeDisplayed?: boolean } = {}) {
   if (options.elementName === undefined) {
     options.elementName = 'Element';
   }
