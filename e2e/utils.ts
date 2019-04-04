@@ -139,3 +139,7 @@ export async function expectDisplayed(finder: ElementFinder, options: { elementN
   // console.log(`${options.elementName} should be displayed ?`, options.shouldBeDisplayed);
   expect(isDisplayed, message).to.equal(options.shouldBeDisplayed);
 }
+
+export async function elementIsClickable(element: ElementFinder) {
+  return browser.wait(EC.elementToBeClickable(element), AVERAGE_WAIT_TIME);
+}

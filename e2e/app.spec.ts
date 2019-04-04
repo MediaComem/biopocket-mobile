@@ -19,7 +19,7 @@ import { RegisterPageObject } from './po/register.po';
 import { RegistrationTabsPageObject } from './po/registration-tab.po';
 import { ThemePageObject } from './po/theme.po';
 import { UnregisterPageObject } from './po/unregister.po';
-import { absenceOf, AVERAGE_WAIT_TIME, compareCoordinates, expectDisplayed, invisibilityOf, presenceOf, setWindowSize, visibilityOf } from './utils';
+import { absenceOf, AVERAGE_WAIT_TIME, compareCoordinates, elementIsClickable, expectDisplayed, invisibilityOf, presenceOf, setWindowSize, visibilityOf } from './utils';
 
 const ONEX_BBOX = {
   southWest: [ 6.086417, 46.173987 ],
@@ -109,7 +109,7 @@ describe('App', function() {
      */
 
     const menuButtonFinder = homePage.getMenuButton();
-    await browser.wait(EC.elementToBeClickable(menuButtonFinder), AVERAGE_WAIT_TIME);
+    await elementIsClickable(menuButtonFinder);
     menuButtonFinder.click();
 
     const menuPageFinder = menuPage.getPage();
@@ -122,7 +122,7 @@ describe('App', function() {
 
     // Click on the Map Menu Item
     const mapMenuItemFinder = menuPage.getItem('map');
-    await browser.wait(EC.elementToBeClickable(mapMenuItemFinder), AVERAGE_WAIT_TIME);
+    await elementIsClickable(mapMenuItemFinder);
     mapMenuItemFinder.click();
 
     await invisibilityOf(menuPageFinder);
@@ -280,7 +280,7 @@ describe('App', function() {
 
     // Open the mneu
     const menuButtonFinder = homePage.getMenuButton();
-    await browser.wait(EC.elementToBeClickable(menuButtonFinder), AVERAGE_WAIT_TIME);
+    await elementIsClickable(menuButtonFinder);
     menuButtonFinder.click();
 
     const menuPageFinder = menuPage.getPage();
@@ -288,7 +288,7 @@ describe('App', function() {
 
     // Click on the "Keep in touch" button
     const menuKeepInTouchButtonFinder = menuPage.getKeepInTouchButton();
-    await browser.wait(EC.elementToBeClickable(menuKeepInTouchButtonFinder), AVERAGE_WAIT_TIME);
+    await elementIsClickable(menuKeepInTouchButtonFinder);
     menuKeepInTouchButtonFinder.click();
     // ...and again... ಠ╭╮ಠ
     await browser.sleep(1);
@@ -326,7 +326,7 @@ describe('App', function() {
     await registrationLastNameInputFinder.clear().sendKeys(submittedRegistration.lastName);
 
     const registrationSubmitButton = await registerPage.getFormSubmitButton();
-    await browser.wait(EC.elementToBeClickable(registrationSubmitButton), AVERAGE_WAIT_TIME);
+    await elementIsClickable(registrationSubmitButton);
     registrationSubmitButton.click();
 
     // Check that the registration has been saved and the state of the forme has changed
@@ -343,7 +343,7 @@ describe('App', function() {
      */
 
     const unregistrationTabFinder = await registrationTabsPage.getSecondTab();
-    await browser.wait(EC.elementToBeClickable(unregistrationTabFinder), AVERAGE_WAIT_TIME);
+    await elementIsClickable(unregistrationTabFinder);
     unregistrationTabFinder.click();
 
     await invisibilityOf(registerPageFinder);
@@ -369,7 +369,7 @@ describe('App', function() {
     await unregisterEmailInputFinder.sendKeys(protractor.Key.TAB);
 
     const unregisterSubmitButton = await unregisterPage.getSubmitButton();
-    await browser.wait(EC.elementToBeClickable(unregisterSubmitButton), AVERAGE_WAIT_TIME);
+    await elementIsClickable(unregisterSubmitButton);
     unregisterSubmitButton.click();
 
     await invisibilityOf(unregisterFormFinder);
