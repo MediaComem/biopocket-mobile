@@ -322,13 +322,28 @@ Here's a list of available icons and the name that should be used when referenci
 
 Here's a list of the custom Angular components that are available in the BioPocket app.
 
-| Selector              | Purpose                                                       | Documentation   |
-|:---                   |:---                                                           |:---             |
-| `bip-icon`            | To display [BioPocket icons](#Icons)                         | [API][bic-doc]  |
+| Selector              | Purpose                                                       | Documentation    |
+|:---                   |:---                                                           |:---              |
+| `bip-icon`            | To display [BioPocket icons](#Icons)                          | [API][bic-doc]   |
 | `bip-menu-item-icon`  | To display [BioPocket icons](#Icons) in menu items            | [API][bmiic-doc] |
 | `bip-menu-item`       | To display menu item in the app's main menu                   | [API][bmic-doc]  |
 | `bip-menu-header`     | To display the user profile in the app's main menu            | [API][bmhc-doc]  |
 | `bip-profile-picture` | To display a profile picture (with the double rounded border) | [API][bppc-doc]  |
+
+## Markdown
+
+The plugin [ngx-markdown] allows the rendering of a markdown text as proper HTML in the templates.
+
+The simplest usage is to add a `<markdown>` tag in the template, enclosing the actual markdown string:
+
+```html
+<markdown>
+  # Markdown
+
+  Add _some_ markdown **here** and see it `rendered` on the page
+</markdown>
+```
+> The plugin provides more option to render Markdown in the app. See its documentation for more details.
 
 ## Internationalization
 
@@ -656,7 +671,7 @@ Do not forget to:
 
 To build the app for release in Android or iOS, you can use respectivly the `npm run apr` and `npm run ipr` scripts.
 
-> __TODO: document the complete release process both for iOS and Android__
+> **TODO: document the complete release process both for iOS and Android**
 
 ### Android
 
@@ -708,6 +723,7 @@ As a reminder of the commands to execute, you'll find two _dummy_ scripts in the
 [_doc]: https://lodash.com/docs/4.17.4
 [chai-as-promised]: https://github.com/domenic/chai-as-promised
 [chai-doc]: http://chaijs.com/api/
+[gdcd]: https://console.developers.google.com/apis/api/youtube.googleapis.com/credentials?project=biopocketapp
 [ionic]: https://ionicframework.com
 [ionic-doc]: https://ionicframework.com/docs/
 [ionic-env-vars]: https://github.com/gshigeto/ionic-environment-variables
@@ -717,6 +733,7 @@ As a reminder of the commands to execute, you'll find two _dummy_ scripts in the
 [messageformat-guide]: https://messageformat.github.io/guide/
 [mocha-doc]: https://mochajs.org
 [moment]: https://momentjs.com
+[ngx-markdown]: https://www.npmjs.com/package/ngx-markdown
 [ngx-translate]: http://www.ngx-translate.com
 [ng-doc]: https://angular.io/docs
 [ngl-doc]: https://github.com/Asymmetrik/ngx-leaflet
@@ -728,7 +745,6 @@ As a reminder of the commands to execute, you'll find two _dummy_ scripts in the
 [turf-doc]: http://turfjs.org/docs/
 [webpack-resolve]: https://webpack.js.org/configuration/resolve/
 [yaml]: http://yaml.org
-[gdcd]: https://console.developers.google.com/apis/api/youtube.googleapis.com/credentials?project=biopocketapp
 
 [ibell]: ./docs/icon-set/bell.png
 [icalendarcheck]: ./docs/icon-set/calendar-check.png
