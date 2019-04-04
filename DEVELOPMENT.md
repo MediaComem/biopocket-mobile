@@ -652,7 +652,24 @@ Do not forget to:
   once an HTTP call is done. If you forget to do this, it may work locally because HTTP calls are
   very fast, but may fail on Travis.
 
+## Releases
 
+To build the app for release in Android or iOS, you can use respectivly the `npm run apr` and `npm run ipr` scripts.
+
+> __TODO: document the complete release process both for iOS and Android__
+
+### Android
+
+In the release process for Android, you'll need to do two specific action that requires executing commands in the CLI:
+* Zipaligning the `.apk`
+* Signing the `.apk`
+  > For this step, you'll also need an Android KeyStore. Use the Android Release KeyStore that is available in the MEI KeePassX.
+
+As a reminder of the commands to execute, you'll find two _dummy_ scripts in the `package.json` file: `zipalign` and `apksigner`.
+
+**Those two scripts SHOULD NOT be run since they are using absolute path to the required utilities that would most likely be missing in your computer.**
+
+> **TODO: It would be nice to have some kind of script that automates the process of preparing the `.apk` for and Android release, using some kind of config file for the utilities path.
 
 ## TODO
 

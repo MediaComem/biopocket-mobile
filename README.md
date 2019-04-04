@@ -72,7 +72,9 @@ to refresh the app.
 | Script                        | Purpose                                                                                                                   |
 | :---                          | :---                                                                                                                      |
 | `npm start`                   | Initialize & start the app with `ionic serve`                                                                             |
+| `npm run apr`                 | Build the app for Android in a production environment; see [releases]                                                     |
 | `npm run doctoc`              | Generate the table of contents of this README and the DEVELOPMENT guide                                                   |
+| `npm run ipr`                 | Buil the app for iOS in a production environment; see [releases]                                                          |
 | `npm run lint`                | Analyze and check the project's TypeScript code for errors                                                                |
 | `npm run locales`             | Compile the .yml locale files to TypeScript once                                                                          |
 | `npm run locales:start`       | Compile the .yml locale files to TypeScript and watch for changes                                                         |
@@ -88,6 +90,5 @@ to refresh the app.
 | `npm run test:e2e:fast`       | Run end-to-end tests once (assumes backend & app are running in test mode; see [end-to-end tests][e2e])                   |
 | `npm run test:e2e:fast:watch` | Run end-to-end tests when changes occur (assumes backend & app are running in test mode; see [end-to-end tests][e2e])     |
 
-
-
 [e2e]: DEVELOPMENT.md#end-to-end-tests
+[releases]: DEVELOPMENT.md#releases
