@@ -1,5 +1,5 @@
 import { distance, point } from '@turf/turf';
-import { browser, protractor } from 'protractor';
+import { browser } from 'protractor';
 
 // DO NOT MOVE these lines.
 // Environment variables MUST be set BEFORE backend files are imported.
@@ -10,16 +10,14 @@ import * as actionFixtures from '../backend/server/spec/fixtures/actions';
 import * as locationFixtures from '../backend/server/spec/fixtures/location';
 import { create as createData } from '../backend/utils/data';
 import { expect } from '../spec/chai';
+import { absenceOf, compareCoordinates, elementIsClickable, expectDisplayed, invisibilityOf, presenceOf, setWindowSize, visibilityOf } from './utils';
+
 import { ActionPageObject } from './po/action.po';
 import { ActionsListPageObject } from './po/actions-list.po';
 import { HomePageObject } from './po/home.po';
 import { MapPageObject } from './po/map.po';
 import { MenuPageObject } from './po/menu.po';
-import { RegisterPageObject } from './po/register.po';
-import { RegistrationTabsPageObject } from './po/registration-tab.po';
 import { ThemePageObject } from './po/theme.po';
-import { UnregisterPageObject } from './po/unregister.po';
-import { absenceOf, compareCoordinates, elementIsClickable, expectDisplayed, invisibilityOf, presenceOf, setWindowSize, visibilityOf } from './utils';
 
 const ONEX_BBOX = {
   southWest: [ 6.086417, 46.173987 ],
@@ -44,18 +42,12 @@ describe('App', function() {
   let actionsListPage: ActionsListPageObject;
   let actionPage: ActionPageObject;
   let themePage: ThemePageObject;
-  let registrationTabsPage: RegistrationTabsPageObject;
-  let registerPage: RegisterPageObject;
-  let unregisterPage: UnregisterPageObject;
 
   beforeEach(async function() {
     mapPage = new MapPageObject();
     menuPage = new MenuPageObject();
     homePage = new HomePageObject();
     actionsListPage = new ActionsListPageObject();
-    registrationTabsPage = new RegistrationTabsPageObject();
-    registerPage = new RegisterPageObject();
-    unregisterPage = new UnregisterPageObject();
 
     // Insert 3 random locations into the database and sort them by ascending longitude and latitude.
     locations = await createData(3, locationFixtures.location, { bbox: ONEX_BBOX });
@@ -252,124 +244,5 @@ describe('App', function() {
     // Ensure that the Action Page shows up in lieu of the Theme Page.
     await absenceOf(themePageFinder);
     await expectDisplayed(actionPageFinder, { elementName: 'Action Page' });
-  });
-
-  /**
-   * --- Registration scenario ---
-   *
-   * This end-to-end scenario simulates a user going through the following steps :
-   * 1. Navigating to the registration tab page.
-   * 2. Complete the registration form and submit it.
-   * 3. Navigate to the unregistration tab page.
-   * 4. Complete the unregistration form and submit it.
-   */
-  it('should allow a user to register and unregister', async function() {
-    this.timeout(30000);
-
-    /**
-     * Navigating to the registration tab page.
-     */
-
-    await browser.get('/');
-
-    const homePageFinder = homePage.getPage();
-    await presenceOf(homePageFinder);
-
-    // Open the mneu
-    const menuButtonFinder = homePage.getMenuButton();
-    await elementIsClickable(menuButtonFinder);
-    menuButtonFinder.click();
-
-    const menuPageFinder = menuPage.getPage();
-    await presenceOf(menuPageFinder);
-
-    // Click on the "Keep in touch" button
-    const menuKeepInTouchButtonFinder = menuPage.getKeepInTouchButton();
-    await elementIsClickable(menuKeepInTouchButtonFinder);
-    menuKeepInTouchButtonFinder.click();
-    // ...and again... ಠ╭╮ಠ
-    await browser.sleep(1);
-
-    // Check that the correct pages are displayed
-    const registrationTabsPageFinder = await registrationTabsPage.getPage();
-    await presenceOf(registrationTabsPageFinder);
-    await expect(registrationTabsPage.getTitle().getText()).to.eventually.be.equal(registrationTabsPage.expectedTitle);
-
-    const registerPageFinder = await registerPage.getPage();
-    await visibilityOf(registerPageFinder);
-    await expect(registrationTabsPage.getActiveTab().getText()).to.eventually.equal(registerPage.expectedTitle);
-
-    // Check that the state of the form is correct
-    const registerFormFinder = await registerPage.getForm();
-    const registerSuccessFinder = await registerPage.getRegistrationSuccess();
-    await expectDisplayed(registerFormFinder, { elementName: 'Registration Form' });
-    await expectDisplayed(registerSuccessFinder, { elementName: 'Registration Success', shouldBeDisplayed: false });
-
-    /**
-     * Complete the registration form and submit it.
-     */
-
-    const submittedRegistration = {
-      email: 'john.doe@example.com',
-      firstName: 'John',
-      lastName: 'Doe'
-    };
-
-    const registrationEmailInputFinder = await registerPage.getEmailInput();
-    const registrationFirstNameInputFinder = await registerPage.getFirstNameInput();
-    const registrationLastNameInputFinder = await registerPage.getLastNameInput();
-    await registrationEmailInputFinder.clear().sendKeys(submittedRegistration.email);
-    await registrationFirstNameInputFinder.clear().sendKeys(submittedRegistration.firstName);
-    await registrationLastNameInputFinder.clear().sendKeys(submittedRegistration.lastName);
-
-    const registrationSubmitButton = await registerPage.getFormSubmitButton();
-    await elementIsClickable(registrationSubmitButton);
-    registrationSubmitButton.click();
-
-    // Check that the registration has been saved and the state of the forme has changed
-    await invisibilityOf(registerFormFinder);
-    await expectDisplayed(registerSuccessFinder);
-
-    // Check that the saved registration matches the provided information
-    await expect(registerPage.getRegisteredEmail()).to.eventually.equal(submittedRegistration.email);
-    await expect(registerPage.getRegisteredFirstName()).to.eventually.equal(submittedRegistration.firstName);
-    await expect(registerPage.getRegisteredLastName()).to.eventually.equal(submittedRegistration.lastName);
-
-    /**
-     * Navigate to the unregistration tab page.
-     */
-
-    const unregistrationTabFinder = await registrationTabsPage.getSecondTab();
-    await elementIsClickable(unregistrationTabFinder);
-    unregistrationTabFinder.click();
-
-    await invisibilityOf(registerPageFinder);
-
-    const unregisterPageFinder = await unregisterPage.getPage();
-    await visibilityOf(unregisterPageFinder);
-    await expect(registrationTabsPage.getActiveTab().getText()).to.eventually.equal(unregisterPage.expectedTitle);
-
-    // Check that the state of the form is correct
-
-    const unregisterFormFinder = await unregisterPage.getForm();
-    const unregisterSuccessFinder = await unregisterPage.getSuccessFinder();
-    await expectDisplayed(unregisterFormFinder, { elementName: 'Unregistration Form' });
-    await expectDisplayed(unregisterSuccessFinder, { elementName: 'Unregistration Success', shouldBeDisplayed: false });
-
-    /**
-     * Complete the unregistration form and submit it.
-     */
-
-    const unregisterEmailInputFinder = await unregisterPage.getEmailInput();
-    await unregisterEmailInputFinder.clear().sendKeys(submittedRegistration.email);
-    // This is needed so that the submit button becomes active and can then be selected and clicked.
-    await unregisterEmailInputFinder.sendKeys(protractor.Key.TAB);
-
-    const unregisterSubmitButton = await unregisterPage.getSubmitButton();
-    await elementIsClickable(unregisterSubmitButton);
-    unregisterSubmitButton.click();
-
-    await invisibilityOf(unregisterFormFinder);
-    await expectDisplayed(unregisterSuccessFinder, { elementName: 'Unregistration Success' });
   });
 });
