@@ -669,7 +669,7 @@ Do not forget to:
 
 ## Releases
 
-To build the app for release in Android or iOS, you can use respectivly the `npm run apr` and `npm run ipr` scripts.
+To build the app for release in Android or iOS, you can use respectively the `npm run apr` and `npm run ipr` scripts.
 
 > **TODO: document the complete release process both for iOS and Android**
 
