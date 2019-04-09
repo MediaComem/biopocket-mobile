@@ -47,7 +47,7 @@ Read the [development guide](DEVELOPMENT.md) for a more detailed technical intro
 * Install the application's dependencies:
 
       cd biopocket-mobile
-      npm install
+      npm ci
 
 ### Run the app in your browser
 
