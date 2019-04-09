@@ -50,7 +50,8 @@ describe('Registration module', () => {
     // Click on the "Keep in touch" button
     const menuKeepInTouchButtonFinder = menuPage.getKeepInTouchButton();
     await elementIsClickable(menuKeepInTouchButtonFinder);
-    menuKeepInTouchButtonFinder.click();
+    await browser.actions().mouseMove(menuKeepInTouchButtonFinder).click().perform();
+    // menuKeepInTouchButtonFinder.click();
     // ...and again... ಠ╭╮ಠ
     await browser.sleep(1);
 
