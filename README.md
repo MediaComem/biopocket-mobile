@@ -49,6 +49,13 @@ Read the [development guide](DEVELOPMENT.md) for a more detailed technical intro
       cd biopocket-mobile
       npm ci
 
+* Create your development environment's configuration file:
+
+      cp src/environments/environment.sample.ts src/environments/environment.dev.ts
+
+  Update the `backendUrl` property to the URL of a running [BioPocket
+  Backend](https://github.com/MediaComem/biopocket-backend).
+
 ### Run the app in your browser
 
 Run `npm start` (it will open your browser to visit `http://localhost:8100/`).
