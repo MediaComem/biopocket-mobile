@@ -74,7 +74,7 @@ export function inputStateIndicatorComponentTests() {
     function expectIonIcon(name) {
       const ionIconDe = fixture.debugElement.queryAll(By.css('ion-icon'));
       expect(ionIconDe).to.have.lengthOf(1);
-      expect(ionIconDe[ 0 ].nativeElement.getAttribute('name')).to.equals(name);
+      expect(ionIconDe[0].nativeElement.getAttribute('name')).to.equals(name);
     }
   });
 }

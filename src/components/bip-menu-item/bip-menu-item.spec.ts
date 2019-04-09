@@ -76,7 +76,7 @@ describe('BipMenuItem', () => {
 
       expectedAttributes.forEach(expectedAttribute => {
         const errorMessage = `The 'bip-menu-item-icon' element either does not have a '${expectedAttribute.name}' attribute, or its value is incorrect.`;
-        expect(bipMenuItemIconDe.componentInstance[ expectedAttribute.name ], errorMessage).to.equal(expectedAttribute.value);
+        expect(bipMenuItemIconDe.componentInstance[expectedAttribute.name], errorMessage).to.equal(expectedAttribute.value);
       });
     });
 

@@ -11,10 +11,10 @@ describe('Location Object', function() {
   const locationRequiredKeys = [
     'id', 'name', 'description', 'phone', 'photoUrl', 'siteUrl', 'geometry', 'address', 'properties', 'createdAt', 'updatedAt'
   ];
-  const locationOptionalKeys = ['shortName'];
+  const locationOptionalKeys = [ 'shortName' ];
   const geometryRequiredKeys = [ 'type', 'coordinates' ];
   const addressRequiredKeys = [ 'street', 'city', 'zipCode', 'state' ];
-  const addressOptionalKeys = ['number'];
+  const addressOptionalKeys = [ 'number' ];
 
   beforeEach(function() {
     locationData = {
@@ -80,8 +80,8 @@ describe('Location Object', function() {
 
     expect(actual.geometry.type, 'location.geometry.type').to.equal(expected.geometry.type);
     // We swaps coordinates value when creating the Location so that they're in the right order for Leaflet.
-    expect(actual.geometry.coordinates[ 0 ], 'location.geometry.coordinates[0]').to.equal(expected.geometry.coordinates[ 0 ]);
-    expect(actual.geometry.coordinates[ 1 ], 'location.geometry.coordinates[1]').to.equal(expected.geometry.coordinates[ 1 ]);
+    expect(actual.geometry.coordinates[0], 'location.geometry.coordinates[0]').to.equal(expected.geometry.coordinates[0]);
+    expect(actual.geometry.coordinates[1], 'location.geometry.coordinates[1]').to.equal(expected.geometry.coordinates[1]);
 
     expect(actual.address.street, 'location.address.street').to.equal(expected.address.street);
     expect(actual.address.zipCode, 'location.address.zipCode').to.equal(expected.address.zipCode);
