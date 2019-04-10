@@ -257,30 +257,30 @@ Following are two tables (one for the main colors, the other for the secondary c
 
 ### Main colors
 
-| Color                                  | Key           | HEX       | RGB           |
-|:---                                    |:---           |:---       |:---           |
-| <span style="color:#4a8ec8">▐█▌</span> | `'primary'`   | `#4a8ec8` | 74, 142, 200  |
-| <span style="color:#23808b">▐█▌</span> | `'ocean'`     | `#23808b` | 35, 128, 139  |
-| <span style="color:#5bb697">▐█▌</span> | `'boreal'`    | `#5bb697` | 91, 182, 151  |
-| <span style="color:#4eae67">▐█▌</span> | `'secondary'` | `#4eae67` | 78, 174, 103  |
-| <span style="color:#e78c48">▐█▌</span> | `'warning'`   | `#e78c48` | 231, 140, 72  |
-| <span style="color:#de5d6e">▐█▌</span> | `'danger'`    | `#de5d6e` | 222, 93, 110  |
-| <span style="color:#ffffff">▐█▌</span> | `'light'`     | `#ffffff` | 255, 255, 255 |
-| <span style="color:#999999">▐█▌</span> | `'concrete '` | `#999999` | 153, 153, 153 |
-| <span style="color:#222222">▐█▌</span> | `'dark'`      | `#222222` | 34, 34, 34    |
+| Color                                                    | Key           | HEX       | RGB           |
+|:---                                                      |:---           |:---       |:---           |
+| ![#4a8ec8](https://placehold.it/15/4a8ec8/000000?text=+) | `'primary'`   | `#4a8ec8` | 74, 142, 200  |
+| ![#23808b](https://placehold.it/15/23808b/000000?text=+) | `'ocean'`     | `#23808b` | 35, 128, 139  |
+| ![#5bb697](https://placehold.it/15/5bb697/000000?text=+) | `'boreal'`    | `#5bb697` | 91, 182, 151  |
+| ![#4eae67](https://placehold.it/15/4eae67/000000?text=+) | `'secondary'` | `#4eae67` | 78, 174, 103  |
+| ![#e78c48](https://placehold.it/15/e78c48/000000?text=+) | `'warning'`   | `#e78c48` | 231, 140, 72  |
+| ![#de5d6e](https://placehold.it/15/de5d6e/000000?text=+) | `'danger'`    | `#de5d6e` | 222, 93, 110  |
+| ![#ffffff](https://placehold.it/15/ffffff/000000?text=+) | `'light'`     | `#ffffff` | 255, 255, 255 |
+| ![#999999](https://placehold.it/15/999999/000000?text=+) | `'concrete '` | `#999999` | 153, 153, 153 |
+| ![#222222](https://placehold.it/15/222222/000000?text=+) | `'dark'`      | `#222222` | 34, 34, 34    |
 
 ### Secondary colors
 
-| Color                                  | Key           | HEX       | RGB           |
-|:---                                    |:---           |:---       |:---           |
-| <span style="color:#2c3681">▐█▌</span> | `'night'`     | `#2c3681` | 44, 54, 129   |
-| <span style="color:#2b6bb0">▐█▌</span> | `'sky'`       | `#2b6bb0` | 43, 107, 176  |
-| <span style="color:#55a7db">▐█▌</span> | `'clear'`     | `#55a7db` | 85, 167, 219  |
-| <span style="color:#4ab9ce">▐█▌</span> | `'lagoon'`    | `#4ab9ce` | 74, 185, 206  |
-| <span style="color:#4fb398">▐█▌</span> | `'river'`     | `#4fb398` | 79, 179, 152  |
-| <span style="color:#5eb157">▐█▌</span> | `'grass'`     | `#5eb157` | 94, 177, 87   |
-| <span style="color:#207f8c">▐█▌</span> | `'seabed'`    | `#207f8c` | 32, 127, 140  |
-| <span style="color:#7e6131">▐█▌</span> | `'wood'`      | `#7e6131` | 126, 97, 49   |
+| Color                                                    | Key           | HEX       | RGB           |
+|:---                                                      |:---           |:---       |:---           |
+| ![#2c3681](https://placehold.it/15/2c3681/000000?text=+) | `'night'`     | `#2c3681` | 44, 54, 129   |
+| ![#2b6bb0](https://placehold.it/15/2b6bb0/000000?text=+) | `'sky'`       | `#2b6bb0` | 43, 107, 176  |
+| ![#55a7db](https://placehold.it/15/55a7db/000000?text=+) | `'clear'`     | `#55a7db` | 85, 167, 219  |
+| ![#4ab9ce](https://placehold.it/15/4ab9ce/000000?text=+) | `'lagoon'`    | `#4ab9ce` | 74, 185, 206  |
+| ![#4fb398](https://placehold.it/15/4fb398/000000?text=+) | `'river'`     | `#4fb398` | 79, 179, 152  |
+| ![#5eb157](https://placehold.it/15/5eb157/000000?text=+) | `'grass'`     | `#5eb157` | 94, 177, 87   |
+| ![#207f8c](https://placehold.it/15/207f8c/000000?text=+) | `'seabed'`    | `#207f8c` | 32, 127, 140  |
+| ![#7e6131](https://placehold.it/15/7e6131/000000?text=+) | `'wood'`      | `#7e6131` | 126, 97, 49   |
 
 ## Icons
 
@@ -322,13 +322,28 @@ Here's a list of available icons and the name that should be used when referenci
 
 Here's a list of the custom Angular components that are available in the BioPocket app.
 
-| Selector              | Purpose                                                       | Documentation   |
-|:---                   |:---                                                           |:---             |
-| `bip-icon`            | To display [BioPocket icons](#Icons)                         | [API][bic-doc]  |
+| Selector              | Purpose                                                       | Documentation    |
+|:---                   |:---                                                           |:---              |
+| `bip-icon`            | To display [BioPocket icons](#Icons)                          | [API][bic-doc]   |
 | `bip-menu-item-icon`  | To display [BioPocket icons](#Icons) in menu items            | [API][bmiic-doc] |
 | `bip-menu-item`       | To display menu item in the app's main menu                   | [API][bmic-doc]  |
 | `bip-menu-header`     | To display the user profile in the app's main menu            | [API][bmhc-doc]  |
 | `bip-profile-picture` | To display a profile picture (with the double rounded border) | [API][bppc-doc]  |
+
+## Markdown
+
+The plugin [ngx-markdown] allows the rendering of a markdown text as proper HTML in the templates.
+
+The simplest usage is to add a `<markdown>` tag in the template, enclosing the actual markdown string:
+
+```html
+<markdown>
+  # Markdown
+
+  Add _some_ markdown **here** and see it `rendered` on the page
+</markdown>
+```
+> The plugin provides more option to render Markdown in the app. See its documentation for more details.
 
 ## Internationalization
 
@@ -416,7 +431,17 @@ translateService.get({ RES: 2, CAT: 2 })
 
 See the [format guide][messageformat-guide] for more information.
 
+## YouTube Player
 
+There currently is a YouTube video that can be played from the Home page of the app.
+
+This is possible thanks to [the Ionic Native's YouTube Video Player plugin][inyvp].
+
+As stated in the documentation above, we need an API key for the plugin to work on Android 5.0+. This API key has been added in the `config.xml` file.
+
+The value and management of this key are available through [the Google Developer Console dashboard][gdcd], in the **Credentials** section.
+
+> To connect to this page, you'll need the Media Comem gmail account credentials, which can be found in the MEI KeePass.
 
 ## End-to-end tests
 
@@ -642,7 +667,24 @@ Do not forget to:
   once an HTTP call is done. If you forget to do this, it may work locally because HTTP calls are
   very fast, but may fail on Travis.
 
+## Releases
 
+To build the app for release in Android or iOS, you can use respectively the `npm run apr` and `npm run ipr` scripts.
+
+> **TODO: document the complete release process both for iOS and Android**
+
+### Android
+
+In the release process for Android, you'll need to do two specific action that requires executing commands in the CLI:
+* Zipaligning the `.apk`
+* Signing the `.apk`
+  > For this step, you'll also need an Android KeyStore. Use the Android Release KeyStore that is available in the MEI KeePassX.
+
+As a reminder of the commands to execute, you'll find two _dummy_ scripts in the `package.json` file: `zipalign` and `apksigner`.
+
+**Those two scripts SHOULD NOT be run since they are using absolute path to the required utilities that would most likely be missing in your computer.**
+
+> **TODO: It would be nice to have some kind of script that automates the process of preparing the `.apk` for and Android release, using some kind of config file for the utilities path.
 
 ## TODO
 
@@ -681,14 +723,17 @@ Do not forget to:
 [_doc]: https://lodash.com/docs/4.17.4
 [chai-as-promised]: https://github.com/domenic/chai-as-promised
 [chai-doc]: http://chaijs.com/api/
+[gdcd]: https://console.developers.google.com/apis/api/youtube.googleapis.com/credentials?project=biopocketapp
 [ionic]: https://ionicframework.com
 [ionic-doc]: https://ionicframework.com/docs/
 [ionic-env-vars]: https://github.com/gshigeto/ionic-environment-variables
+[inyvp]: https://ionicframework.com/docs/v3/native/youtube-video-player/
 [leaflet-doc]: http://leafletjs.com/reference-1.3.0.html
 [messageformat]: https://messageformat.github.io
 [messageformat-guide]: https://messageformat.github.io/guide/
 [mocha-doc]: https://mochajs.org
 [moment]: https://momentjs.com
+[ngx-markdown]: https://www.npmjs.com/package/ngx-markdown
 [ngx-translate]: http://www.ngx-translate.com
 [ng-doc]: https://angular.io/docs
 [ngl-doc]: https://github.com/Asymmetrik/ngx-leaflet

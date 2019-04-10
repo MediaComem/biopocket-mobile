@@ -33,8 +33,8 @@ import { RegistrationService } from './providers/registration/registration';
     UnregisterPage,
     RegisterPage
   ],
-  exports: [RegistrationModal],
-  providers: [RegistrationService],
+  exports: [ RegistrationModal ],
+  providers: [ RegistrationService ],
   entryComponents: [
     RegistrationModal,
     RegistrationTabsPage,

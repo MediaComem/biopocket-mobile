@@ -2,11 +2,9 @@ import { by, ElementArrayFinder } from 'protractor';
 import { AbstractPageObject } from './abstract.po';
 
 export class ThemePageObject extends AbstractPageObject {
-  expectedTitle: string;
 
-  constructor(selector: string) {
-    super(selector);
-    this.expectedTitle = 'Thème';
+  constructor() {
+    super('theme-page', 'Thème');
   }
 
   getThemeDetails(): ElementArrayFinder {

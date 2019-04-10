@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { stub } from 'sinon';
 
 @Component({ selector: 'registration-form', template: '' })
 export class RegistrationFormStubComponent {
@@ -7,22 +8,14 @@ export class RegistrationFormStubComponent {
   submitted: any;
   error: any;
 
-  private readonly registrationService: any;
-  private readonly toast: any;
-  private readonly clipboard: any;
-  private readonly globalization: any;
-  private readonly translateService: any;
+  ngOnInit: () => void;
+  onSubmit: (registrationForm: any) => void;
+  copyRegistrationToClipboard: () => void;
 
-  ngOnInit() {
-    return null;
-  }
-
-  onSubmit(registrationForm: any): void {
-    return registrationForm;
-  }
-
-  copyRegistrationToClipboard() {
-    return null;
+  constructor() {
+    this.ngOnInit = stub();
+    this.onSubmit = stub();
+    this.copyRegistrationToClipboard = stub();
   }
 
 }

@@ -1,10 +1,9 @@
-// Mocha global variables (for Windows)
-/// <reference path="../../../node_modules/@types/mocha/index.d.ts" />
-
 import { TestBed } from '@angular/core/testing';
+import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
 import { MomentModule } from 'angular2-moment';
 import { expect } from 'chai';
 import { IonicModule, NavController } from 'ionic-angular';
+import { mockNavController } from 'ionic-angular/util/mock-providers';
 
 import { HomePage } from '@pages/home/home';
 import { translateModuleForRoot } from '@utils/i18n';
@@ -12,12 +11,8 @@ import { translateModuleForRoot } from '@utils/i18n';
 describe('HomePage', () => {
   let fixture;
   let component;
-  let navControllerMock;
 
   beforeEach(() => {
-
-    navControllerMock = {};
-
     TestBed.configureTestingModule({
       declarations: [
         HomePage
@@ -28,12 +23,11 @@ describe('HomePage', () => {
         translateModuleForRoot
       ],
       providers: [
-        { provide: NavController, useValue: navControllerMock }
+        { provide: NavController, useValue: mockNavController() },
+        { provide: YoutubeVideoPlayer, useValue: {} }
       ]
     });
-  });
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(HomePage);
     component = fixture.componentInstance;
   });

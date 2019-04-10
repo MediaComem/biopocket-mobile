@@ -10,11 +10,14 @@ import * as actionFixtures from '../backend/server/spec/fixtures/actions';
 import * as locationFixtures from '../backend/server/spec/fixtures/location';
 import { create as createData } from '../backend/utils/data';
 import { expect } from '../spec/chai';
+import { absenceOf, compareCoordinates, elementIsClickable, expectDisplayed, invisibilityOf, presenceOf, setWindowSize, visibilityOf } from './utils';
+
 import { ActionPageObject } from './po/action.po';
 import { ActionsListPageObject } from './po/actions-list.po';
+import { HomePageObject } from './po/home.po';
 import { MapPageObject } from './po/map.po';
+import { MenuPageObject } from './po/menu.po';
 import { ThemePageObject } from './po/theme.po';
-import { absenceOf, compareCoordinates, expectDisplayed, invisibilityOf, presenceOf, visibilityOf } from './utils';
 
 const ONEX_BBOX = {
   southWest: [ 6.086417, 46.173987 ],
@@ -33,13 +36,18 @@ const ONEX_BBOX_HEIGHT = distance(point(ONEX_BBOX.southWest), point([ ONEX_BBOX.
 describe('App', function() {
 
   let locations, actions;
+  let menuPage: MenuPageObject;
+  let homePage: HomePageObject;
   let mapPage: MapPageObject;
   let actionsListPage: ActionsListPageObject;
   let actionPage: ActionPageObject;
   let themePage: ThemePageObject;
 
   beforeEach(async function() {
-    mapPage = new MapPageObject('map-page');
+    mapPage = new MapPageObject();
+    menuPage = new MenuPageObject();
+    homePage = new HomePageObject();
+    actionsListPage = new ActionsListPageObject();
 
     // Insert 3 random locations into the database and sort them by ascending longitude and latitude.
     locations = await createData(3, locationFixtures.location, { bbox: ONEX_BBOX });
@@ -52,42 +60,71 @@ describe('App', function() {
     // Set a window size with the same width/height ratio as the Onex bounding box.
     const windowWidth = 1440;
     const windowHeight = windowWidth / (ONEX_BBOX_WIDTH / ONEX_BBOX_HEIGHT);
-    await mapPage.setWindowSize(windowWidth, windowHeight);
+    await setWindowSize(windowWidth, windowHeight);
   });
 
   /**
    * --- Main e2e scenario ---
    *
    * This end-to-end scenario simulates a user going through the following steps :
-   * 1. Arriving on the root page, which should be the Map Page.
-   * 2. Clicking on a Location map marker, and thus displaying the popover with the correct information.
-   * 3. Dismissing the popover by clicking on its backdrop.
-   * 4. Navigating to the Actions List page by clicking on the adequate button on the Map page.
-   * 5. Scrolling to the bottom of the actions list page and trigger a new load.
-   * 6. Clicking on the first action on the actions list page, and thus displaying the correct Action page.
-   * 7. Clicking on the theme on the action page, and thus displaying the correct Theme page.
-   * 8. Clicking on the back button and thus returning to the previous Action page.
+   * 1. Arriving on the root page, which should be the Home Page.
+   * 2. Opening the slide menu.
+   * 3. Clicking on the map item and thus arriving on the Map Page.
+   * 4. Clicking on a Location map marker, and thus displaying the popover with the correct information.
+   * 5. Dismissing the popover by clicking on its backdrop.
+   * 6. Navigating to the Actions List page by clicking on the adequate button on the Map page.
+   * 7. Scrolling to the bottom of the actions list page and trigger a new load.
+   * 8. Clicking on the first action on the actions list page, and thus displaying the correct Action page.
+   * 9. Clicking on the theme on the action page, and thus displaying the correct Theme page.
+   * 10. Clicking on the back button and thus returning to the previous Action page.
    */
   it('should allow a user to execute the main scenario', async function() {
-    this.timeout(20000);
+    this.timeout(30000);
 
     /**
-     * 1. Arriving on the root page, which should be the Map Page.
+     * Arriving on the root page, which should be the Home Page.
      */
 
-    // Navigate to the map page.
-    await mapPage.navigateTo();
-    await expect(mapPage.getTitle()).to.eventually.equal('BioPocket');
+    await browser.get('/');
+    await expect(browser.getTitle()).to.eventually.equal('BioPocket');
+
+    const homePageFinder = homePage.getPage();
+    await presenceOf(homePageFinder, 'Home page');
+    await expectDisplayed(homePageFinder, { elementName: 'Home Page' });
+    await homePage.expectTitle();
+
+    /**
+     * Opening the slide menu.
+     */
+
+    const menuButtonFinder = homePage.getMenuButton();
+    await elementIsClickable(menuButtonFinder);
+    menuButtonFinder.click();
+
+    const menuPageFinder = menuPage.getPage();
+    await presenceOf(menuPageFinder, 'Menu page');
+    await expectDisplayed(menuPageFinder, { elementName: 'menu' });
+
+    /**
+     * Clicking on the map item and thus arriving on the Map Page.
+     */
+
+    // Click on the Map Menu Item
+    const mapMenuItemFinder = menuPage.getItem('map');
+    await elementIsClickable(mapMenuItemFinder);
+    mapMenuItemFinder.click();
+
+    await invisibilityOf(menuPageFinder, 'Menu page');
 
     // Wait for the map page to show up on the DOM
     const mapPageFinder = mapPage.getPage();
-    await presenceOf(mapPageFinder);
+    await presenceOf(mapPageFinder, 'Map page');
     await expectDisplayed(mapPageFinder, { elementName: 'Map Page' });
-    await expect(mapPage.getPageTitle().getText()).to.eventually.equal('Carte');
+    await mapPage.expectTitle();
 
     // Ensure that all markers are displayed.
     const markerIconFinders = await mapPage.getMarkerIcons();
-    expect(markerIconFinders).to.have.lengthOf(3);
+    expect(markerIconFinders, 'There are more than 3 markers on the map').to.have.lengthOf(3);
 
     /**
      * Clicking on a Location map marker, and thus displaying the popover with the correct information.
@@ -97,7 +134,7 @@ describe('App', function() {
     const popoverFinder = await mapPage.showFirstLocation();
 
     // Ensure that the popover is displayed.
-    await visibilityOf(popoverFinder);
+    await visibilityOf(popoverFinder, 'Map marker popover');
     await expectDisplayed(popoverFinder, { elementName: 'Popover' });
 
     // Ensure that the data of the correct location is displayed in the popover.
@@ -109,36 +146,35 @@ describe('App', function() {
     expect(locationDetailsText).to.have.string(location.get('short_name'));
 
     /**
-     * 3. Dismissing the popover by clicking on its backdrop.
+     * Dismissing the popover by clicking on its backdrop.
      */
 
     await mapPage.closePopover();
 
     /**
-     * 4. Navigating to the Actions List page by clicking on the adequate button on the Map page.
+     * Navigating to the Actions List page by clicking on the adequate button on the Map page.
      */
 
     // Resize the window size small enough to force a scroll in the Actions List Page
-    await mapPage.setWindowSize(600, 400);
+    await setWindowSize(600, 400);
 
     // Go to the actions list page.
     actionsListPage = await mapPage.goToActionList();
 
     // Wait for the actions list page to show up on the DOM
     const actionsListPageFinder = actionsListPage.getPage();
-    await presenceOf(actionsListPageFinder);
+    await presenceOf(actionsListPageFinder, 'Actions list page');
     await expectDisplayed(actionsListPageFinder, { elementName: 'ActionsList Page' });
 
     // Ensure that the navbar title is indeed the expected title.
-    const actionsListPageTitleFinder = await actionsListPage.getPageTitle();
-    await expect(actionsListPageTitleFinder.getText()).to.eventually.have.string(actionsListPage.expectedTitle);
+    await actionsListPage.expectTitle();
 
     // Ensure that there are as many actions on the page as there are in the database
     let actionListItemsFinder = await actionsListPage.getActionListItems();
     expect(actionListItemsFinder).to.have.lengthOf(5);
 
     /**
-     * 5. Scrolling to the bottom of the actions list page and trigger a new load.
+     * Scrolling to the bottom of the actions list page and trigger a new load.
      */
 
     // Scroll to page bottom to trigger an infinite scroll load
@@ -159,8 +195,7 @@ describe('App', function() {
     const actionPageFinder = actionPage.getPage();
 
     // Ensure that the navbar title is indeed the expected title.
-    const actionPageTitleFinder = await actionPage.getPageTitle();
-    await expect(actionPageTitleFinder.getText()).to.eventually.have.string(actionPage.expectedTitle);
+    await actionPage.expectTitle();
 
     // Ensure that the content of the page matches the action data
     const actionDetailsText = await actionPage.getActionDetails().getText();
@@ -168,7 +203,7 @@ describe('App', function() {
     expect(actionDetailsText).to.have.string(actions[0].get('description'));
 
     /**
-     * 7. Clicking on the theme on the action page, and thus displaying the correct Theme page.
+     * Clicking on the theme on the action page, and thus displaying the correct Theme page.
      */
 
     // Click on the theme
@@ -176,14 +211,13 @@ describe('App', function() {
 
     // Wait for the Theme page to show up onto the DOM
     const themePageFinder = await themePage.getPage();
-    await presenceOf(themePageFinder);
+    await presenceOf(themePageFinder, 'Theme page');
     await expectDisplayed(themePageFinder, { elementName: 'Theme Page' });
-    await invisibilityOf(actionPageFinder);
+    await invisibilityOf(actionPageFinder, 'Action page');
     await expectDisplayed(actionPageFinder, { elementName: 'Action Page', shouldBeDisplayed: false });
 
     // Ensure that the navbar title is indeed the expected title.
-    const themePageTitleFinder = await themePage.getPageTitle();
-    await expect(themePageTitleFinder.getText()).to.eventually.have.string(themePage.expectedTitle);
+    await themePage.expectTitle();
 
     // Ensure that the content of the page matches the theme data.
     const themeDetailsText = await themePage.getThemeDetailsText();
@@ -201,14 +235,14 @@ describe('App', function() {
     expect(themeDetailsText).to.have.string(theme.get('description'));
 
     /**
-     * 8. Clicking on the back button and thus returning to the previous Action page.
+     * Clicking on the back button and thus returning to the previous Action page.
      */
 
     // Click on the back button from the Theme Page
     await themePage.goBack();
 
     // Ensure that the Action Page shows up in lieu of the Theme Page.
-    await absenceOf(themePageFinder);
+    await absenceOf(themePageFinder, 'Theme page');
     await expectDisplayed(actionPageFinder, { elementName: 'Action Page' });
   });
 });

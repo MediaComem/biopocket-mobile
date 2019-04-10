@@ -1,3 +1,4 @@
+import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule, NavController, NavParams } from 'ionic-angular';
 import { stub } from 'sinon';
@@ -8,6 +9,12 @@ import { TranslateService } from '@ngx-translate/core';
 import { ThemePage } from '@pages/theme/theme';
 import { expect } from '@spec/chai';
 import { translateModuleForRoot } from '@utils/i18n';
+
+/**
+ * Stub component for the `markdown` selector in the Theme Page template
+ */
+@Component({ selector: 'markdown', template: '' })
+class MarkdownStubComponent { }
 
 describe('ThemePage', () => {
   let navControllerMock, navParamsMock;
@@ -33,7 +40,10 @@ describe('ThemePage', () => {
     };
 
     TestBed.configureTestingModule({
-      declarations: [ ThemePage ],
+      declarations: [
+        ThemePage,
+        MarkdownStubComponent
+      ],
       imports: [
         translateModuleForRoot,
         IonicModule.forRoot(ThemePage)

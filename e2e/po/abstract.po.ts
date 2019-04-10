@@ -9,25 +9,11 @@ import { AVERAGE_WAIT_TIME } from '../utils';
 export class AbstractPageObject {
 
   selector: string;
+  expectedTitle: string;
 
-  constructor(pageSelector: string) {
+  constructor(pageSelector: string, expectedTitle?: string) {
     this.selector = pageSelector;
-  }
-
-  /**
-   * Returns a promise that will be resolved with the title of the page.
-   */
-  async getTitle(): Promise<string> {
-    return browser.getTitle();
-  }
-
-  /**
-   * Returns a promise that will be resolved when the browser windows has been resized according to the provided width and height.
-   * @param width The targeted width.
-   * @param height The targeted height.
-   */
-  async setWindowSize(width: number, height: number): Promise<void> {
-    await browser.driver.manage().window().setSize(width, height);
+    this.expectedTitle = expectedTitle;
   }
 
   /**
@@ -40,10 +26,13 @@ export class AbstractPageObject {
   /**
    * Returns an element finder for the Ionic `<ion-title>` tag in the current page.
    */
-  getPageTitle(): ElementFinder {
+  getTitle(): ElementFinder {
     return this.getPage().element(by.css('ion-title'));
   }
 
+  /**
+   * Returns an element finder for the Ionic back button element in the current page.
+   */
   getBackButton(): ElementFinder {
     return this.getPage().element(by.css('button.back-button'));
   }
@@ -60,11 +49,25 @@ export class AbstractPageObject {
   }
 
   /**
+   * Returns an element finder for the Ionic menu button element in the current page.
+   */
+  getMenuButton(): ElementFinder {
+    return this.getPage().element(by.css('button.bar-button-menutoggle'));
+  }
+
+  /**
    * Scrolls the browser to the given `finder` in the DOM.
    * This is done in a "smooth" way, so that any scroll-triggered event can be fired.
    * @param finder The element to scroll to.
    */
   scrollTo(finder: ElementFinder): promise.Promise<{}> {
     return browser.executeScript('arguments[0].scrollIntoView({behavior: "smooth", block: "end"});', finder);
+  }
+
+  /**
+   * Ensures that the actual title of the page is the one that is expected.
+   */
+  expectTitle(): Chai.PromisedAssertion {
+    return expect(this.getTitle().getText()).to.eventually.equal(this.expectedTitle);
   }
 }

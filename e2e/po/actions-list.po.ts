@@ -9,11 +9,8 @@ import { ActionPageObject } from './action.po';
  */
 export class ActionsListPageObject extends AbstractPageObject {
 
-  expectedTitle: string;
-
-  constructor(selector: string) {
-    super(selector);
-    this.expectedTitle = 'Liste des actions';
+  constructor() {
+    super('actions-list-page', 'Liste des actions');
   }
 
   /**

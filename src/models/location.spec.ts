@@ -5,7 +5,7 @@ import { expect } from 'chai';
 
 import { Location } from '@models/location';
 
-describe('Location Object', function () {
+describe('Location Object', function() {
   let locationData;
   let locationObj;
   const locationRequiredKeys = [
@@ -16,7 +16,7 @@ describe('Location Object', function () {
   const addressRequiredKeys = [ 'street', 'city', 'zipCode', 'state' ];
   const addressOptionalKeys = [ 'number' ];
 
-  beforeEach(function () {
+  beforeEach(function() {
     locationData = {
       id: 'c821bc0f-85b4-44d5-9bbe-a30cf197c30a',
       name: 'Somewhere over the rainbow',
@@ -40,7 +40,7 @@ describe('Location Object', function () {
     };
   });
 
-  it('should only have correct required values', function () {
+  it('should only have correct required values', function() {
     locationObj = new Location(locationData);
     compareRequiredValues(locationObj, locationData);
 
@@ -52,7 +52,7 @@ describe('Location Object', function () {
     expect(locationObj.address, 'The new Location\'s address property has more or less keys than expected.').to.have.all.keys(addressRequiredKeys);
   });
 
-  it('should have all correct values', function () {
+  it('should have all correct values', function() {
     locationData.shortName = 'Somewhere';
     locationData.address.number = 125;
 

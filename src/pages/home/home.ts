@@ -1,14 +1,19 @@
 import { Component } from '@angular/core';
+import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
 import { NavController } from 'ionic-angular';
 
 @Component({
-  selector: 'page-home',
+  selector: 'home-page',
   templateUrl: 'home.html'
 })
 export class HomePage {
-  date: Date;
 
-  constructor(public navCtrl: NavController) {
-    this.date = new Date();
+  constructor(
+    public navCtrl: NavController,
+    private readonly youtube: YoutubeVideoPlayer
+  ) { }
+
+  openOnYoutube() {
+    this.youtube.openVideo('l1UtCks1ljE');
   }
 }

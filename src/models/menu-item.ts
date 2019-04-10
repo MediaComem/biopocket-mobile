@@ -1,7 +1,7 @@
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
-import { MenuItemIcon } from '@classes/menu-item-icon.class';
+import { MenuItemIcon } from '@models/menu-item-icon';
 
 /**
  * This class decorates a Component with a `title` property that returns the properly translated page title.

@@ -7,8 +7,8 @@ import moment from 'moment';
 
 import { fr } from '@app/locales';
 
-import { MenuItemIcon } from '@classes/menu-item-icon.class';
-import { MenuItem } from '@classes/menu-item.class';
+import { MenuItem } from '@models/menu-item';
+import { MenuItemIcon } from '@models/menu-item-icon';
 import { User } from '@models/user.interface';
 import { ActionsListPage } from '@pages/actions-list/actions-list';
 import { HomePage } from '@pages/home/home';
@@ -43,7 +43,7 @@ export class AppComponent {
     ];
 
     // Define the active menu item. Its page will be used as the rootPage of the app.
-    this.activeItem = this.menuItems[ 2 ];
+    this.activeItem = this.menuItems[0];
     // Set the rootPage based on the activeItem. This is only the case when instanciating the app.
     this.rootPage = this.activeItem.component;
 

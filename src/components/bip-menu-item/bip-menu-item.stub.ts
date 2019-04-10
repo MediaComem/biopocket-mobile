@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { MenuItemIcon } from '@classes/menu-item-icon.class';
+
+import { MenuItemIcon } from '@models/menu-item-icon';
 
 /**
  * This stub component should be used in tests where another component's template uses `bip-menu-item` elements.

@@ -9,8 +9,10 @@ import { Globalization } from '@ionic-native/globalization';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { Toast } from '@ionic-native/toast';
+import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
 import { MomentModule } from 'angular2-moment';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
 
 import { RegistrationModule } from '@app/modules/registration/registration.module';
 import { LocationDetails } from '@app/popovers/location-details/location-details';
@@ -49,7 +51,15 @@ import { AppComponent } from './app.component';
     ComponentsModule,
     DirectivesModule,
     FormsModule,
-    RegistrationModule
+    RegistrationModule,
+    MarkdownModule.forRoot({
+      markedOptions: {
+        provide: MarkedOptions,
+        useValue: {
+          headerIds: false
+        }
+      }
+    })
   ],
   bootstrap: [
     IonicApp
@@ -70,6 +80,7 @@ import { AppComponent } from './app.component';
     Globalization,
     StatusBar,
     SplashScreen,
+    YoutubeVideoPlayer,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     EnvService,
     {

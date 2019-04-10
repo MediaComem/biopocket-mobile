@@ -1,5 +1,5 @@
 <div class="registration-module">
-  <div [hidden]="unregistered">
+  <div [hidden]="unregistered" id="unregister-form">
     <p class="form-intro">{{ 'registration.forms.unregister.introduction' | translate }}</p>
     <div class="error" *ngIf="error">
       <p *ngIf="error.errors.length > 1">Plusieurs erreurs sont survenues:</p>

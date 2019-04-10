@@ -17,7 +17,6 @@ module.exports = {
       "@pages": path.resolve('./src/pages'),
       "@components": path.resolve('./src/components'),
       "@directives": path.resolve('./src/directives'),
-      "@classes": path.resolve('./src/classes'),
       "@providers": path.resolve('./src/providers'),
       "@models": path.resolve('./src/models'),
       "@app": path.resolve('./src')

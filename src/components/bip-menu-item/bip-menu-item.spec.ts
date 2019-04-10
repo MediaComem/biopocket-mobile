@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { MenuItemIcon } from '@classes/menu-item-icon.class';
 import { BipMenuItemIconStub as BipMenuItemIconComponent } from '@components/bip-menu-item-icon/bip-menu-item-icon.stub';
 import { BipMenuItemComponent } from '@components/bip-menu-item/bip-menu-item';
+import { MenuItemIcon } from '@models/menu-item-icon';
 import { expect } from '@spec/chai';
 
 /**
@@ -76,7 +76,7 @@ describe('BipMenuItem', () => {
 
       expectedAttributes.forEach(expectedAttribute => {
         const errorMessage = `The 'bip-menu-item-icon' element either does not have a '${expectedAttribute.name}' attribute, or its value is incorrect.`;
-        expect(bipMenuItemIconDe.componentInstance[ expectedAttribute.name ], errorMessage).to.equal(expectedAttribute.value);
+        expect(bipMenuItemIconDe.componentInstance[expectedAttribute.name], errorMessage).to.equal(expectedAttribute.value);
       });
     });
 

@@ -8,17 +8,20 @@
 </ion-header>
 
 <ion-content padding>
-  <h3>{{ 'pages.home.title' | translate }}</h3>
-
-  <p>
-    {{ 'pages.home.welcome' | translate: { TITLE: ('app' | translate) } }}
-  </p>
-
-  <p>
-    {{ 'pages.home.date' | translate: { DATE: (date | amDateFormat: 'LL') } }}
-  </p>
-
-  <button ion-button outline round class="navigation">Test</button>
-  <button class="bip-button outline navigation">Test</button>
-
+  <header>
+    <div class="img-wrapper cover">
+      <img src="assets/img/home-cover.png" alt="Illustration BioPocket">
+    </div>
+    <img id="homeLogo" src="assets/img/home-logo.png" alt="Logo BioPocket">
+    <p>{{ 'pages.home.intro' | translate }}</p>
+  </header>
+  <button class="bip-button outline specific-action" (click)="openOnYoutube()">{{ 'pages.home.playVideo' | translate }}</button>
+  <h3>{{ 'pages.home.observe.title' | translate }}</h3>
+  <p>{{ 'pages.home.observe.text.p1' | translate }}</p>
+  <p>{{ 'pages.home.observe.text.p2' | translate }}</p>
+  <h3>{{ 'pages.home.learn.title' | translate }}</h3>
+  <p>{{ 'pages.home.learn.text' | translate }}</p>
+  <h3>{{ 'pages.home.participate.title' | translate }}</h3>
+  <p>{{ 'pages.home.participate.text.p1' | translate }}</p>
+  <p>{{ 'pages.home.participate.text.p2' | translate }}</p>
 </ion-content>

@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { MenuItemIcon } from '@classes/menu-item-icon.class';
+
+import { MenuItemIcon } from '@models/menu-item-icon';
 
 @Component({
   selector: 'bip-menu-item',

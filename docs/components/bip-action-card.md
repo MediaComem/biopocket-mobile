@@ -19,7 +19,7 @@ It's destined to be used in the ActionsList Page and, ultimately, in the Dashboa
 ```ts
 // example.js
 import { Component } from '@angular/core';
-import { Action } from '@classes/menu-item-icon.class';
+import { Action } from '@models/action';
 
 @Component({
   selector: 'example',
