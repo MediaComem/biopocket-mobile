@@ -89,7 +89,7 @@ describe('App', function() {
     await expect(browser.getTitle()).to.eventually.equal('BioPocket');
 
     const homePageFinder = homePage.getPage();
-    await presenceOf(homePageFinder);
+    await presenceOf(homePageFinder, 'Home page');
     await expectDisplayed(homePageFinder, { elementName: 'Home Page' });
     await homePage.expectTitle();
 
@@ -102,7 +102,7 @@ describe('App', function() {
     menuButtonFinder.click();
 
     const menuPageFinder = menuPage.getPage();
-    await presenceOf(menuPageFinder);
+    await presenceOf(menuPageFinder, 'Menu page');
     await expectDisplayed(menuPageFinder, { elementName: 'menu' });
 
     /**
@@ -114,11 +114,11 @@ describe('App', function() {
     await elementIsClickable(mapMenuItemFinder);
     mapMenuItemFinder.click();
 
-    await invisibilityOf(menuPageFinder);
+    await invisibilityOf(menuPageFinder, 'Menu page');
 
     // Wait for the map page to show up on the DOM
     const mapPageFinder = mapPage.getPage();
-    await presenceOf(mapPageFinder);
+    await presenceOf(mapPageFinder, 'Map page');
     await expectDisplayed(mapPageFinder, { elementName: 'Map Page' });
     await mapPage.expectTitle();
 
@@ -134,7 +134,7 @@ describe('App', function() {
     const popoverFinder = await mapPage.showFirstLocation();
 
     // Ensure that the popover is displayed.
-    await visibilityOf(popoverFinder);
+    await visibilityOf(popoverFinder, 'Map marker popover');
     await expectDisplayed(popoverFinder, { elementName: 'Popover' });
 
     // Ensure that the data of the correct location is displayed in the popover.
@@ -163,7 +163,7 @@ describe('App', function() {
 
     // Wait for the actions list page to show up on the DOM
     const actionsListPageFinder = actionsListPage.getPage();
-    await presenceOf(actionsListPageFinder);
+    await presenceOf(actionsListPageFinder, 'Actions list page');
     await expectDisplayed(actionsListPageFinder, { elementName: 'ActionsList Page' });
 
     // Ensure that the navbar title is indeed the expected title.
@@ -211,9 +211,9 @@ describe('App', function() {
 
     // Wait for the Theme page to show up onto the DOM
     const themePageFinder = await themePage.getPage();
-    await presenceOf(themePageFinder);
+    await presenceOf(themePageFinder, 'Theme page');
     await expectDisplayed(themePageFinder, { elementName: 'Theme Page' });
-    await invisibilityOf(actionPageFinder);
+    await invisibilityOf(actionPageFinder, 'Action page');
     await expectDisplayed(actionPageFinder, { elementName: 'Action Page', shouldBeDisplayed: false });
 
     // Ensure that the navbar title is indeed the expected title.
@@ -242,7 +242,7 @@ describe('App', function() {
     await themePage.goBack();
 
     // Ensure that the Action Page shows up in lieu of the Theme Page.
-    await absenceOf(themePageFinder);
+    await absenceOf(themePageFinder, 'Theme page');
     await expectDisplayed(actionPageFinder, { elementName: 'Action Page' });
   });
 });

@@ -116,7 +116,7 @@ export function visibilityOf(finder: ElementFinder, element = 'requested element
 }
 
 export function invisibilityOf(finder: ElementFinder, element = 'requested element', timeout = AVERAGE_WAIT_TIME) {
-  return browser.wait(EC.invisibilityOf(finder), timeout, `The ${message} was still visibile on the screen after ${timeout}ms`);
+  return browser.wait(EC.invisibilityOf(finder), timeout, `The ${element} was still visibile on the screen after ${timeout}ms`);
 }
 
 /**
