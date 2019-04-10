@@ -37,7 +37,7 @@ describe('Registration module', () => {
     await browser.get('/');
 
     const homePageFinder = homePage.getPage();
-    await presenceOf(homePageFinder);
+    await presenceOf(homePageFinder, 'Home page');
 
     // Open the mneu
     const menuButtonFinder = homePage.getMenuButton();
@@ -45,7 +45,7 @@ describe('Registration module', () => {
     menuButtonFinder.click();
 
     const menuPageFinder = menuPage.getPage();
-    await presenceOf(menuPageFinder);
+    await presenceOf(menuPageFinder, 'Menu page');
 
     // Click on the "Keep in touch" button
     const menuKeepInTouchButtonFinder = menuPage.getKeepInTouchButton();
@@ -57,11 +57,11 @@ describe('Registration module', () => {
 
     // Check that the correct pages are displayed
     const registrationTabsPageFinder = await registrationTabsPage.getPage();
-    await presenceOf(registrationTabsPageFinder);
+    await presenceOf(registrationTabsPageFinder, 'Registration tabs page');
     await expect(registrationTabsPage.getTitle().getText()).to.eventually.be.equal(registrationTabsPage.expectedTitle);
 
     const registerPageFinder = await registerPage.getPage();
-    await visibilityOf(registerPageFinder);
+    await visibilityOf(registerPageFinder, 'Register page');
     await expect(registrationTabsPage.getActiveTab().getText()).to.eventually.equal(registerPage.expectedTitle);
 
     // Check that the state of the form is correct
@@ -92,7 +92,7 @@ describe('Registration module', () => {
     registrationSubmitButton.click();
 
     // Check that the registration has been saved and the state of the forme has changed
-    await invisibilityOf(registerFormFinder);
+    await invisibilityOf(registerFormFinder, 'Register form');
     await expectDisplayed(registerSuccessFinder);
 
     // Check that the saved registration matches the provided information
@@ -108,10 +108,10 @@ describe('Registration module', () => {
     await elementIsClickable(unregistrationTabFinder);
     unregistrationTabFinder.click();
 
-    await invisibilityOf(registerPageFinder);
+    await invisibilityOf(registerPageFinder, 'Register page');
 
     const unregisterPageFinder = await unregisterPage.getPage();
-    await visibilityOf(unregisterPageFinder);
+    await visibilityOf(unregisterPageFinder, 'Unregister page');
     await expect(registrationTabsPage.getActiveTab().getText()).to.eventually.equal(unregisterPage.expectedTitle);
 
     // Check that the state of the form is correct
@@ -134,7 +134,7 @@ describe('Registration module', () => {
     await elementIsClickable(unregisterSubmitButton);
     unregisterSubmitButton.click();
 
-    await invisibilityOf(unregisterFormFinder);
+    await invisibilityOf(unregisterFormFinder, 'Unregister form');
     await expectDisplayed(unregisterSuccessFinder, { elementName: 'Unregistration Success' });
   });
 });

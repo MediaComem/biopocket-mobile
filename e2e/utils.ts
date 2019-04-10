@@ -91,8 +91,8 @@ export function isDebugEnabled() {
  * @param finder An element finder.
  * @param {Number} [timeout=5000] The number of millisecondes after which the browser stops waiting. Defaults to `5000`.
  */
-export function presenceOf(finder: ElementFinder, timeout = AVERAGE_WAIT_TIME) {
-  return browser.wait(EC.presenceOf(finder), timeout, `The requested element was not present in the DOM after ${timeout}ms`);
+export function presenceOf(finder: ElementFinder, element = 'requested element', timeout = AVERAGE_WAIT_TIME) {
+  return browser.wait(EC.presenceOf(finder), timeout, `The ${element} was not present in the DOM after ${timeout}ms`);
 }
 
 /**
@@ -101,8 +101,8 @@ export function presenceOf(finder: ElementFinder, timeout = AVERAGE_WAIT_TIME) {
  * @param finder An element finder.
  * @param {Number} [timeout=5000] The number of millisecondes after which the browser stops waiting. Defaults to `5000`.
  */
-export function absenceOf(finder: ElementFinder, timeout = AVERAGE_WAIT_TIME) {
-  return browser.wait(EC.stalenessOf(finder), timeout);
+export function absenceOf(finder: ElementFinder, element = 'requested element', timeout = AVERAGE_WAIT_TIME) {
+  return browser.wait(EC.stalenessOf(finder), timeout, `The ${element} was not absent from the DOM after ${timeout}ms`);
 }
 
 /**
@@ -111,12 +111,12 @@ export function absenceOf(finder: ElementFinder, timeout = AVERAGE_WAIT_TIME) {
  * @param finder An element finder.
  * @param {Number} [timeout=5000] The number of millisecondes after which the browser stops waiting. Defaults to `5000`.
  */
-export function visibilityOf(finder: ElementFinder, timeout = AVERAGE_WAIT_TIME) {
-  return browser.wait(EC.visibilityOf(finder), timeout, `The requested element was not visible on the screen after ${timeout}ms`);
+export function visibilityOf(finder: ElementFinder, element = 'requested element', timeout = AVERAGE_WAIT_TIME) {
+  return browser.wait(EC.visibilityOf(finder), timeout, `The ${element} was not visible on the screen after ${timeout}ms`);
 }
 
-export function invisibilityOf(finder: ElementFinder, timeout = AVERAGE_WAIT_TIME) {
-  return browser.wait(EC.invisibilityOf(finder), timeout);
+export function invisibilityOf(finder: ElementFinder, element = 'requested element', timeout = AVERAGE_WAIT_TIME) {
+  return browser.wait(EC.invisibilityOf(finder), timeout, `The ${message} was still visibile on the screen after ${timeout}ms`);
 }
 
 /**
