@@ -139,6 +139,9 @@
     "tslint-misc-rules": "^3.5.1",
     "typescript": "^2.4.2"
   },
+  "engines": {
+    "node": ">= 8"
+  },
   "description": "An Ionic project",
   "false": {},
   "cordova": {
