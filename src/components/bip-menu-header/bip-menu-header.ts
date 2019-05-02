@@ -17,7 +17,7 @@ import { User } from '../../models/user.interface';
 })
 export class BipMenuHeaderComponent implements OnInit {
 
-  @Input() user: User;
+  @Input() user: Partial<User>;
   @Output() goToPage: EventEmitter<any>;
   @Output() openLoginModal: EventEmitter<void>;
 

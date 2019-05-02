@@ -8,6 +8,8 @@ export interface User {
   id: string;
   roles: string[];
   updatedAt: Date;
+  profilePictureUrl: string;
+  completeName: string;
 }
 
 export interface UserCredentials {
