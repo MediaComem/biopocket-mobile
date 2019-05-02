@@ -20,7 +20,7 @@ export class BipMenuHeaderComponent implements OnInit {
   @Input() user: Partial<User>;
   @Output() goToPage: EventEmitter<any>;
   @Output() openLoginModal: EventEmitter<void>;
-
+  
   registrationPage: any;
 
   constructor() {

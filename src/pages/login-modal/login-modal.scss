@@ -39,3 +39,8 @@ login-modal {
   div.form-input, button.bip-button {
     width: 100%;
   }
+
+  .error-message {
+    color: bipColor('danger');
+    margin: calc(#{$globalSpacing}/2) auto;
+  }

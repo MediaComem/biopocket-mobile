@@ -6,6 +6,7 @@ import { BipMenuHeaderComponent } from '@components/bip-menu-header/bip-menu-hea
 import { DirectivesModule } from '@directives/directives.module';
 import { translateModuleForRoot } from '@utils/i18n';
 import { BipActionCardComponent } from './bip-action-card/bip-action-card';
+import { BipInputStateIndicatorComponent } from './bip-input-state-indicator/bip-input-state-indicator';
 import { BipMenuItemIconComponent } from './bip-menu-item-icon/bip-menu-item-icon';
 import { BipMenuItemComponent } from './bip-menu-item/bip-menu-item';
 import { BipProfilePictureComponent } from './bip-profile-picture/bip-profile-picture';
@@ -16,7 +17,8 @@ const components = [
   BipProfilePictureComponent,
   BipMenuItemIconComponent,
   BipMenuItemComponent,
-  BipActionCardComponent
+  BipActionCardComponent,
+  BipInputStateIndicatorComponent
 ];
 
 @NgModule({
