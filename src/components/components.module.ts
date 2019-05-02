@@ -10,28 +10,23 @@ import { BipMenuItemIconComponent } from './bip-menu-item-icon/bip-menu-item-ico
 import { BipMenuItemComponent } from './bip-menu-item/bip-menu-item';
 import { BipProfilePictureComponent } from './bip-profile-picture/bip-profile-picture';
 
+const components = [
+  BipMenuHeaderComponent,
+  BipIconComponent,
+  BipProfilePictureComponent,
+  BipMenuItemIconComponent,
+  BipMenuItemComponent,
+  BipActionCardComponent
+];
+
 @NgModule({
-  declarations: [
-    BipMenuHeaderComponent,
-    BipIconComponent,
-    BipProfilePictureComponent,
-    BipMenuItemIconComponent,
-    BipMenuItemComponent,
-    BipActionCardComponent
-  ],
+  declarations: components,
   imports: [
     IonicModule,
     translateModuleForRoot,
     DirectivesModule
   ],
-  exports: [
-    BipMenuHeaderComponent,
-    BipIconComponent,
-    BipProfilePictureComponent,
-    BipMenuItemIconComponent,
-    BipMenuItemComponent,
-    BipActionCardComponent
-  ]
+  exports: components
 })
 
 export class ComponentsModule { }

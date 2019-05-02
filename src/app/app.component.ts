@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { TranslateService } from '@ngx-translate/core';
-import { MenuController, Nav, Platform } from 'ionic-angular';
+import { MenuController, ModalController, Nav, Platform } from 'ionic-angular';
 import moment from 'moment';
 
 import { fr } from '@app/locales';
@@ -12,6 +12,7 @@ import { MenuItemIcon } from '@models/menu-item-icon';
 import { User } from '@models/user.interface';
 import { ActionsListPage } from '@pages/actions-list/actions-list';
 import { HomePage } from '@pages/home/home';
+import { LoginModal } from '@pages/login-modal/login-modal';
 import { MapPage } from '@pages/map/map';
 
 @Component({
@@ -31,7 +32,8 @@ export class AppComponent {
     private readonly statusBar: StatusBar,
     private readonly splashScreen: SplashScreen,
     private readonly translateService: TranslateService,
-    private readonly menuCtrl: MenuController
+    private readonly menuCtrl: MenuController,
+    private readonly modalCtrl: ModalController
   ) {
 
     this.initializeApp();
@@ -73,6 +75,13 @@ export class AppComponent {
       this.activeItem = pageOrMenuItem;
       this.menuCtrl.close();
     }
+  }
+
+  presentLoginModal() {
+    const loginModal = this.modalCtrl.create(LoginModal, {}, {
+      cssClass: 'login-modal'
+    });
+    loginModal.present();
   }
 
   /**

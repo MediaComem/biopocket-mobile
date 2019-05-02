@@ -1,0 +1,40 @@
+<ion-header mode="md" class="gradient">
+
+  <ion-navbar>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+        <bip-icon name="cross" color="light"></bip-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>{{ 'modals.login.connection' | translate }}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <p class="introduction">{{ 'modals.login.introduction' | translate }}</p>
+  <form #login="ngForm" (ngSubmit)="onSubmit(login)" class="login">
+    <!-- Username input -->
+    <div class="form-input">
+      <label for="login-username">
+        {{ 'modals.login.form.username.label' | translate}}
+      </label>
+      <input type="text" name="username" id="login-username" [(ngModel)]="credentials.username"
+        placeholder="{{ 'modals.login.form.username.placeholder' | translate }}">
+    </div>
+
+    <!-- Password input -->
+    <div class="form-input">
+      <label for="login-password">
+        {{ 'modals.login.form.password.label' | translate}}
+      </label>
+      <input type="password" name="password" id="login-password" [(ngModel)]="credentials.password"
+        placeholder="{{ 'modals.login.form.password.placeholder' | translate }}">
+    </div>
+
+    <!-- Submission button -->
+    <button type="submit" class="bip-button positive-action">
+      {{ 'modals.login.connection' | translate }}
+    </button>
+  </form>
+  <p>{{ 'modals.login.inscription.text' | translate }} {{ 'modals.login.inscription.action' | translate }}</p>
+</ion-content>

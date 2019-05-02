@@ -3,9 +3,9 @@ import { ModalController, NavController, NavParams } from 'ionic-angular';
 import { assign } from 'lodash';
 
 import { Action } from '@models/action';
+import { LoginModal } from '@pages/login-modal/login-modal';
 import { ThemePage } from '@pages/theme/theme';
 import { ActionsService } from '@providers/actions-service/actions-service';
-import { RegistrationModal } from 'modules/registration/pages/registration-modal/registration-modal';
 
 // tslint:disable-next-line:no-unused no-unused-variable
 const LOG_REF = '[ActionPage]';
@@ -34,10 +34,10 @@ export class ActionPage {
       .subscribe(result => assign(this.action, result));
   }
 
-  presentRegistrationModal() {
-    const registrationModal = this.modalCtrl.create(RegistrationModal, {}, {
-      cssClass: 'registration-modal'
+  presentLoginModal() {
+    const loginModal = this.modalCtrl.create(LoginModal, {}, {
+      cssClass: 'login-modal'
     });
-    registrationModal.present();
+    loginModal.present();
   }
 }

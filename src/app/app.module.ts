@@ -21,6 +21,7 @@ import { DirectivesModule } from '@directives/directives.module';
 import { ActionPage } from '@pages/action/action';
 import { ActionsListPage } from '@pages/actions-list/actions-list';
 import { HomePage } from '@pages/home/home';
+import { LoginModal } from '@pages/login-modal/login-modal';
 import { MapPage } from '@pages/map/map';
 import { ThemePage } from '@pages/theme/theme';
 import { ActionsModule } from '@providers/actions-service/actions-module';
@@ -30,16 +31,19 @@ import { LocationsModule } from '@providers/locations-service/locations-module';
 import { translateModuleForRoot } from '@utils/i18n';
 import { AppComponent } from './app.component';
 
-@NgModule({
-  declarations: [
+const components = [
     AppComponent,
     ActionsListPage,
     HomePage,
     LocationDetails,
     MapPage,
     ActionPage,
-    ThemePage
-  ],
+  ThemePage,
+  LoginModal
+];
+
+@NgModule({
+  declarations: components,
   imports: [
     BrowserModule,
     IonicModule.forRoot(AppComponent),
@@ -64,15 +68,7 @@ import { AppComponent } from './app.component';
   bootstrap: [
     IonicApp
   ],
-  entryComponents: [
-    AppComponent,
-    ActionsListPage,
-    HomePage,
-    LocationDetails,
-    MapPage,
-    ActionPage,
-    ThemePage
-  ],
+  entryComponents: components,
   providers: [
     Toast,
     Clipboard,

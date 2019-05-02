@@ -4,6 +4,22 @@ general:
   copy: "Copier"
   required: "\"{NAME}\" est obligatoire"
   invalid: "\"{NAME}\" est invalide"
+menu:
+  connection: "Se connecter"
+modals:
+  login:
+    introduction: "Pour participer à des actes, vous devez avoir un compte BioPocket et être connecté."
+    form:
+      username:
+        label: "Nom d'utilisateur"
+        placeholder: "Indiquez votre nom d'utilisateur"
+      password:
+        label: "Mot de passe"
+        placeholder: "Indiquez votre mot de passe"
+    connection: "Se connecter"
+    inscription:
+      text: "Pas encore de compte ?"
+      action: "Inscrivez-vous"
 pages:
   action:
     title: "Action"
@@ -43,7 +59,6 @@ popovers:
   locationDetails:
     website: "site internet"
 registration:
-  news: "Garder contact"
   register: "S'inscrire"
   unregister: "Se désinscrire"
   modal:

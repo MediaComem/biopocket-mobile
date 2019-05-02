@@ -19,12 +19,14 @@ export class BipMenuHeaderComponent implements OnInit {
 
   @Input() user: User;
   @Output() goToPage: EventEmitter<any>;
+  @Output() openLoginModal: EventEmitter<void>;
 
   registrationPage: any;
 
   constructor() {
     this.registrationPage = RegistrationTabsPage;
     this.goToPage = new EventEmitter<any>();
+    this.openLoginModal = new EventEmitter<void>();
   }
 
   ngOnInit(): void {
@@ -37,4 +39,7 @@ export class BipMenuHeaderComponent implements OnInit {
     this.goToPage.emit(page);
   }
 
+  showLoginModal() {
+    this.openLoginModal.emit();
+  }
 }
