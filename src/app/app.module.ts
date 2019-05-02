@@ -10,6 +10,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { Toast } from '@ionic-native/toast';
 import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
+import { IonicStorageModule } from '@ionic/storage';
 import { MomentModule } from 'angular2-moment';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
@@ -29,16 +30,16 @@ import { ApiInterceptor } from '@providers/api-interceptor/api-interceptor';
 import { EnvService } from '@providers/env-service/env-service';
 import { LocationsService } from '@providers/locations-service/locations-service';
 import { translateModuleForRoot } from '@utils/i18n';
-import { AuthServiceProvider } from '../providers/auth-service/auth-service';
+import { AuthService } from '../providers/auth-service/auth-service';
 import { AppComponent } from './app.component';
 
 const components = [
-    AppComponent,
-    ActionsListPage,
-    HomePage,
-    LocationDetails,
-    MapPage,
-    ActionPage,
+  AppComponent,
+  ActionsListPage,
+  HomePage,
+  LocationDetails,
+  MapPage,
+  ActionPage,
   ThemePage,
   LoginModal
 ];
@@ -52,6 +53,7 @@ const components = [
     FormsModule,
     HttpClientModule,
     IonicModule.forRoot(AppComponent),
+    IonicStorageModule.forRoot(),
     LeafletModule.forRoot(),
     MarkdownModule.forRoot({
       markedOptions: {
@@ -85,7 +87,8 @@ const components = [
       provide: HTTP_INTERCEPTORS,
       useClass: ApiInterceptor,
       multi: true
-    }
+    },
+    AuthService
   ]
 })
 export class AppModule { }

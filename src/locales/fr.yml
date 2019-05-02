@@ -10,9 +10,9 @@ modals:
   login:
     introduction: "Pour participer à des actes, vous devez avoir un compte BioPocket et être connecté."
     form:
-      username:
-        label: "Nom d'utilisateur"
-        placeholder: "Indiquez votre nom d'utilisateur"
+      email:
+        label: "E-mail"
+        placeholder: "Indiquez votre e-mail"
       password:
         label: "Mot de passe"
         placeholder: "Indiquez votre mot de passe"

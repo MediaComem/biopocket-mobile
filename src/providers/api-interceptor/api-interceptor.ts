@@ -1,7 +1,9 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { first, switchMap } from 'rxjs/operators';
 
+import { AuthService } from '@providers/auth-service/auth-service';
 import { EnvService } from '@providers/env-service/env-service';
 
 /**
@@ -14,7 +16,10 @@ import { EnvService } from '@providers/env-service/env-service';
 @Injectable()
 export class ApiInterceptor implements HttpInterceptor {
 
-  constructor(private readonly envService: EnvService) { }
+  constructor(
+    private readonly envService: EnvService,
+    private readonly injector: Injector
+  ) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
@@ -23,16 +28,30 @@ export class ApiInterceptor implements HttpInterceptor {
     const url = request.url.match(/^(?:https?:)?\/\/[^\/]/) ? request.url : `${backendUrl}${request.url}`;
     let modifiedRequest = request.clone({ url });
 
-    // TODO: automatically set the Authorization header when communicating with the BioPocket API
-    if (url.indexOf(backendUrl) === 0) {
-      modifiedRequest = modifiedRequest.clone({
-        setHeaders: {
-          // Authorization: `Bearer changeme`
-        }
-      });
+    // If request doest not target our backend, return the request without modification
+    if (url.indexOf(backendUrl) !== 0) {
+      return next.handle(modifiedRequest);
     }
 
-    return next.handle(modifiedRequest);
+    // Retrieve AuthProvider at runtime from the injector.
+    // (Otherwise there would be a circular dependency:
+    //  AuthInterceptorProvider -> AuthProvider -> HttpClient -> AuthInterceptorProvider).
+    const authService = this.injector.get(AuthService);
+
+    return authService.fetchToken().pipe(
+      first(),
+      switchMap(token => {
+
+        // Add it to the request if it doesn't already have an Authorization header.
+        if (token && !modifiedRequest.headers.has('Authorization')) {
+          modifiedRequest = modifiedRequest.clone({
+            headers: modifiedRequest.headers.set('Authorization', `Bearer ${token}`)
+          });
+        }
+
+        return next.handle(modifiedRequest);
+      })
+    );
   }
 
 }

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { NgForm } from '@angular/forms';
 import { ViewController } from 'ionic-angular';
 
 import { UserCredentials } from '@models/user.interface';
+import { AuthService } from '@providers/auth-service/auth-service';
 
 @Component({
   selector: 'login-modal',
@@ -13,10 +13,11 @@ export class LoginModal {
   credentials: UserCredentials;
 
   constructor(
-    public viewCtrl: ViewController
+    public viewCtrl: ViewController,
+    private readonly authService: AuthService
   ) { 
     this.credentials = {
-      username: '',
+      email: '',
       password: ''
     };
   }
@@ -25,8 +26,9 @@ export class LoginModal {
     this.viewCtrl.dismiss();
   }
 
-  onSubmit(login: NgForm) {
-    console.log(login);
-    console.log(this.credentials);
+  onSubmit() {
+    this.authService.logIn(this.credentials).subscribe(function(result) {
+      console.log(result);
+    });
   }
 }

@@ -1,8 +1,16 @@
 /**
  * Defines the structure of a User object.
- * TODO: update this interface when user managment is implemented.
  */
 export interface User {
-  profilePictureUrl: string;
-  completeName: string;
+  active: boolean;
+  createtAt: Date;
+  email: string;
+  id: string;
+  roles: string[];
+  updatedAt: Date;
+}
+
+export interface UserCredentials {
+  email: string;
+  password: string;
 }

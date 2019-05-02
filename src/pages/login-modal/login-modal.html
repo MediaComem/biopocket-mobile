@@ -12,14 +12,14 @@
 
 <ion-content padding>
   <p class="introduction">{{ 'modals.login.introduction' | translate }}</p>
-  <form #login="ngForm" (ngSubmit)="onSubmit(login)" class="login">
-    <!-- Username input -->
+  <form (ngSubmit)="onSubmit()" class="login">
+    <!-- Email input -->
     <div class="form-input">
-      <label for="login-username">
-        {{ 'modals.login.form.username.label' | translate}}
+      <label for="login-email">
+        {{ 'modals.login.form.email.label' | translate}}
       </label>
-      <input type="text" name="username" id="login-username" [(ngModel)]="credentials.username"
-        placeholder="{{ 'modals.login.form.username.placeholder' | translate }}">
+      <input type="email" name="email" id="login-email" [(ngModel)]="credentials.email"
+        placeholder="{{ 'modals.login.form.email.placeholder' | translate }}">
     </div>
 
     <!-- Password input -->
