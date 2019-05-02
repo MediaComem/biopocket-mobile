@@ -18,7 +18,6 @@ import { Marker } from '@models/marker';
 import { MapPage } from '@pages/map/map';
 import { EnvService } from '@providers/env-service/env-service';
 import { locationsDataMock } from '@providers/locations-service/locations-data.mock';
-import { LocationsModule } from '@providers/locations-service/locations-module';
 import { LocationsService } from '@providers/locations-service/locations-service';
 import { expect } from '@spec/chai';
 import { resetStub } from '@spec/sinon';
@@ -66,8 +65,7 @@ describe('MapPage', function() {
         HttpClientTestingModule,
         IonicModule.forRoot(MapPage),
         translateModuleForRoot,
-        LeafletModule.forRoot(),
-        LocationsModule
+        LeafletModule.forRoot()
       ],
       providers: [
         { provide: Geolocation, useValue: geolocationMock },

@@ -1,4 +1,4 @@
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -24,11 +24,12 @@ import { HomePage } from '@pages/home/home';
 import { LoginModal } from '@pages/login-modal/login-modal';
 import { MapPage } from '@pages/map/map';
 import { ThemePage } from '@pages/theme/theme';
-import { ActionsModule } from '@providers/actions-service/actions-module';
+import { ActionsService } from '@providers/actions-service/actions-service';
 import { ApiInterceptor } from '@providers/api-interceptor/api-interceptor';
 import { EnvService } from '@providers/env-service/env-service';
-import { LocationsModule } from '@providers/locations-service/locations-module';
+import { LocationsService } from '@providers/locations-service/locations-service';
 import { translateModuleForRoot } from '@utils/i18n';
+import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 import { AppComponent } from './app.component';
 
 const components = [
@@ -46,16 +47,12 @@ const components = [
   declarations: components,
   imports: [
     BrowserModule,
-    IonicModule.forRoot(AppComponent),
-    MomentModule,
-    translateModuleForRoot,
-    LeafletModule.forRoot(),
-    LocationsModule,
-    ActionsModule,
     ComponentsModule,
     DirectivesModule,
     FormsModule,
-    RegistrationModule,
+    HttpClientModule,
+    IonicModule.forRoot(AppComponent),
+    LeafletModule.forRoot(),
     MarkdownModule.forRoot({
       markedOptions: {
         provide: MarkedOptions,
@@ -63,13 +60,18 @@ const components = [
           headerIds: false
         }
       }
-    })
+    }),
+    MomentModule,
+    RegistrationModule,
+    translateModuleForRoot
   ],
   bootstrap: [
     IonicApp
   ],
   entryComponents: components,
   providers: [
+    ActionsService,
+    LocationsService,
     Toast,
     Clipboard,
     Geolocation,

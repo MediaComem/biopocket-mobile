@@ -26,9 +26,9 @@ import { MenuItem } from '@models/menu-item';
 import { ActionsListPage } from '@pages/actions-list/actions-list';
 import { HomePage } from '@pages/home/home';
 import { MapPage } from '@pages/map/map';
-import { ActionsModule } from '@providers/actions-service/actions-module';
+import { ActionsService } from '@providers/actions-service/actions-service';
 import { EnvService } from '@providers/env-service/env-service';
-import { LocationsModule } from '@providers/locations-service/locations-module';
+import { LocationsService } from '@providers/locations-service/locations-service';
 import { expect } from '@spec/chai';
 import { createPlatformMock } from '@spec/mocks';
 import { asSpy, restoreSpy } from '@spec/sinon';
@@ -78,11 +78,11 @@ describe('AppComponent', () => {
         MomentModule,
         translateModuleForRoot,
         LeafletModule.forRoot(),
-        LocationsModule,
-        ComponentsModule,
-        ActionsModule
+        ComponentsModule
       ],
       providers: [
+        ActionsService,
+        LocationsService,
         YoutubeVideoPlayer,
         Geolocation,
         { provide: Platform, useValue: platformMock },

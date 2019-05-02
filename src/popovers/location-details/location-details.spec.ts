@@ -13,7 +13,6 @@ import { fr } from '@app/locales';
 import { Location } from '@models/location';
 import { EnvService } from '@providers/env-service/env-service';
 import { locationsDataMock } from '@providers/locations-service/locations-data.mock';
-import { LocationsModule } from '@providers/locations-service/locations-module';
 import { LocationsService } from '@providers/locations-service/locations-service';
 import { expect } from '@spec/chai';
 import { translateModuleForRoot } from '@utils/i18n';
@@ -44,7 +43,6 @@ describe('LocationDetails', function() {
       ],
       imports: [
         IonicModule.forRoot(LocationDetails),
-        LocationsModule,
         translateModuleForRoot
       ],
       providers: [

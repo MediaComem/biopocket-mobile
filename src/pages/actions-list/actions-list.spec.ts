@@ -13,7 +13,6 @@ import { StubComponentsModule } from '@components/stub-components.module';
 import { Action } from '@models/action';
 import { ActionsListPage } from '@pages/actions-list/actions-list';
 import { paginatedResponseMock } from '@providers/actions-service/action-data.mock';
-import { ActionsModule } from '@providers/actions-service/actions-module';
 import { ActionsService } from '@providers/actions-service/actions-service';
 import { EnvService } from '@providers/env-service/env-service';
 import { expect } from '@spec/chai';
@@ -53,7 +52,6 @@ describe('ActionsListPage', function() {
         HttpClientTestingModule,
         IonicModule.forRoot(ActionsListPage),
         translateModuleForRoot,
-        ActionsModule,
         StubComponentsModule
       ],
       providers: [
