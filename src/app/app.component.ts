@@ -24,7 +24,7 @@ export class AppComponent {
   activeItem: MenuItem;
   rootPage: any;
   // This property will probably be removed when users are implemented
-  user: User;
+  user: Partial<User>;
   readonly menuItems: MenuItem[];
 
   constructor(

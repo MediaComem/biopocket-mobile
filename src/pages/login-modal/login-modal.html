@@ -21,7 +21,7 @@
       </label>
       <input email type="email" name="email" id="login-email" [(ngModel)]="credentials.email"
         required #email="ngModel" placeholder="{{ 'modals.login.form.email.placeholder' | translate }}"
-        [ngModelOptions]="{ updateOn: 'blur' }" autocomplete="email">
+        autocomplete="email">
       <p class="error-message" [hidden]="!(email.invalid && (!email.pristine || email.touched))">
         <span *ngIf="email.errors && !email.errors.required && email.errors.email">
           {{ 'general.invalid' | translate: { NAME: ('modals.login.form.email.label' | translate ) } }}
