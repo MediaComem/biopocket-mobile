@@ -5,24 +5,35 @@ import { HTTP_INTERCEPTORS, HttpClient, HttpRequest } from '@angular/common/http
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { expect } from 'chai';
-import { compact } from 'lodash';
+import { compact, merge } from 'lodash';
 import { Observable } from 'rxjs/Rx';
+import { stub } from 'sinon';
 
+import { AuthService } from '@providers/auth-service/auth-service';
 import { EnvService } from '@providers/env-service/env-service';
 import { HeadersOrParams, httpRequestMatcher } from '@spec/http';
+import { observableOf } from '@utils/observable';
 import { ApiInterceptor } from './api-interceptor';
 
 type EnvServiceMock = Partial<EnvService>;
 
-describe('ApiInterceptor', function() {
+describe('ApiInterceptor', function () {
   let envServiceMock: EnvServiceMock;
+  let authServiceMock;
+  let fetchTokenStub: () => {};
   let httpClient: HttpClient;
   let httpTestingCtrl: HttpTestingController;
 
-  beforeEach(function() {
+  beforeEach(function () {
+    fetchTokenStub = stub().returns(observableOf(undefined));
+
     envServiceMock = {
       environment: 'development',
       backendUrl: 'https://example.com/api'
+    };
+
+    authServiceMock = {
+      fetchToken: fetchTokenStub
     };
 
     TestBed.configureTestingModule({
@@ -31,6 +42,7 @@ describe('ApiInterceptor', function() {
       ],
       providers: [
         { provide: EnvService, useValue: envServiceMock },
+        { provide: AuthService, useValue: authServiceMock },
         // Plug the interceptor in so that we can make HTTP requests
         // and see if it does its job correctly.
         {
@@ -45,7 +57,7 @@ describe('ApiInterceptor', function() {
     httpTestingCtrl = TestBed.get(HttpTestingController);
   });
 
-  afterEach(function() {
+  afterEach(function () {
     // Make sure no extra HTTP requests were made.
     httpTestingCtrl.verify();
   });
@@ -100,14 +112,15 @@ describe('ApiInterceptor', function() {
      * @param expectedUrl The URL the request should be made to (without params).
      * @returns True if the request has exactly the expected properties, false otherwise.
      */
-    function testRequestMatcher(expectedUrl: string): (req: HttpRequest<any>) => boolean {
-      const testReqOptions = testData.options || {};
+    function testRequestMatcher(expectedUrl: string, options: {} = {}): (req: HttpRequest<any>) => boolean {
+      let testReqOptions = testData.options || {};
+      testReqOptions = merge(testReqOptions, options);
       return httpRequestMatcher(testData.method, expectedUrl, testData.body, testReqOptions.headers, testReqOptions.params);
     }
 
     const responseBody = Object.freeze({ foo: 'bar' });
 
-    it(`should prepend the backend URL to paths for a ${testData.method} request`, function() {
+    it(`should prepend the backend URL to paths for a ${testData.method} request`, function () {
 
       const path = '/things';
 
@@ -121,7 +134,28 @@ describe('ApiInterceptor', function() {
       expect(result).to.eql(responseBody);
     });
 
-    it(`should not prepend the backend URL to a full HTTP URL for a ${testData.method} request`, function() {
+    it(`should add the Authorization header when a authentification token exists for a ${testData.method} request`, function () {
+      // fetchTokenStub = stub().returns(observableOf('auth-test-token'));
+
+      // const testOptions = {
+      //   headers: {
+      //     Authorization: 'Bearer auth-test-token'
+      //   }
+      // };
+
+      // const path = '/things';
+
+      // let result;
+      // makeTestRequest(path).subscribe(res => result = res);
+
+      // httpTestingCtrl
+      //   .expectOne(testRequestMatcher(`${envServiceMock.backendUrl}${path}`, testOptions))
+      //   .flush(responseBody);
+
+      // console.log(result);
+    });
+
+    it(`should not prepend the backend URL to a full HTTP URL for a ${testData.method} request`, function () {
 
       const url = 'http://things.com/all';
 
@@ -135,7 +169,7 @@ describe('ApiInterceptor', function() {
       expect(result).to.eql(responseBody);
     });
 
-    it(`should not prepend the backend URL to a full HTTPS URL for a ${testData.method} request`, function() {
+    it(`should not prepend the backend URL to a full HTTPS URL for a ${testData.method} request`, function () {
 
       const url = 'https://things.com/all';
 
@@ -149,7 +183,7 @@ describe('ApiInterceptor', function() {
       expect(result).to.eql(responseBody);
     });
 
-    it(`should not prepend the backend URL to a root URL for a ${testData.method} request`, function() {
+    it(`should not prepend the backend URL to a root URL for a ${testData.method} request`, function () {
 
       const url = '//images/brand.png';
 
