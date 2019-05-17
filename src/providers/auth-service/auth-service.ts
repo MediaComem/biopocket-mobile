@@ -22,11 +22,11 @@ export class AuthService {
     private readonly http: HttpClient,
     private readonly storage: Storage) {
       this.authObs = new ReplaySubject(1);
-  
       this.storage.get('auth').then((auth: AuthResponse) => {
         // Push the loaded value into the observable stream.
         this.authObs.next(auth);
       });
+      this.authObs.next(null);
   }
 
   isAuthenticated(): Observable<boolean> {

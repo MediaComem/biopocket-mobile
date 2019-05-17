@@ -7,7 +7,6 @@ import { Component, Input } from '@angular/core';
  */
 @Component({ selector: 'bip-icon', template: '' })
 export class BipIconStub {
-    componentName: string;
     @Input('name') iconName: string;
     @Input() color: string;
 }

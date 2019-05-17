@@ -1,4 +1,7 @@
 app: "BioPocket"
+auth:
+  invalidUser: "Ce compte utilisateur n'existe pas ou est inactif."
+  invalidCredentials: "Le mot de passe est invalide."
 general:
   close: "Fermer"
   copy: "Copier"

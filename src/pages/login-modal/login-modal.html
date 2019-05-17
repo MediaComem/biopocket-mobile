@@ -2,7 +2,7 @@
 
   <ion-navbar>
     <ion-buttons start>
-      <button ion-button (click)="dismiss()">
+      <button ion-button id="dismiss" (click)="dismiss()">
         <bip-icon name="cross" color="light"></bip-icon>
       </button>
     </ion-buttons>
@@ -12,7 +12,12 @@
 
 <ion-content padding>
   <p class="introduction">{{ 'modals.login.introduction' | translate }}</p>
-  <form #loginForm="ngForm" (ngSubmit)="onSubmit()" class="login">
+
+  <div class="error" *ngIf="authFail">
+    <p *ngFor="let error of authFail.errors">{{ error.code | translate }}</p>
+  </div>
+
+  <form id="login-form" #loginForm="ngForm" (ngSubmit)="onSubmit()" class="login">
     <!-- Email input -->
     <div class="form-input">
       <label for="login-email">

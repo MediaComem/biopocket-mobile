@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ViewController } from 'ionic-angular';
 
-import { UserCredentials } from '@models/user.interface';
+import { User, UserCredentials } from '@models/user.interface';
 import { AuthService } from '@providers/auth-service/auth-service';
 
 @Component({
@@ -11,6 +11,8 @@ import { AuthService } from '@providers/auth-service/auth-service';
 export class LoginModal {
 
   credentials: UserCredentials;
+  user: User;
+  authFail: any;
 
   constructor(
     public viewCtrl: ViewController,
@@ -27,8 +29,18 @@ export class LoginModal {
   }
 
   onSubmit() {
-    this.authService.logIn(this.credentials).subscribe(function(result) {
-      console.log(result);
-    });
+    this.authService.logIn(this.credentials).subscribe(
+      data => this.handleAuthSuccess(data), 
+      error => this.handleAuthError(error)
+    );
+  }
+
+  private handleAuthSuccess(data) {
+    this.user = data;
+    this.dismiss();
+  }
+
+  private handleAuthError(result) {
+    this.authFail = result.error;
   }
 }

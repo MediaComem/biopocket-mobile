@@ -14,6 +14,7 @@ import { ActionsListPage } from '@pages/actions-list/actions-list';
 import { HomePage } from '@pages/home/home';
 import { LoginModal } from '@pages/login-modal/login-modal';
 import { MapPage } from '@pages/map/map';
+import { AuthService } from '@providers/auth-service/auth-service';
 
 @Component({
   templateUrl: 'app.html'
@@ -33,7 +34,8 @@ export class AppComponent {
     private readonly splashScreen: SplashScreen,
     private readonly translateService: TranslateService,
     private readonly menuCtrl: MenuController,
-    private readonly modalCtrl: ModalController
+    private readonly modalCtrl: ModalController,
+    private readonly authService: AuthService
   ) {
 
     this.initializeApp();
@@ -51,10 +53,18 @@ export class AppComponent {
 
     // Dummy user object so that the bip-menu-header can interpolate the data.
     // Should be replace by a proper object containging the user's info.
-    this.user = {
-      profilePictureUrl: 'assets/img/default_profile.jpg',
-      completeName: 'BioPocket'
-    };
+    this.authService.fetchUser().subscribe(user => {
+      if (!user) {
+        this.user = {
+          profilePictureUrl: 'assets/img/default_profile.jpg',
+          completeName: 'BioPocket'
+        };
+      } else {
+        user.profilePictureUrl = 'assets/img/default_profile.jpg';
+        user.completeName = 'Connected user';
+        this.user = user;
+      }
+    });
   }
 
   /**

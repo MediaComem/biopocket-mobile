@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 
 import { BipActionCardStub as BipActionCardStub } from '@components/bip-action-card/bip-action-card.stub';
 import { BipIconStub as BipIconComponent } from '@components/bip-icon/bip-icon.stub';
+import { BipInputStateIndicatorStub as BipInputStateIndicator } from '@components/bip-input-state-indicator/bip-input-state-indicator.stub';
 import { BipMenuHeaderStub as BipMenuHeaderComponent } from '@components/bip-menu-header/bip-menu-header.stub';
 import { BipMenuItemIconStub as BipMenuItemIconComponent } from '@components/bip-menu-item-icon/bip-menu-item-icon.stub';
 import { BipMenuItemStub as BipMenuItemComponent } from '@components/bip-menu-item/bip-menu-item.stub';
@@ -15,23 +16,20 @@ import { BipProfilePictureStub as BipProfilePictureComponent } from '@components
  *
  * You should update this module whenever you add a new custom component or create a new component's stub.
  */
+
+const components = [
+  BipIconComponent,
+  BipMenuHeaderComponent,
+  BipMenuItemComponent,
+  BipMenuItemIconComponent,
+  BipProfilePictureComponent,
+  BipActionCardStub,
+  BipInputStateIndicator
+];
+
 @NgModule({
-  declarations: [
-    BipIconComponent,
-    BipMenuHeaderComponent,
-    BipMenuItemComponent,
-    BipMenuItemIconComponent,
-    BipProfilePictureComponent,
-    BipActionCardStub
-  ],
-  exports: [
-    BipIconComponent,
-    BipMenuHeaderComponent,
-    BipMenuItemComponent,
-    BipMenuItemIconComponent,
-    BipProfilePictureComponent,
-    BipActionCardStub
-  ]
+  declarations: components,
+  exports: components
 })
 
 export class StubComponentsModule { }

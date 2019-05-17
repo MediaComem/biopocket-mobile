@@ -1,31 +1,20 @@
 login-modal {
-    border-radius: 12px;
-    text-align: center;
+  border-radius: 12px;
+  text-align: center;
 
-    ion-content {
-        position: relative;
-        bottom: initial;
-    }
-
-    .content {
-      display: flex;
-    }
-
-    p.introduction {
-      padding-bottom: 1em;
-      margin-bottom: $globalSpacing;
-      border-bottom: $smoothBorder;
-    }
+  ion-content {
+    position: relative;
+    bottom: initial;
   }
-  
-  .login-modal {
-    padding: 16px;
-  
-    ion-backdrop {
-      visibility: visible;
-      z-index: unset;
-      background-color: transparentize(bipColor('concrete'), 0.1);
-    }
+
+  .content {
+    display: flex;
+  }
+
+  p.introduction {
+    padding-bottom: 1em;
+    margin-bottom: $globalSpacing;
+    border-bottom: $smoothBorder;
   }
 
   form.login {
@@ -36,11 +25,27 @@ login-modal {
     text-align: left;
   }
 
-  div.form-input, button.bip-button {
+  div.form-input,
+  button.bip-button {
     width: 100%;
   }
 
   .error-message {
-    color: bipColor('danger');
-    margin: calc(#{$globalSpacing}/2) auto;
+    color: bipColor("danger");
+    margin: calc(#{$globalSpacing}/ 2) auto;
   }
+
+  .error {
+    @include bipAlert(bipColor('danger'));
+  }
+}
+
+.login-modal {
+  padding: 16px;
+
+  ion-backdrop {
+    visibility: visible;
+    z-index: unset;
+    background-color: transparentize(bipColor("concrete"), 0.1);
+  }
+}
