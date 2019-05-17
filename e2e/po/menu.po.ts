@@ -21,4 +21,8 @@ export class MenuPageObject {
   getKeepInTouchButton(): ElementFinder {
     return this.getPage().element(by.id('keep-in-touch'));
   }
+
+  getLoginButton(): ElementFinder {
+    return this.getPage().element(by.css('#login'));
+  }
 }

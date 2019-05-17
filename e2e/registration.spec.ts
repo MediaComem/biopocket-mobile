@@ -27,7 +27,7 @@ describe('Registration module', () => {
     await setWindowSize(1440, 900);
   });
 
-  it('should allow a user to register and unregister', async function() {
+  it.skip('should allow a user to register and unregister', async function() {
     this.timeout(30000);
 
     /**

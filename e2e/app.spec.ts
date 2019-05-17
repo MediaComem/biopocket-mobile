@@ -8,6 +8,7 @@ setUp();
 
 import * as actionFixtures from '../backend/server/spec/fixtures/actions';
 import * as locationFixtures from '../backend/server/spec/fixtures/location';
+import * as userFixtures from '../backend/server/spec/fixtures/user';
 import { create as createData } from '../backend/utils/data';
 import { expect } from '../spec/chai';
 import { absenceOf, compareCoordinates, elementIsClickable, expectDisplayed, invisibilityOf, presenceOf, setWindowSize, visibilityOf } from './utils';
@@ -15,6 +16,7 @@ import { absenceOf, compareCoordinates, elementIsClickable, expectDisplayed, inv
 import { ActionPageObject } from './po/action.po';
 import { ActionsListPageObject } from './po/actions-list.po';
 import { HomePageObject } from './po/home.po';
+import { LoginPageObject } from './po/login-modal.po';
 import { MapPageObject } from './po/map.po';
 import { MenuPageObject } from './po/menu.po';
 import { ThemePageObject } from './po/theme.po';
@@ -35,19 +37,21 @@ const ONEX_BBOX_HEIGHT = distance(point(ONEX_BBOX.southWest), point([ ONEX_BBOX.
 
 describe('App', function() {
 
-  let locations, actions;
+  let locations, actions, user;
   let menuPage: MenuPageObject;
   let homePage: HomePageObject;
   let mapPage: MapPageObject;
   let actionsListPage: ActionsListPageObject;
   let actionPage: ActionPageObject;
   let themePage: ThemePageObject;
+  let loginPage: LoginPageObject;
 
   beforeEach(async function() {
     mapPage = new MapPageObject();
     menuPage = new MenuPageObject();
     homePage = new HomePageObject();
     actionsListPage = new ActionsListPageObject();
+    loginPage = new LoginPageObject();
 
     // Insert 3 random locations into the database and sort them by ascending longitude and latitude.
     locations = await createData(3, locationFixtures.location, { bbox: ONEX_BBOX });
@@ -56,6 +60,9 @@ describe('App', function() {
     // Insert 3 random actions into the database.
     actions = await createData(6, actionFixtures.action, {});
     actions.sort((a, b) => a.get('title').toLowerCase().localeCompare(b.get('title').toLowerCase()));
+
+    // Insert 1 random user into the database.
+    user = await createData(1, userFixtures.user, {});
 
     // Set a window size with the same width/height ratio as the Onex bounding box.
     const windowWidth = 1440;
@@ -77,6 +84,10 @@ describe('App', function() {
    * 8. Clicking on the first action on the actions list page, and thus displaying the correct Action page.
    * 9. Clicking on the theme on the action page, and thus displaying the correct Theme page.
    * 10. Clicking on the back button and thus returning to the previous Action page.
+   * 11. Clicking on the participation button to open the Login Modal.
+   * 12. Clicking on the dismiss button of the Login Modal.
+   * 13. Clicking on the Login button from the slide menu to open the Login Modal.
+   * 14. Filling in the form with an email and password.
    */
   it('should allow a user to execute the main scenario', async function() {
     this.timeout(30000);
@@ -244,5 +255,71 @@ describe('App', function() {
     // Ensure that the Action Page shows up in lieu of the Theme Page.
     await absenceOf(themePageFinder, 'Theme page');
     await expectDisplayed(actionPageFinder, { elementName: 'Action Page' });
+
+    /**
+     * Accessing to the login modal from the Action Page.
+     */
+
+    // Click on the participate button from the Action Page
+    const loginButtonFinder = actionPage.getParticipateButton();
+    await elementIsClickable(loginButtonFinder);
+    await browser.actions().mouseMove(loginButtonFinder).click().perform();
+
+    // Ensure that the Login Modal shows up
+    const loginPageFinder = await loginPage.getPage();
+    await visibilityOf(loginPageFinder, 'Login page');
+
+    // Close the Login Modal
+    const closeButtonFinder = loginPage.getCloseButton();
+    await elementIsClickable(closeButtonFinder);
+    await browser.actions().mouseMove(closeButtonFinder).click().perform();
+
+    /**
+     * Accessing to the login modal from the slide menu.
+     */ 
+
+    // Click on the back button from the Action Page.
+    await actionPage.goBack();
+
+    // Click on the back button from the Actions List Page.
+    await actionsListPage.goBack();
+
+    // Open the slide menu.
+    const menuButtonFromMapFinder = mapPage.getMenuButton();
+    await elementIsClickable(menuButtonFromMapFinder);
+    menuButtonFromMapFinder.click();
+
+    // Click on the login button from the slide menu.
+    const loginMenuItemFinder = menuPage.getLoginButton();
+    await elementIsClickable(loginMenuItemFinder);
+    loginMenuItemFinder.click();
+
+    // Ensure that the Login Modal shows up
+    await visibilityOf(loginPageFinder, 'Login page');
+
+    // Check that the state of the form is correct
+    const loginFormFinder = await loginPage.getForm();
+    await expectDisplayed(loginFormFinder, { elementName: 'Login Form' });
+
+    /**
+     * Completing the login form and submit it.
+     */
+
+    const submittedLogin = {
+      email: user[0].get('email'),
+      password: user[0].get('password')
+    };
+
+    const loginEmailInputFinder = await loginPage.getEmailInput();
+    const loginPasswordInputFinder = await loginPage.getPasswordInput();
+    await loginEmailInputFinder.clear().sendKeys(submittedLogin.email);
+    await loginPasswordInputFinder.clear().sendKeys(submittedLogin.password);
+
+    const loginSubmitButton = await loginPage.getFormSubmitButton();
+    await elementIsClickable(loginSubmitButton);
+    loginSubmitButton.click();
+
+    // Ensure that the Login Modal was closed
+    await absenceOf(loginPageFinder, 'Login page');
   });
 });
