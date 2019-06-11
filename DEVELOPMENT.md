@@ -17,8 +17,10 @@
   - [Secondary colors](#secondary-colors)
 - [Icons](#icons)
 - [Components](#components)
+- [Markdown](#markdown)
 - [Internationalization](#internationalization)
   - [Message format interpolation](#message-format-interpolation)
+- [YouTube Player](#youtube-player)
 - [End-to-end tests](#end-to-end-tests)
   - [Running the end-to-end tests](#running-the-end-to-end-tests)
     - [Required end-to-end setup](#required-end-to-end-setup)
@@ -28,6 +30,8 @@
     - [Using page objects](#using-page-objects)
     - [Watching for changes](#watching-for-changes)
     - [Errors in the Travis environment](#errors-in-the-travis-environment)
+- [Releases](#releases)
+  - [Android](#android)
 - [TODO](#todo)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -685,6 +689,30 @@ As a reminder of the commands to execute, you'll find two _dummy_ scripts in the
 **Those two scripts SHOULD NOT be run since they are using absolute path to the required utilities that would most likely be missing in your computer.**
 
 > **TODO: It would be nice to have some kind of script that automates the process of preparing the `.apk` for and Android release, using some kind of config file for the utilities path.
+
+### iOS
+
+To deploy to iOS and AppStore, you'll need a Mac with XCode installed.
+
+After running the `npm run ipr` command to build a production package for iOS, open the resulting XCode project in XCode and,
+
+1. Go to **XCode > Preferences**, **Accounts** tab, and add a new **Apple ID** account (using the + icon in the bottom right corner)
+2. Fill in the form using the MEI Apple ID, available in the KeePass
+3. Once it's done, go back to XCode and the build open
+4. In the **General** tab, verify the information for the build, notably the **Identity > Build** number, which should be different than the **Identity > Version** number
+5. Select the correct **Provisioning Profile** (should be **BioPocket** for the **Team** HEIG-VD), for **Signing (Debug)** and **Signing (Release)**
+6. In the target dropdown list in the top right corner of the user interface, select **Generic iOS Device**
+7. Click on the **Product** menu and select the **Archive** item, which should be availabl, and wait for the archive to be finished
+8. Once the archive is finished, XCode should display the **Organizer** window, that lists this project's archives (if not, go to the **Window** menu and select the **Organizer** window)
+9. Select the freshly created archive (that should be the one without any status), and click the **Distribute App** button.
+10. Be sure to select the **iOS App Store** option in the next screen, then click **Next**
+11. Select the **Upload** option in the next screen, then click **Next**.
+12. XCode then analyzes the signature of the archive. When it's done, it displays a checkbox, that should be checked. You can keep it like this, or uncheck it, and click on **Next**
+13. On the next screen, select the appropriate distribution certificate and provisioning profile, then click **Next**
+14. You should now see a screen recapitulating the package parameters. When it's OK, click on the **Upload** button, and wait for the build to be uploaded on the App Store.
+15. Head over the [App Store Connect](https://appstoreconnect.apple.com) website, and log in with the MEI Apple ID.
+16. Go to the **Apps** menu, select the **BioPocket** app, then go to the **Activities** tab, where your new build should be visible.
+17. Now you can define your build to be available either as an open TestFlight build, or submit it for review on the App Store.
 
 ## TODO
 
